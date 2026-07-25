@@ -61,6 +61,22 @@ workflow automation (n8n + LangChain).
 
 <br/>
 
+### `// projects`
+
+<div align="left">
+
+**[n8n-agentic-ops](https://github.com/allocsys/n8n-agentic-ops)** — Agentic multi-channel triage (Gmail, Telegram, WhatsApp) with a multi-provider LLM fallback chain (OpenAI → Gemini → Claude), per-sender memory, RAG-backed knowledge base search, and CRM/Sheets/LINE routing driven by structured JSON output instead of free-text parsing.
+
+**[madmcp](https://github.com/allocsys/madmcp)** — MCP server exposing ~50 tools across GitHub, Cloudflare (D1/KV/R2/Workers), Notion, Mem0, and web-fetch to any MCP-compatible client, with timing-safe auth, IP allowlisting, and per-route rate limiting.
+
+**[cfmanager](https://github.com/allocsys/cfmanager)** — Mobile-first Cloudflare admin panel (Workers, KV, D1, R2, Hyperdrive) built as a self-contained bash script, running entirely inside Termux.
+
+See the full write-ups on the [portfolio site →](https://allocsys.github.io/profile/)
+
+</div>
+
+<br/>
+
 ### `// activity` (public + private)
 
 <div align="center">
