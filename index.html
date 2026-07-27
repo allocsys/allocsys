@@ -312,18 +312,22 @@
         <h3>madmcp</h3>
         <span class="dates">2026</span>
       </div>
-      <div class="company">MCP server — GitHub, Cloudflare, Notion, Mem0 &amp; web-fetch tool access for AI agents</div>
+      <div class="company">MCP server — GitHub, Cloudflare, Notion, Mem0, Exa &amp; Gemini-powered delegation for AI agents</div>
       <ul>
-        <li>Built and deployed a single MCP server (Node/Express) exposing ~50 tools across 5 backends (GitHub, Cloudflare D1/KV/R2/Workers, Notion, Mem0, generic fetch) to any MCP-compatible client.</li>
+        <li>Built and deployed a single MCP server (Node/Express) exposing tools across 8 connectors — GitHub, Cloudflare (D1/KV/R2/Workers), Notion, Mem0, generic fetch, Exa research, and Gemini — to any MCP-compatible client.</li>
+        <li>Built a delegation-first architecture on top: a `delegate_gemini` tool hands an entire open-ended, multi-step investigation to a second model, which runs its own tool-use loop server-side across GitHub/Cloudflare/Notion and returns one synthesized answer — instead of the primary agent chaining every tool call itself.</li>
+        <li>Added Redis-backed checkpointing after every step of a delegated run, so a failed or rate-limited investigation resumes from its last completed step instead of restarting (and re-paying for) the whole task.</li>
+        <li>Isolated the delegation boundary by design: tools that touch live external content (web research, generic fetch) are kept separate from tools that touch internal systems (GitHub, Cloudflare, Notion), so untrusted external data can't reach internal credentials.</li>
         <li>Designed the auth layer myself: timing-safe shared-key comparison, IP allowlisting scoped to Claude's published connector range, and per-route rate limiting — applied in the correct order so a leaked key alone can't reach the server from an untrusted network.</li>
         <li>Handled real deployment-platform edge cases: correct `X-Forwarded-For` trust depth per reverse-proxy hop, request body limits raised for large file pushes, and graceful per-connector token failure (one missing credential doesn't take down the whole server).</li>
-        <li>Shipped with one-click deploy configs for Render and Vercel, plus a documented manual path for any Node host.</li>
       </ul>
       <div class="tag-row">
         <span class="tech-tag">Node.js</span>
         <span class="tech-tag">Express</span>
         <span class="tech-tag">MCP</span>
-        <span class="tech-tag">REST API design</span>
+        <span class="tech-tag">Gemini API</span>
+        <span class="tech-tag">Delegation / orchestration</span>
+        <span class="tech-tag">Redis</span>
         <span class="tech-tag">Auth &amp; rate limiting</span>
       </div>
       <div class="tag-row" style="margin-top: 10px;">
