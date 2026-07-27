@@ -411,6 +411,125 @@
   <section>
     <h2><span class="cmt">//</span> Open Source Contributions</h2>
 
+    <details class="card contrib" open>
+      <summary>
+        <div class="role-row">
+          <h3>cloudflare/workers-sdk</h3>
+          <span class="dates">4 PRs · 1 merged, 2 closed, 1 open<span class="chevron">▸</span></span>
+        </div>
+        <div class="company">Windows path-encoding crash, deploy-time validation bug, and local Images binding parity</div>
+      </summary>
+      <div class="contrib-body">
+        <ul>
+          <li>Root-caused a Windows-only startup crash on non-ASCII workspace paths to an HTTP header encoding violation (headers are Latin-1-only), then fixed 5 coordinated call sites across module-fallback and worker-socket handling. Verified with a Windows CI run against a real <code>開発</code>-path repro. (<a href="https://github.com/cloudflare/workers-sdk/pull/14713" target="_blank">PR #14713</a> · merged)</li>
+          <li>Fixed a false "infinite redirect loop" deploy warning in Wrangler that ignored the <code>assets.html_handling</code> config, without weakening real infinite-loop detection. (<a href="https://github.com/cloudflare/workers-sdk/pull/14709" target="_blank">PR #14709</a> · closed, not merged)</li>
+          <li>Fixed the local Miniflare Images binding to respect <code>fit</code>/<code>gravity</code>/<code>background</code> transform options, matching production behavior. Original PR closed after an accidental fork deletion mid-review; restored and continued in <a href="https://github.com/cloudflare/workers-sdk/pull/14810" target="_blank">PR #14810</a> (open, in review). (<a href="https://github.com/cloudflare/workers-sdk/pull/14714" target="_blank">PR #14714</a> · closed)</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tech-tag">TypeScript</span>
+          <span class="tech-tag">Cloudflare Workers</span>
+          <span class="tech-tag">Root-cause debugging</span>
+          <span class="tech-tag">Cross-platform CI</span>
+        </div>
+      </div>
+    </details>
+
+    <details class="card contrib">
+      <summary>
+        <div class="role-row">
+          <h3>transact-rs/sqlx</h3>
+          <span class="dates">PR #4351 · open<span class="chevron">▸</span></span>
+        </div>
+        <div class="company">Rewrite <code>?</code> placeholders to Postgres-native <code>$N</code> syntax in the Any driver</div>
+      </summary>
+      <div class="contrib-body">
+        <ul>
+          <li>Found that SQLx's database-agnostic <code>Any</code> driver always emitted <code>?</code>-style bound-parameter placeholders — invalid syntax against a real Postgres connection, breaking any parameterized query (especially <code>LIMIT</code>/<code>OFFSET</code>) run through <code>Any</code> against Postgres.</li>
+          <li>Implemented a SQL-aware placeholder rewriter that renumbers placeholders to <code>$1, $2, …</code> immediately before dispatch, while correctly skipping string literals, quoted identifiers, dollar-quoted blocks, and comments so it doesn't rewrite text that only looks like a placeholder.</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tech-tag">Rust</span>
+          <span class="tech-tag">SQL</span>
+          <span class="tech-tag">Database drivers</span>
+        </div>
+        <div class="tag-row" style="margin-top: 10px;">
+          <a href="https://github.com/transact-rs/sqlx/pull/4351" target="_blank">View PR →</a>
+        </div>
+      </div>
+    </details>
+
+    <details class="card contrib">
+      <summary>
+        <div class="role-row">
+          <h3>anthropics/skills</h3>
+          <span class="dates">4 PRs · open<span class="chevron">▸</span></span>
+        </div>
+        <div class="company">Parser correctness, a safety-check gap, and dependency/compatibility fixes across the pdf, xlsx, docx &amp; skill-creator skills</div>
+      </summary>
+      <div class="contrib-body">
+        <ul>
+          <li>Fixed a PDF form-field parser that assumed every choice-field <code>/Opt</code> entry was an <code>[export_value, display_text]</code> pair per spec — a bare single-character string (e.g. <code>"Red"</code>) got silently split into <code>value="R", text="e"</code>, or crashed outright. (<a href="https://github.com/anthropics/skills/pull/1474" target="_blank">PR #1474</a>)</li>
+          <li>Fixed a case-sensitivity gap in the xlsx skill's external-link safety check: the regex meant to catch cached external links before recalculation missed case-mismatched formula references entirely, since it wasn't compiled with <code>IGNORECASE</code>. (<a href="https://github.com/anthropics/skills/pull/1471" target="_blank">PR #1471</a>)</li>
+          <li>Fixed a Python 3.9 import crash in the docx skill (an eager PEP 604 union annotation evaluated at import time) and documented the actual Python 3.10+ / <code>defusedxml</code> requirement instead of leaving it undeclared. (<a href="https://github.com/anthropics/skills/pull/1473" target="_blank">PR #1473</a>)</li>
+          <li>Declared a missing PyYAML dependency for the skill-creator validator script, which failed with <code>ModuleNotFoundError</code> on a clean environment. (<a href="https://github.com/anthropics/skills/pull/1472" target="_blank">PR #1472</a>)</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Spec-compliant parsing</span>
+          <span class="tech-tag">Dependency management</span>
+          <span class="tech-tag">Regression tests</span>
+        </div>
+      </div>
+    </details>
+
+    <details class="card contrib">
+      <summary>
+        <div class="role-row">
+          <h3>grafana/alloy</h3>
+          <span class="dates">PR #6750 · open<span class="chevron">▸</span></span>
+        </div>
+        <div class="company">Stop a legacy Promtail positions file read-error from silently re-ingesting an entire log stream</div>
+      </summary>
+      <div class="contrib-body">
+        <ul>
+          <li>Root-caused a silent-failure bug in <code>loki.source.file</code> / <code>loki.source.journal</code>: when a legacy Promtail positions file existed but couldn't be read (e.g. a permissions error), the reader returned <code>nil</code> — indistinguishable from "file doesn't exist" — so the component silently re-tailed and re-ingested every log from the beginning instead of failing loudly.</li>
+          <li>Changed the reader to return <code>(*LegacyFile, error)</code> so a genuine I/O error now propagates up as a loud failure at component construction, while still correctly treating a missing file as non-fatal and malformed YAML as non-fatal.</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tech-tag">Go</span>
+          <span class="tech-tag">Observability pipelines</span>
+          <span class="tech-tag">Error handling</span>
+        </div>
+        <div class="tag-row" style="margin-top: 10px;">
+          <a href="https://github.com/grafana/alloy/pull/6750" target="_blank">View PR →</a>
+        </div>
+      </div>
+    </details>
+
+    <details class="card contrib">
+      <summary>
+        <div class="role-row">
+          <h3>release-plz/release-plz</h3>
+          <span class="dates">PR #2954 · open<span class="chevron">▸</span></span>
+        </div>
+        <div class="company">Skip a slower, occasionally-failing cargo metadata call when a faster path is already safe</div>
+      </summary>
+      <div class="contrib-body">
+        <ul>
+          <li>Found that the package-file comparison logic only took the fast, direct disk-listing path when two separate conditions both held, so registry-extracted packages unnecessarily fell back to a slower <code>cargo package --list</code> call.</li>
+          <li>Relaxed the condition to trigger the fast path whenever a <code>Cargo.toml.orig</code> / <code>.orig.orig</code> marker is present, while still correctly excluding <code>.git</code>, <code>.cargo-ok</code>, and <code>Cargo.lock</code> from the comparison.</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tech-tag">Rust</span>
+          <span class="tech-tag">Cargo internals</span>
+          <span class="tech-tag">Release tooling</span>
+        </div>
+        <div class="tag-row" style="margin-top: 10px;">
+          <a href="https://github.com/release-plz/release-plz/pull/2954" target="_blank">View PR →</a>
+        </div>
+      </div>
+    </details>
+
     <details class="card contrib">
       <summary>
         <div class="role-row">
@@ -446,39 +565,11 @@
         <div class="company">Connection-pool leak, type-inference bug, and multi-package schema validation gap</div>
       </summary>
       <div class="contrib-body">
-        <ul>
-          <li>Fixed a connection-pool leak in node-postgres transactions: a rejected <code>BEGIN</code> skipped both rollback and release, exhausting the pool under repeated connection drops. Verified against the original repro in both the broken and patched state. (<a href="https://github.com/drizzle-team/drizzle-orm/pull/6032" target="_blank">PR #6032</a> · closed, not merged — the underlying issue remains open, with an equivalent fix from another contributor pending in <a href="https://github.com/drizzle-team/drizzle-orm/pull/6030" target="_blank">PR #6030</a>)</li>
-          <li>Root-caused a TypeScript inference bug where <code>refine()</code> callbacks silently typed as <code>any</code> whenever <code>createSchemaFactory</code> omitted a <code>coerce</code> option — traced through nested conditional types to a missing generic default, and corrected the original issue report's scope in the process. (<a href="https://github.com/drizzle-team/drizzle-orm/pull/6031" target="_blank">PR #6031</a> · closed, not merged)</li>
-          <li>Added real schema validation for 6 Gel-only column types across all four schema-integration packages (zod/arktype/valibot/typebox), replacing a silent any-type fallback, with tests in each package. (<a href="https://github.com/drizzle-team/drizzle-orm/pull/6033" target="_blank">PR #6033</a> · closed, not merged)</li>
-        </ul>
+        <p>Three closed-not-merged PRs: a node-postgres connection-pool leak on rejected transactions (<a href="https://github.com/drizzle-team/drizzle-orm/pull/6032" target="_blank">#6032</a>, equivalent fix later landed from another contributor), a <code>refine()</code> type-inference bug traced to a missing generic default (<a href="https://github.com/drizzle-team/drizzle-orm/pull/6031" target="_blank">#6031</a>), and missing schema validation for 6 Gel-only column types across four schema-integration packages (<a href="https://github.com/drizzle-team/drizzle-orm/pull/6033" target="_blank">#6033</a>).</p>
         <div class="tag-row">
           <span class="tech-tag">TypeScript</span>
           <span class="tech-tag">Type-level debugging</span>
           <span class="tech-tag">PostgreSQL</span>
-          <span class="tech-tag">Zod</span>
-        </div>
-      </div>
-    </details>
-
-    <details class="card contrib" open>
-      <summary>
-        <div class="role-row">
-          <h3>cloudflare/workers-sdk</h3>
-          <span class="dates">4 PRs · 1 merged, 2 closed, 1 open<span class="chevron">▸</span></span>
-        </div>
-        <div class="company">Windows path-encoding crash, deploy-time validation bug, and local Images binding parity</div>
-      </summary>
-      <div class="contrib-body">
-        <ul>
-          <li>Root-caused a Windows-only startup crash on non-ASCII workspace paths to an HTTP header encoding violation (headers are Latin-1-only), then fixed 5 coordinated call sites across module-fallback and worker-socket handling. Verified with a Windows CI run against a real <code>開発</code>-path repro. (<a href="https://github.com/cloudflare/workers-sdk/pull/14713" target="_blank">PR #14713</a> · merged)</li>
-          <li>Fixed a false "infinite redirect loop" deploy warning in Wrangler that ignored the <code>assets.html_handling</code> config, without weakening real infinite-loop detection. (<a href="https://github.com/cloudflare/workers-sdk/pull/14709" target="_blank">PR #14709</a> · closed, not merged)</li>
-          <li>Fixed the local Miniflare Images binding to respect <code>fit</code>/<code>gravity</code>/<code>background</code> transform options, matching production behavior. Original PR closed after an accidental fork deletion mid-review; restored and continued in <a href="https://github.com/cloudflare/workers-sdk/pull/14810" target="_blank">PR #14810</a> (open, in review). (<a href="https://github.com/cloudflare/workers-sdk/pull/14714" target="_blank">PR #14714</a> · closed)</li>
-        </ul>
-        <div class="tag-row">
-          <span class="tech-tag">TypeScript</span>
-          <span class="tech-tag">Cloudflare Workers</span>
-          <span class="tech-tag">Root-cause debugging</span>
-          <span class="tech-tag">Cross-platform CI</span>
         </div>
       </div>
     </details>
@@ -492,18 +583,10 @@
         <div class="company">Replace deprecated pyOpenSSL X.509 API in the TLS backend</div>
       </summary>
       <div class="contrib-body">
-        <ul>
-          <li>Traced a <code>DeprecationWarning</code> to the last remaining call of <code>OpenSSL.crypto.X509.get_subject()</code> in the <code>pyopenssl</code> TLS backend, ahead of its removal.</li>
-          <li>Rewrote it using <code>cryptography</code>'s X.509 API, matching the pattern already used elsewhere in the same file, with new tests covering both a present and missing commonName.</li>
-          <li>Closed in favor of a maintainer's concurrent fix for the same issue — independently arrived at an equivalent solution.</li>
-        </ul>
+        <p>Replaced a deprecated <code>OpenSSL.crypto.X509.get_subject()</code> call in the pyOpenSSL TLS backend with <code>cryptography</code>'s X.509 API, ahead of its removal; closed in favor of a maintainer's concurrent fix reaching the same solution independently. (<a href="https://github.com/urllib3/urllib3/pull/5121" target="_blank">PR #5121</a>)</p>
         <div class="tag-row">
           <span class="tech-tag">Python</span>
           <span class="tech-tag">TLS / OpenSSL</span>
-          <span class="tech-tag">cryptography</span>
-        </div>
-        <div class="tag-row" style="margin-top: 10px;">
-          <a href="https://github.com/urllib3/urllib3/pull/5121" target="_blank">View PR →</a>
         </div>
       </div>
     </details>
