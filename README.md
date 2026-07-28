@@ -71,7 +71,7 @@ workflow automation (n8n + LangChain).
 
 **[cfmanager](https://github.com/allocsys/cfmanager)** — Mobile-first Cloudflare admin panel (Workers, KV, D1, R2, Hyperdrive) built as a self-contained bash script, running entirely inside Termux.
 
-See the full write-ups on the [portfolio site →](https://allocsys.github.io/profile/)
+See the full write-ups on the [portfolio site →](https://allocsys.github.io/allocsys/)
 
 </div>
 
