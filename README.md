@@ -12,7 +12,7 @@
   <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/badge/GitHub-allocsys-00b386?style=for-the-badge&logo=github&logoColor=0a0e14&labelColor=eef2f5"/>
   <img src="https://img.shields.io/badge/GitHub-allocsys-00e5a0?style=for-the-badge&logo=github&logoColor=white&labelColor=0a0e14" alt="GitHub"/>
 </picture></a>
-<a href="https://allocsys.github.io/profile/"><picture>
+<a href="https://allocsys.github.io/allocsys/"><picture>
   <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/badge/Portfolio-Visit-5a6bd6?style=for-the-badge&logo=vercel&logoColor=0a0e14&labelColor=eef2f5"/>
   <img src="https://img.shields.io/badge/Portfolio-Visit-7c8cff?style=for-the-badge&logo=vercel&logoColor=white&labelColor=0a0e14" alt="Portfolio"/>
 </picture></a>
