@@ -415,7 +415,7 @@
       <summary>
         <div class="role-row">
           <h3>cloudflare/workers-sdk</h3>
-          <span class="dates">4 PRs · 1 merged, 2 closed, 1 open<span class="chevron">▸</span></span>
+          <span class="dates">4 PRs · 2 merged, 2 closed<span class="chevron">▸</span></span>
         </div>
         <div class="company">Windows path-encoding crash, deploy-time validation bug, and local Images binding parity</div>
       </summary>
@@ -423,7 +423,7 @@
         <ul>
           <li>Root-caused a Windows-only startup crash on non-ASCII workspace paths to an HTTP header encoding violation (headers are Latin-1-only), then fixed 5 coordinated call sites across module-fallback and worker-socket handling. Verified with a Windows CI run against a real <code>開発</code>-path repro. (<a href="https://github.com/cloudflare/workers-sdk/pull/14713" target="_blank">PR #14713</a> · merged)</li>
           <li>Fixed a false "infinite redirect loop" deploy warning in Wrangler that ignored the <code>assets.html_handling</code> config, without weakening real infinite-loop detection. (<a href="https://github.com/cloudflare/workers-sdk/pull/14709" target="_blank">PR #14709</a> · closed, not merged)</li>
-          <li>Fixed the local Miniflare Images binding to respect <code>fit</code>/<code>gravity</code>/<code>background</code> transform options, matching production behavior. Original PR closed after an accidental fork deletion mid-review; restored and continued in <a href="https://github.com/cloudflare/workers-sdk/pull/14810" target="_blank">PR #14810</a> (open, in review). (<a href="https://github.com/cloudflare/workers-sdk/pull/14714" target="_blank">PR #14714</a> · closed)</li>
+          <li>Fixed the local Miniflare Images binding to respect <code>fit</code>/<code>gravity</code>/<code>background</code> transform options, matching production behavior. Original PR closed after an accidental fork deletion mid-review; restored and merged as <a href="https://github.com/cloudflare/workers-sdk/pull/14810" target="_blank">PR #14810</a>. (<a href="https://github.com/cloudflare/workers-sdk/pull/14714" target="_blank">PR #14714</a> · closed)</li>
         </ul>
         <div class="tag-row">
           <span class="tech-tag">TypeScript</span>
@@ -647,7 +647,7 @@
   </section>
 
   <footer>
-    <p><span class="prompt">$</span>echo "Built by allocsys" &amp;&amp; exit 0 &nbsp;·&nbsp; <a href="https://github.com/allocsys/profile">source</a> &nbsp;·&nbsp; last updated July 23, 2026</p>
+    <p><span class="prompt">$</span>echo "Built by allocsys" &amp;&amp; exit 0 &nbsp;·&nbsp; <a href="https://github.com/allocsys/profile">source</a> &nbsp;·&nbsp; last updated July 30, 2026</p>
   </footer>
 
 </div>
