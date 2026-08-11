@@ -82,8 +82,8 @@ See the full write-ups on the [portfolio site →](https://allocsys.github.io/al
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: light)" srcset="https://github-readme-streak-stats.herokuapp.com/?user=allocsys&theme=default&hide_border=true&ring=00b386&fire=5a6bd6&currStreakLabel=00b386"/>
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=allocsys&theme=dark&hide_border=true&background=0a0e14&ring=00e5a0&fire=7c8cff&currStreakLabel=00e5a0" width="60%"/>
+  <source media="(prefers-color-scheme: light)" srcset="https://streak-stats.demolab.com/?user=allocsys&theme=default&hide_border=true&ring=00b386&fire=5a6bd6&currStreakLabel=00b386"/>
+  <img src="https://streak-stats.demolab.com/?user=allocsys&theme=dark&hide_border=true&background=0a0e14&ring=00e5a0&fire=7c8cff&currStreakLabel=00e5a0" width="60%"/>
 </picture>
 
 <br/>
