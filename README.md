@@ -89,7 +89,7 @@ See the full write-ups on the [portfolio site →](https://allocsys.github.io/al
 <br/>
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/allocsys/profile/main/github-metrics-dark.svg"/>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/allocsys/allocsys/main/github-metrics-dark.svg"/>
   <img src="https://raw.githubusercontent.com/allocsys/allocsys/main/github-metrics.svg" width="90%"/>
 </picture>
 
