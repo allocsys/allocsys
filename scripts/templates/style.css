@@ -1,0 +1,188 @@
+@page {
+    size: letter;
+    margin: 0.72in 0.75in;
+    @bottom-center {
+        content: "allocsys · " string(doc-title) " · page " counter(page);
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        font-size: 8.5pt;
+        color: #8a8a8a;
+    }
+}
+
+:root {
+    --dark: #1a1a1a;
+    --gray: #55606b;
+    --gray-light: #8a8a8a;
+    --accent: #2b5fa8;
+    --accent-soft: #eef3fa;
+    --rule: #dfe4ea;
+    --field-bg: #f2f6fb;
+    --field-border: #a9c2e0;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 10.3pt;
+    line-height: 1.45;
+    color: var(--dark);
+    margin: 0;
+}
+
+.doc-title-anchor {
+    string-set: doc-title content();
+    position: absolute;
+    visibility: hidden;
+}
+
+/* ---------- Header ---------- */
+header.letterhead {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 2px solid var(--dark);
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+}
+
+header.letterhead .name {
+    font-size: 20pt;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+header.letterhead .role {
+    font-size: 10.5pt;
+    color: var(--gray);
+    margin-top: 2px;
+}
+
+.contact-line {
+    font-size: 9pt;
+    color: var(--gray);
+    margin: 6px 0 18px;
+}
+.contact-line a { color: var(--gray); text-decoration: none; }
+.contact-line span.sep { color: var(--rule); margin: 0 6px; }
+
+/* ---------- Section headings ---------- */
+h2.section {
+    font-size: 9.5pt;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 3px;
+    margin: 16px 0 8px;
+}
+
+p.summary {
+    margin: 0 0 4px;
+    text-align: justify;
+}
+
+/* ---------- Projects / entries ---------- */
+.entry { margin-bottom: 11px; break-inside: avoid; }
+.entry-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+.entry-title { font-weight: 700; font-size: 10.5pt; }
+.entry-meta { font-size: 8.8pt; color: var(--gray-light); font-style: italic; }
+
+ul.bullets {
+    margin: 3px 0 0;
+    padding-left: 15px;
+}
+ul.bullets li {
+    margin-bottom: 2px;
+}
+
+/* ---------- Skills grid ---------- */
+table.skills {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 4px;
+}
+table.skills td {
+    padding: 3px 0;
+    vertical-align: top;
+    font-size: 9.8pt;
+}
+table.skills td.skill-cat {
+    width: 26%;
+    font-weight: 700;
+    color: var(--dark);
+    padding-right: 10px;
+}
+table.skills td.skill-list { color: var(--gray); }
+
+/* ---------- Cover-letter-specific ---------- */
+.field-row {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    margin-bottom: 6px;
+}
+.field-row .field-pair {
+    display: table-cell;
+    width: 50%;
+    padding-right: 14px;
+    vertical-align: middle;
+}
+.field-row .field-pair:last-child { padding-right: 0; }
+.field-row label {
+    display: block;
+    font-size: 8.8pt;
+    color: var(--gray);
+    white-space: nowrap;
+    margin-bottom: 2px;
+}
+.field-value {
+    background: var(--field-bg);
+    border: 1px solid var(--field-border);
+    border-radius: 2px;
+    padding: 3px 6px;
+    font-size: 9.5pt;
+    line-height: 1.3em;
+}
+.field-value:empty::after {
+    content: "\00a0";
+}
+
+.subject-line {
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 11pt;
+    margin: 14px 0 12px;
+}
+
+.portfolio {
+    font-weight: 700;
+    margin-top: 6px;
+}
+.portfolio .link {
+    font-weight: 400;
+    font-style: italic;
+    color: var(--gray);
+    font-size: 9.3pt;
+}
+
+.estimate-box {
+    background: var(--field-bg);
+    border: 1px solid var(--field-border);
+    border-radius: 3px;
+    padding: 8px 10px;
+    margin-top: 4px;
+    min-height: 2.4em;
+    font-size: 9.8pt;
+}
+.estimate-box:empty::after {
+    content: "\00a0";
+}
+
+.signoff { margin-top: 18px; }
+.signoff .name { font-weight: 700; }
+.signoff .contact { color: var(--gray); font-size: 9.5pt; }

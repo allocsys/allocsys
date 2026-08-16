@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>resume</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="doc-title-anchor">resume</div>
+
+<header class="letterhead">
+    <div>
+        <div class="name">{{ name }}</div>
+        <div class="role">{{ role }}</div>
+    </div>
+</header>
+<div class="contact-line">
+    {{ email }}<span class="sep">·</span>{{ github }}<span class="sep">·</span>{{ site }}
+</div>
+
+<h2 class="section">Summary</h2>
+<p class="summary">{{ summary }}</p>
+
+<h2 class="section">Projects</h2>
+{% for p in projects %}
+<div class="entry">
+    <div class="entry-head">
+        <span class="entry-title">{{ p.name }}</span>
+        <span class="entry-meta">{{ p.stack }}</span>
+    </div>
+    <ul class="bullets">
+        {% for b in p.bullets %}<li>{{ b }}</li>{% endfor %}
+    </ul>
+</div>
+{% endfor %}
+
+<h2 class="section">Open Source Contributions</h2>
+{% for c in contributions %}
+<div class="entry">
+    <div class="entry-head">
+        <span class="entry-title">{{ c.repo }}</span>
+        <span class="entry-meta">{{ c.status }}</span>
+    </div>
+    <ul class="bullets">
+        {% for b in c.bullets %}<li>{{ b }}</li>{% endfor %}
+    </ul>
+</div>
+{% endfor %}
+
+<h2 class="section">Skills</h2>
+<table class="skills">
+    {% for cat, items in skills %}
+    <tr>
+        <td class="skill-cat">{{ cat }}</td>
+        <td class="skill-list">{{ items }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>

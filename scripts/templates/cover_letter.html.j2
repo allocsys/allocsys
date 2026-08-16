@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>application</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="doc-title-anchor">application</div>
+
+<header class="letterhead">
+    <div>
+        <div class="name" style="font-size:15pt;">{{ header_title }}</div>
+    </div>
+</header>
+
+<div class="field-row">
+    <div class="field-pair">
+        <label>Name</label>
+        <div class="field-value">{{ name_value }}</div>
+    </div>
+    <div class="field-pair">
+        <label>Email / Phone</label>
+        <div class="field-value">{{ contact_value }}</div>
+    </div>
+</div>
+<div class="field-row">
+    <div class="field-pair" style="width:100%;">
+        <label>LinkedIn / Portfolio</label>
+        <div class="field-value">{{ links_value }}</div>
+    </div>
+</div>
+
+<div class="subject-line">{{ subject_line }}</div>
+
+<p>{{ body_intro }}</p>
+
+<div class="portfolio">
+    {{ portfolio_name }} <span class="link">{{ portfolio_link }}</span>
+</div>
+<ul class="bullets">
+    {% for b in bullets %}<li>{{ b }}</li>{% endfor %}
+</ul>
+
+<p>{{ body_mid }}</p>
+<p>{{ body_skills_match }}</p>
+<p>{{ body_closing }}</p>
+
+<div>
+    <strong>Rough estimate:</strong>
+    <div class="estimate-box">{{ estimate_value }}</div>
+</div>
+
+<div class="signoff">
+    <div>Best,</div>
+    {% if signoff_name %}<div class="name">{{ signoff_name }}</div>{% endif %}
+    {% if signoff_contact %}<div class="contact">{{ signoff_contact }}</div>{% endif %}
+</div>
+
+</body>
+</html>
