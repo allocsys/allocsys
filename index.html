@@ -533,32 +533,6 @@
     <details class="card contrib">
       <summary>
         <div class="role-row">
-          <h3>modelcontextprotocol/typescript-sdk</h3>
-          <span class="dates">PR #2504 · open<span class="chevron">▸</span></span>
-        </div>
-        <div class="company">Fix falsy-zero requestId bugs in debounce guard and cancellation handling</div>
-      </summary>
-      <div class="contrib-body">
-        <ul>
-          <li>Root-caused two separate falsy-zero bugs where request id <code>0</code> was treated as absent because JS treats <code>0</code> as falsy.</li>
-          <li>Fixed the notification debounce guard so a notification tied to request <code>0</code> is never wrongly coalesced with unrelated notifications.</li>
-          <li>Fixed <code>notifications/cancelled</code> handling so a cancellation for request <code>0</code> no longer gets silently dropped, ensuring the correct abort controller fires.</li>
-          <li>Added regression tests covering both cases and referenced both upstream issues (#2117, #2283) in a single PR.</li>
-        </ul>
-        <div class="tag-row">
-          <span class="tech-tag">TypeScript</span>
-          <span class="tech-tag">MCP</span>
-          <span class="tech-tag">Vitest</span>
-        </div>
-        <div class="tag-row" style="margin-top: 10px;">
-          <a href="https://github.com/modelcontextprotocol/typescript-sdk/pull/2504" target="_blank">View PR →</a>
-        </div>
-      </div>
-    </details>
-
-    <details class="card contrib">
-      <summary>
-        <div class="role-row">
           <h3>drizzle-team/drizzle-orm</h3>
           <span class="dates">3 PRs · closed, not merged<span class="chevron">▸</span></span>
         </div>
