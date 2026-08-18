@@ -83,19 +83,6 @@ RESUME = {
     ],
     "contributions": [
         {
-            "repo": "drizzle-team/drizzle-orm",
-            "status": "3 PRs · closed, not merged",
-            "bullets": [
-                "Fixed a node-postgres connection-pool leak on a rejected "
-                "BEGIN, a TypeScript inference bug in createSchemaFactory, and "
-                "added schema validation for 6 Gel-only column types across "
-                "all four schema-integration packages.",
-                "All three PRs were closed unmerged; the connection-pool fix's "
-                "underlying issue remains open, with an equivalent fix from "
-                "another contributor pending review.",
-            ],
-        },
-        {
             "repo": "cloudflare/workers-sdk",
             "status": "4 PRs · 1 merged, 2 closed, 1 open",
             "bullets": [
