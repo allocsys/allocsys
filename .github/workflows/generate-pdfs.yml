@@ -1,0 +1,81 @@
+name: Generate PDFs
+
+# Manual trigger for generating resume.pdf (and optionally application.pdf)
+# via the WeasyPrint-based scripts in scripts/. Runs on GitHub's runner so
+# there's no need to install WeasyPrint's system deps (Cairo, Pango, etc.)
+# locally -- notoriously painful on Termux/Android.
+#
+# resume.pdf is regenerated from scripts/data/resume_data.py and committed
+# straight back to the repo. application.pdf is per-application (the
+# CONFIG block in generate_application_pdf.py starts blank) so it's never
+# auto-committed -- it's attached to the run as a downloadable artifact
+# instead, based on whatever CONFIG values are in the repo when you run this.
+
+on:
+  workflow_dispatch:
+    inputs:
+      commit_resume:
+        description: "Commit the regenerated resume.pdf back to the repo"
+        type: boolean
+        default: true
+      generate_cover_letter:
+        description: "Also generate application.pdf (uploaded as artifact only)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # WeasyPrint's system dependencies -- see
+      # https://doc.courtbouillon.org/weasyprint/stable/first_steps.html#linux
+      - name: Install WeasyPrint system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libpango-1.0-0 libpangocairo-1.0-0 libpangoft2-1.0-0 \
+            libcairo2 libgdk-pixbuf2.0-0 libffi-dev shared-mime-info
+
+      - name: Install Python dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Generate resume.pdf
+        run: python3 generate_resume.py
+        working-directory: scripts
+
+      - name: Generate application.pdf
+        if: ${{ inputs.generate_cover_letter }}
+        run: python3 generate_application_pdf.py
+        working-directory: scripts
+
+      - name: Upload generated PDFs as artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-pdfs
+          path: |
+            resume.pdf
+            scripts/application.pdf
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Commit resume.pdf
+        if: ${{ inputs.commit_resume }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add resume.pdf
+          if git diff --cached --quiet; then
+            echo "No changes to resume.pdf"
+          else
+            git commit -m "chore: regenerate resume.pdf"
+            git push
+          fi
