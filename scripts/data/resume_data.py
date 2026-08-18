@@ -83,15 +83,6 @@ RESUME = {
     ],
     "contributions": [
         {
-            "repo": "modelcontextprotocol/typescript-sdk",
-            "status": "PR #2504 · open",
-            "bullets": [
-                "Root-caused and fixed two falsy-zero requestId bugs in the "
-                "notification debounce guard and cancellation handling; added "
-                "regression tests covering both.",
-            ],
-        },
-        {
             "repo": "drizzle-team/drizzle-orm",
             "status": "3 PRs · closed, not merged",
             "bullets": [
