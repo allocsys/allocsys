@@ -437,30 +437,6 @@
     <details class="card contrib">
       <summary>
         <div class="role-row">
-          <h3>transact-rs/sqlx</h3>
-          <span class="dates">PR #4351 · open<span class="chevron">▸</span></span>
-        </div>
-        <div class="company">Rewrite <code>?</code> placeholders to Postgres-native <code>$N</code> syntax in the Any driver</div>
-      </summary>
-      <div class="contrib-body">
-        <ul>
-          <li>Found that SQLx's database-agnostic <code>Any</code> driver always emitted <code>?</code>-style bound-parameter placeholders — invalid syntax against a real Postgres connection, breaking any parameterized query (especially <code>LIMIT</code>/<code>OFFSET</code>) run through <code>Any</code> against Postgres.</li>
-          <li>Implemented a SQL-aware placeholder rewriter that renumbers placeholders to <code>$1, $2, …</code> immediately before dispatch, while correctly skipping string literals, quoted identifiers, dollar-quoted blocks, and comments so it doesn't rewrite text that only looks like a placeholder.</li>
-        </ul>
-        <div class="tag-row">
-          <span class="tech-tag">Rust</span>
-          <span class="tech-tag">SQL</span>
-          <span class="tech-tag">Database drivers</span>
-        </div>
-        <div class="tag-row" style="margin-top: 10px;">
-          <a href="https://github.com/transact-rs/sqlx/pull/4351" target="_blank">View PR →</a>
-        </div>
-      </div>
-    </details>
-
-    <details class="card contrib">
-      <summary>
-        <div class="role-row">
           <h3>anthropics/skills</h3>
           <span class="dates">4 PRs · open<span class="chevron">▸</span></span>
         </div>
