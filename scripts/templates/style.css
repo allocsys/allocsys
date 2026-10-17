@@ -1,6 +1,6 @@
 @page {
     size: letter;
-    margin: 0.72in 0.75in;
+    margin: 0.5in 0.6in;
     @bottom-center {
         content: "allocsys · " string(doc-title) " · page " counter(page);
         font-family: "Helvetica Neue", Arial, sans-serif;
@@ -24,8 +24,8 @@
 
 body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 10.3pt;
-    line-height: 1.45;
+    font-size: 9.5pt;
+    line-height: 1.36;
     color: var(--dark);
     margin: 0;
 }
@@ -66,7 +66,7 @@ header.letterhead .role {
 .contact-line {
     font-size: 9pt;
     color: var(--gray);
-    margin: 6px 0 18px;
+    margin: 6px 0 12px;
 }
 .contact-line a { color: var(--gray); text-decoration: none; }
 .contact-line span.sep { color: var(--rule); margin: 0 6px; }
@@ -79,7 +79,7 @@ h2.section {
     color: var(--accent);
     border-bottom: 1px solid var(--rule);
     padding-bottom: 3px;
-    margin: 16px 0 8px;
+    margin: 12px 0 6px;
 }
 
 p.summary {
@@ -88,7 +88,7 @@ p.summary {
 }
 
 /* ---------- Projects / entries ---------- */
-.entry { margin-bottom: 11px; break-inside: avoid; }
+.entry { margin-bottom: 8px; break-inside: avoid; }
 .entry-head {
     display: flex;
     justify-content: space-between;
@@ -114,7 +114,7 @@ table.skills {
 table.skills td {
     padding: 3px 0;
     vertical-align: top;
-    font-size: 9.8pt;
+    font-size: 9.5pt;
 }
 table.skills td.skill-cat {
     width: 26%;
@@ -182,7 +182,7 @@ table.skills td.skill-list { color: var(--gray); }
     padding: 8px 10px;
     margin-top: 4px;
     min-height: 2.4em;
-    font-size: 9.8pt;
+    font-size: 9.5pt;
 }
 .estimate-box:empty::after {
     content: "\00a0";

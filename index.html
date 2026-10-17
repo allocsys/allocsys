@@ -300,7 +300,7 @@
   <section>
     <h2><span class="cmt">//</span> About</h2>
     <div class="card">
-      <p>Backend-focused developer who builds the infrastructure layer AI agents actually run on — auth, rate limiting, multi-service integrations — rather than just wiring prompts together. Comfortable owning a project end-to-end: designing the API surface, hardening it (timing-safe auth, IP allowlisting, proxy-aware rate limiting), and documenting the reasoning so someone else can maintain it. Recent focus: Model Context Protocol (MCP) servers and agentic workflow automation (n8n + LangChain), plus root-causing bugs in real-world open-source infrastructure across JavaScript, Python, and Rust codebases. Ships full-stack TypeScript apps on Cloudflare Workers.</p>
+      <p>Backend-focused developer who builds the infrastructure layer AI agents actually run on — auth, rate limiting, multi-service integrations — rather than just wiring prompts together. Comfortable owning a project end-to-end: designing the API surface, hardening it (timing-safe auth, IP allowlisting, proxy-aware rate limiting), and documenting the reasoning so someone else can maintain it. Recent focus: Model Context Protocol (MCP) servers and agentic workflow automation (n8n + LangChain), plus root-causing bugs in real-world open-source infrastructure across JavaScript, Python, Go, and Rust codebases. Ships full-stack TypeScript apps on Cloudflare Workers.</p>
     </div>
   </section>
 
@@ -490,53 +490,6 @@
     <details class="card contrib" open>
       <summary>
         <div class="role-row">
-          <h3>cloudflare/workers-sdk</h3>
-          <span class="dates">4 PRs · 1 merged, 2 closed, 1 open<span class="chevron">▸</span></span>
-        </div>
-        <div class="company">Windows path-encoding crash, false redirect-loop deploy warning, and local Images binding parity</div>
-      </summary>
-      <div class="contrib-body">
-        <ul>
-          <li>Root-caused a Windows-only crash from non-ASCII paths (Latin-1 header violation) across 5 call sites, verified with a Windows CI run against a real <code>開発</code>-path repro. (<a href="https://github.com/cloudflare/workers-sdk/pull/14713" target="_blank">PR #14713</a> · merged)</li>
-          <li>Fixed a false infinite-redirect-loop deploy warning. (closed, not merged)</li>
-          <li>Fixed local Images binding transform parity (<code>fit</code>/<code>gravity</code>/<code>background</code>) with production. Original PR closed after an accidental fork deletion mid-review; restored and continued in a follow-up, currently open and in review. (<a href="https://github.com/cloudflare/workers-sdk/pull/14714" target="_blank">PR #14714</a> · closed · <a href="https://github.com/cloudflare/workers-sdk/pull/14810" target="_blank">PR #14810</a> · open)</li>
-        </ul>
-        <div class="tag-row">
-          <span class="tech-tag">TypeScript</span>
-          <span class="tech-tag">Cloudflare Workers</span>
-          <span class="tech-tag">Root-cause debugging</span>
-          <span class="tech-tag">Cross-platform CI</span>
-        </div>
-      </div>
-    </details>
-
-    <details class="card contrib">
-      <summary>
-        <div class="role-row">
-          <h3>anthropics/skills</h3>
-          <span class="dates">4 PRs · open<span class="chevron">▸</span></span>
-        </div>
-        <div class="company">Parser correctness, a safety-check gap, and dependency/compatibility fixes across the pdf, xlsx, docx &amp; skill-creator skills</div>
-      </summary>
-      <div class="contrib-body">
-        <ul>
-          <li>Fixed a PDF form-field parser that assumed every choice-field <code>/Opt</code> entry was an <code>[export_value, display_text]</code> pair per spec — a bare single-character string (e.g. <code>"Red"</code>) got silently split into <code>value="R", text="e"</code>, or crashed outright. (<a href="https://github.com/anthropics/skills/pull/1474" target="_blank">PR #1474</a>)</li>
-          <li>Fixed a case-sensitivity gap in the xlsx skill's external-link safety check: the regex meant to catch cached external links before recalculation missed case-mismatched formula references entirely, since it wasn't compiled with <code>IGNORECASE</code>. (<a href="https://github.com/anthropics/skills/pull/1471" target="_blank">PR #1471</a>)</li>
-          <li>Fixed a Python 3.9 import crash in the docx skill (an eager PEP 604 union annotation evaluated at import time) and documented the actual Python 3.10+ / <code>defusedxml</code> requirement instead of leaving it undeclared. (<a href="https://github.com/anthropics/skills/pull/1473" target="_blank">PR #1473</a>)</li>
-          <li>Declared a missing PyYAML dependency for the skill-creator validator script, which failed with <code>ModuleNotFoundError</code> on a clean environment. (<a href="https://github.com/anthropics/skills/pull/1472" target="_blank">PR #1472</a>)</li>
-        </ul>
-        <div class="tag-row">
-          <span class="tech-tag">Python</span>
-          <span class="tech-tag">Spec-compliant parsing</span>
-          <span class="tech-tag">Dependency management</span>
-          <span class="tech-tag">Regression tests</span>
-        </div>
-      </div>
-    </details>
-
-    <details class="card contrib">
-      <summary>
-        <div class="role-row">
           <h3>grafana/alloy</h3>
           <span class="dates">PR #6750 · merged<span class="chevron">▸</span></span>
         </div>
@@ -554,6 +507,51 @@
         </div>
         <div class="tag-row" style="margin-top: 10px;">
           <a href="https://github.com/grafana/alloy/pull/6750" target="_blank">View PR →</a>
+        </div>
+      </div>
+    </details>
+
+    <details class="card contrib">
+      <summary>
+        <div class="role-row">
+          <h3>cloudflare/workers-sdk</h3>
+          <span class="dates">2 PRs · 1 merged, 1 open<span class="chevron">▸</span></span>
+        </div>
+        <div class="company">Windows path-encoding crash and local Images binding parity</div>
+      </summary>
+      <div class="contrib-body">
+        <ul>
+          <li>Root-caused a Windows-only crash from non-ASCII paths (Latin-1 header violation) across 5 call sites, verified with a Windows CI run against a real <code>開発</code>-path repro. (<a href="https://github.com/cloudflare/workers-sdk/pull/14713" target="_blank">PR #14713</a> · merged)</li>
+          <li>Fixed local Images binding transform parity (<code>fit</code>/<code>gravity</code>/<code>background</code>) with production. Open and in review. (<a href="https://github.com/cloudflare/workers-sdk/pull/14810" target="_blank">PR #14810</a> · open)</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tech-tag">TypeScript</span>
+          <span class="tech-tag">Cloudflare Workers</span>
+          <span class="tech-tag">Root-cause debugging</span>
+          <span class="tech-tag">Cross-platform CI</span>
+        </div>
+      </div>
+    </details>
+
+    <details class="card contrib">
+      <summary>
+        <div class="role-row">
+          <h3>transact-rs/sqlx</h3>
+          <span class="dates">PR #4351 · open<span class="chevron">▸</span></span>
+        </div>
+        <div class="company">Make the Any driver emit $N placeholders on Postgres (issue #3000)</div>
+      </summary>
+      <div class="contrib-body">
+        <ul>
+          <li>Fixed the Any driver emitting <code>?</code> placeholders on Postgres by adding a SQL-aware rewrite to <code>$N</code> that skips string literals, quoted identifiers, dollar-quoted strings, and comments, applied on the Postgres path only so MySQL and SQLite are unaffected. CI passes on the fork.</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tech-tag">Rust</span>
+          <span class="tech-tag">SQL parsing</span>
+          <span class="tech-tag">Database drivers</span>
+        </div>
+        <div class="tag-row" style="margin-top: 10px;">
+          <a href="https://github.com/transact-rs/sqlx/pull/4351" target="_blank">View PR →</a>
         </div>
       </div>
     </details>
@@ -582,49 +580,26 @@
       </div>
     </details>
 
-
     <details class="card contrib">
       <summary>
         <div class="role-row">
-          <h3>transact-rs/sqlx</h3>
-          <span class="dates">PR #4351 · open<span class="chevron">▸</span></span>
+          <h3>anthropics/skills</h3>
+          <span class="dates">4 PRs · open<span class="chevron">▸</span></span>
         </div>
-        <div class="company">Make the Any driver emit $N placeholders on Postgres (issue #3000)</div>
+        <div class="company">Parser correctness, a safety-check gap, and dependency/compatibility fixes across the pdf, xlsx, docx &amp; skill-creator skills</div>
       </summary>
       <div class="contrib-body">
         <ul>
-          <li>Fixed the Any driver emitting <code>?</code> placeholders on Postgres by adding a SQL-aware rewrite to <code>$N</code> that skips string literals, quoted identifiers, dollar-quoted strings, and comments, applied on the Postgres path only so MySQL and SQLite are unaffected. CI passes on the fork.</li>
-        </ul>
-        <div class="tag-row">
-          <span class="tech-tag">Rust</span>
-          <span class="tech-tag">SQL parsing</span>
-          <span class="tech-tag">Database drivers</span>
-        </div>
-        <div class="tag-row" style="margin-top: 10px;">
-          <a href="https://github.com/transact-rs/sqlx/pull/4351" target="_blank">View PR →</a>
-        </div>
-      </div>
-    </details>
-
-    <details class="card contrib">
-      <summary>
-        <div class="role-row">
-          <h3>urllib3/urllib3</h3>
-          <span class="dates">PR #5121 · closed (superseded)<span class="chevron">▸</span></span>
-        </div>
-        <div class="company">Replace a deprecated pyOpenSSL X.509 API call</div>
-      </summary>
-      <div class="contrib-body">
-        <ul>
-          <li>Replaced a deprecated pyOpenSSL X.509 API call with the <code>cryptography</code> library equivalent, with new tests for both a present and missing <code>commonName</code>.</li>
+          <li>Fixed a PDF form-field parser that assumed every choice-field <code>/Opt</code> entry was an <code>[export_value, display_text]</code> pair per spec — a bare single-character string (e.g. <code>"Red"</code>) got silently split into <code>value="R", text="e"</code>, or crashed outright. (<a href="https://github.com/anthropics/skills/pull/1474" target="_blank">PR #1474</a>)</li>
+          <li>Fixed a case-sensitivity gap in the xlsx skill's external-link safety check: the regex meant to catch cached external links before recalculation missed case-mismatched formula references entirely, since it wasn't compiled with <code>IGNORECASE</code>. (<a href="https://github.com/anthropics/skills/pull/1471" target="_blank">PR #1471</a>)</li>
+          <li>Fixed a Python 3.9 import crash in the docx skill (an eager PEP 604 union annotation evaluated at import time) and documented the actual Python 3.10+ / <code>defusedxml</code> requirement instead of leaving it undeclared. (<a href="https://github.com/anthropics/skills/pull/1473" target="_blank">PR #1473</a>)</li>
+          <li>Declared a missing PyYAML dependency for the skill-creator validator script, which failed with <code>ModuleNotFoundError</code> on a clean environment. (<a href="https://github.com/anthropics/skills/pull/1472" target="_blank">PR #1472</a>)</li>
         </ul>
         <div class="tag-row">
           <span class="tech-tag">Python</span>
-          <span class="tech-tag">cryptography</span>
-          <span class="tech-tag">Testing</span>
-        </div>
-        <div class="tag-row" style="margin-top: 10px;">
-          <a href="https://github.com/urllib3/urllib3/pull/5121" target="_blank">View PR →</a>
+          <span class="tech-tag">Spec-compliant parsing</span>
+          <span class="tech-tag">Dependency management</span>
+          <span class="tech-tag">Regression tests</span>
         </div>
       </div>
     </details>
@@ -640,7 +615,8 @@
         <span class="skill-pill">Python</span>
         <span class="skill-pill">SQL</span>
         <span class="skill-pill">Bash</span>
-        <span class="skill-pill">Rust (open-source contributions)</span>
+        <span class="skill-pill">Go</span>
+        <span class="skill-pill">Rust</span>
       </div>
     </div>
     <div class="skill-group">
