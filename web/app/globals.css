@@ -44,7 +44,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .nav a[aria-current='true'] { color: var(--fg); border-color: var(--accent); }
 .hdr-actions { display: flex; gap: 0.5rem; }
 .icon-btn { width: 2.75rem; height: 2.75rem; border: 1.5px solid var(--fg); border-radius: 50%; display: grid; place-items: center; }
-.icon-btn:hover { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+@media (hover: hover) { .icon-btn:hover { background: var(--accent); color: var(--on-accent); border-color: var(--accent); } }
 :root[data-theme='dark'] .i-moon, :root:not([data-theme='dark']) .i-sun { display: none; }
 .menu {
   position: fixed; inset: 0; z-index: 40; background: var(--bg); display: flex; flex-direction: column; justify-content: center;
@@ -167,7 +167,7 @@ h2 { font-size: clamp(2.6rem, 9vw, 8rem); line-height: 0.95; font-weight: 700; l
 .pin-dots { display: flex; gap: 0.4rem; margin-left: auto; }
 .pin-dots i { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--soft); transition: background 0.3s, transform 0.3s; }
 .pin-dots i[data-on='true'] { background: var(--accent); transform: scale(1.4); }
-.step { min-height: 55svh; display: flex; flex-direction: column; justify-content: center; gap: 1.2rem; padding: 2rem 0; opacity: 0.22; transition: opacity 0.4s; }
+.step { min-height: 26svh; display: flex; flex-direction: column; justify-content: center; gap: 1.2rem; padding: 1.5rem 0; opacity: 0.3; transition: opacity 0.4s; }
 .step[data-on='true'] { opacity: 1; }
 .step-k { color: var(--muted); }
 @media (min-width: 900px) {
@@ -175,7 +175,7 @@ h2 { font-size: clamp(2.6rem, 9vw, 8rem); line-height: 0.95; font-weight: 700; l
   .pin-side { top: calc(var(--hdr) + 2rem); align-self: start; flex-direction: column; align-items: flex-start; gap: 1.2rem; padding: 0; background: none; border: 0; }
   .pin-title { font-size: clamp(3rem, 6.4vw, 7rem); }
   .pin-dots { margin: 0; }
-  .step { min-height: 75svh; }
+  .step { min-height: 42svh; padding: 2rem 0; }
 }
 
 /* skills, metrics, contact */
