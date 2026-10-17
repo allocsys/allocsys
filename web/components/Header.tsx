@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 const LINKS = [
   ['about', 'About'],
   ['projects', 'Work'],
-  ['open-source', 'Open source'],
   ['skills', 'Skills'],
+  ['open-source', 'Open source'],
   ['activity', 'Activity'],
   ['contact', 'Contact'],
 ] as const;
