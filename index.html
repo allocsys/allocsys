@@ -18,664 +18,103 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9A%A1%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0a0e14;
-    --bg-alt: #10151f;
-    --surface-2: #161c26;
-    --accent: #00e5a0;
-    --accent-2: #7c8cff;
-    --text: #d6e0e8;
-    --muted: #7a8899;
-    --border: #1f2733;
-    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-    --font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
-  }
+:root{--bg:#f5f6f8;--surface:#fff;--ink:#16202c;--muted:#5a6675;--rule:#dde1e7;--accent:#2347c5;--accent-soft:#e8edfb;--ok:#1d6b47;--ok-soft:#e3f3ea;
+--serif:'Newsreader',Georgia,'Times New Roman',serif;--sans:'Public Sans','Segoe UI',system-ui,-apple-system,sans-serif}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1620;--surface:#161f2b;--ink:#e7ecf2;--muted:#9aa7b7;--rule:#263241;--accent:#8aa8ff;--accent-soft:#1c2a4a;--ok:#6fd1a0;--ok-soft:#173a2b}}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6}
+a{color:var(--accent);text-underline-offset:3px}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+.layout{max-width:1120px;margin:0 auto;padding:56px 32px 96px;display:grid;grid-template-columns:270px minmax(0,1fr);gap:72px}
+.side{position:sticky;top:56px;align-self:start;display:flex;flex-direction:column;gap:22px}
+h1{font-family:var(--serif);font-weight:600;font-size:38px;line-height:1.1;letter-spacing:-.01em}
+.role{color:var(--muted);margin-top:8px;font-size:15px}
+.avail{margin-top:14px;font-size:14px;font-weight:500;display:flex;align-items:center;gap:8px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--ok);display:inline-block}
+.contact{list-style:none;font-size:15px;display:grid;gap:4px}
+.btn{display:inline-block;text-align:center;background:var(--accent);color:#fff;text-decoration:none;font-weight:600;font-size:15px;padding:10px 16px;border-radius:6px}
+@media (prefers-color-scheme:dark){.btn{color:#0f1620}}
+.btn:hover{filter:brightness(1.08)}
+nav{display:flex;flex-direction:column;gap:2px;border-top:1px solid var(--rule);padding-top:18px}
+nav a{color:var(--muted);text-decoration:none;font-size:15px;padding:5px 0}
+nav a:hover{color:var(--ink)}
+section{margin-bottom:64px}
+h2{font-family:var(--serif);font-weight:600;font-size:26px;letter-spacing:-.005em;padding-bottom:12px;margin-bottom:8px;border-bottom:1px solid var(--rule)}
+.about{max-width:66ch;font-size:17px;margin-top:16px}
+.note{color:var(--muted);font-size:14px;margin:10px 0 6px}
+.entry{padding:24px 0;border-bottom:1px solid var(--rule)}
+.entry:last-child{border-bottom:0}
+.entry h3{font-family:var(--serif);font-weight:600;font-size:21px;line-height:1.25}
+.stack{color:var(--muted);font-size:14px;margin-top:2px}
+.lead{margin-top:10px;max-width:72ch;font-size:15.5px}
+details ul{margin:10px 0 0 18px;max-width:72ch;font-size:15px;color:var(--ink)}
+details li{margin-bottom:8px;padding-left:2px}
+details li::marker{color:var(--accent)}
+.entry details{margin-top:12px}
+summary{cursor:pointer;font-size:14px;font-weight:500;color:var(--accent);list-style:none}
+summary::-webkit-details-marker{display:none}
+.entry summary::before{content:"+";display:inline-block;width:16px;font-weight:600}
+.entry details[open] summary::before{content:"\2212"}
+.repo{margin-top:10px;font-size:14px}
+code{font-size:.9em;background:var(--accent-soft);padding:1px 5px;border-radius:3px}
+.oss{border-bottom:1px solid var(--rule);padding:16px 0}
+.oss summary{display:grid;grid-template-columns:minmax(150px,200px) 1fr auto;gap:6px 20px;align-items:baseline;color:var(--ink);font-weight:400}
+.oss-name{font-family:var(--serif);font-weight:600;font-size:18px;color:var(--ink)}
+.oss-what{color:var(--muted);font-size:14.5px}
+.oss-status{font-size:13px;font-weight:600;padding:2px 10px;border-radius:12px;white-space:nowrap;background:var(--accent-soft);color:var(--accent)}
+.oss-status.merged{background:var(--ok-soft);color:var(--ok)}
+.oss[open] summary{margin-bottom:2px}
+.skills>div{display:grid;grid-template-columns:170px 1fr;gap:16px;padding:14px 0;border-bottom:1px solid var(--rule)}
+dt{font-weight:600;font-size:15px}
+dd{color:var(--muted);font-size:15px}
+.metrics{display:block;width:100%;margin-top:12px;border-radius:6px;background:var(--surface)}
+footer{color:var(--muted);font-size:14px;border-top:1px solid var(--rule);padding-top:20px}
+@media (max-width:900px){
+ .layout{grid-template-columns:1fr;gap:40px;padding:36px 20px 72px}
+ .side{position:static}
+ nav{flex-direction:row;flex-wrap:wrap;gap:4px 18px}
+ .oss summary{grid-template-columns:1fr auto}
+ .oss-what{grid-column:1/-1;order:3}
+ .skills>div{grid-template-columns:1fr;gap:2px}
+}
+@media print{.side nav,.btn{display:none}.layout{display:block;padding:0}.side{position:static}}
 
-  @media (prefers-color-scheme: light) {
-    :root {
-      --bg: #f7f9fb;
-      --bg-alt: #ffffff;
-      --surface-2: #eef1f5;
-      --accent: #00a884;
-      --accent-2: #5a6bd6;
-      --text: #1b2430;
-      --muted: #5b6b7a;
-      --border: #e1e6ec;
-    }
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--font-sans);
-    line-height: 1.65;
-    font-size: 16px;
-  }
-
-  a { color: var(--accent); text-decoration: none; }
-  a:hover { text-decoration: underline; }
-  a:focus-visible, button:focus-visible, .flag:focus-visible {
-    outline: 2px solid var(--accent-2);
-    outline-offset: 3px;
-    border-radius: 3px;
-  }
-
-  .container { max-width: 760px; margin: 0 auto; padding: 64px 24px 100px; }
-
-  /* ---------- Terminal hero ---------- */
-  .terminal {
-    background: var(--bg-alt);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.5);
-    margin-bottom: 56px;
-  }
-  .term-bar {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--border);
-    background: var(--surface-2);
-  }
-  .term-bar .dot { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
-  .term-bar .dot.red { background: #ff5f56; }
-  .term-bar .dot.yellow { background: #ffbd2e; }
-  .term-bar .dot.green { background: #27c93f; }
-  .term-title {
-    margin-left: 8px;
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--muted);
-  }
-  .term-body { padding: 28px 28px 32px; font-family: var(--font-mono); font-size: 15px; }
-  .term-body .line { color: var(--muted); margin-top: 16px; }
-  .term-body .line:first-child { margin-top: 0; }
-  .term-body .prompt { color: var(--accent); margin-right: 8px; }
-  .term-body .output { margin-top: 6px; padding-left: 20px; }
-  .term-body .name {
-    font-size: 26px;
-    font-weight: 700;
-    color: var(--text);
-    letter-spacing: -0.02em;
-  }
-  .term-body .role { color: var(--muted); font-size: 14px; }
-  .flags { display: flex; flex-wrap: wrap; gap: 10px 16px; padding-left: 20px; margin-top: 6px; }
-  .flag {
-    font-family: var(--font-mono);
-    font-size: 13px;
-    color: var(--accent-2);
-    border-bottom: 1px dashed transparent;
-  }
-  .flag:hover { border-bottom-color: var(--accent-2); text-decoration: none; }
-  .cursor {
-    display: inline-block;
-    color: var(--accent);
-    animation: blink 1.1s steps(1) infinite;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .cursor { animation: none; }
-  }
-  @keyframes blink { 50% { opacity: 0; } }
-
-  .tag {
-    display: inline-block;
-    font-family: var(--font-mono);
-    font-size: 12px;
-    letter-spacing: 0.05em;
-    color: var(--accent);
-    border: 1px solid var(--accent);
-    padding: 3px 10px;
-    border-radius: 20px;
-    margin-bottom: 18px;
-  }
-
-  /* ---------- Sections ---------- */
-  section { margin-bottom: 48px; }
-  section h2 {
-    font-family: var(--font-mono);
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    color: var(--text);
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  section h2 .cmt { color: var(--muted); font-weight: 400; }
-  section h2::after {
-    content: "";
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  .card {
-    background: var(--bg-alt);
-    border: 1px solid var(--border);
-    border-left: 2px solid var(--border);
-    border-radius: 8px;
-    padding: 22px 24px;
-    margin-bottom: 14px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-  }
-  .card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 14px 30px -12px rgba(0, 0, 0, 0.4);
-    border-color: var(--border);
-    border-left-color: var(--accent);
-  }
-  .card .role-row {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .card h3 { font-size: 16px; color: var(--text); font-weight: 600; }
-  .card .company { color: var(--accent); font-size: 13px; font-family: var(--font-mono); margin-top: 2px; }
-  .card .dates { color: var(--muted); font-size: 12px; font-family: var(--font-mono); white-space: nowrap; }
-  .card ul { margin-top: 12px; padding-left: 0; list-style: none; color: var(--muted); font-size: 14px; }
-  .card ul li { margin-bottom: 8px; padding-left: 20px; position: relative; }
-  .card ul li::before {
-    content: "+";
-    position: absolute;
-    left: 0;
-    color: var(--accent);
-    font-family: var(--font-mono);
-    font-weight: 700;
-  }
-
-  .skills-grid { display: flex; flex-wrap: wrap; gap: 10px; }
-  .skill-pill {
-    background: var(--bg-alt);
-    border: 1px solid var(--border);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-family: var(--font-mono);
-    color: var(--text);
-  }
-  .skill-pill::before { content: "▹ "; color: var(--accent); }
-
-  .skill-group { margin-bottom: 20px; }
-  .skill-group h4 {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 10px;
-  }
-
-  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
-  .tech-tag {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--accent-2);
-    border: 1px solid var(--border);
-    padding: 3px 8px;
-    border-radius: 4px;
-  }
-
-  .contrib summary {
-    cursor: pointer;
-    list-style: none;
-  }
-  .contrib summary::-webkit-details-marker { display: none; }
-  .contrib summary:focus-visible {
-    outline: 2px solid var(--accent-2);
-    outline-offset: 4px;
-    border-radius: 4px;
-  }
-  .contrib summary .role-row { align-items: center; }
-  .contrib .chevron {
-    font-family: var(--font-mono);
-    color: var(--accent-2);
-    display: inline-block;
-    margin-left: 10px;
-    transition: transform 0.2s ease;
-  }
-  .contrib[open] .chevron { transform: rotate(90deg); }
-  .contrib .contrib-body {
-    margin-top: 14px;
-    padding-top: 14px;
-    border-top: 1px solid var(--border);
-  }
-  .contrib:not([open]):hover { border-left-color: var(--accent); }
-
-  .metrics-card img, .metrics-card picture { display: block; }
-
-  footer {
-    font-family: var(--font-mono);
-    font-size: 13px;
-    color: var(--muted);
-    padding-top: 28px;
-    border-top: 1px solid var(--border);
-  }
-  footer .prompt { color: var(--accent); margin-right: 8px; }
-
-  @media (max-width: 600px) {
-    .container { padding: 44px 18px 80px; }
-    .term-body { padding: 22px 18px 26px; font-size: 14px; }
-    .term-body .name { font-size: 22px; }
-  }
 </style>
 </head>
 <body>
-<div class="container">
-
-  <span class="tag">available for work</span>
-
-  <div class="terminal">
-    <div class="term-bar">
-      <span class="dot red"></span>
-      <span class="dot yellow"></span>
-      <span class="dot green"></span>
-      <span class="term-title">allocsys@allocsys: ~</span>
+<div class="layout">
+  <aside class="side">
+    <div class="id">
+      <h1>allocsys</h1>
+      <p class="role">Backend developer: APIs, infrastructure and AI-agent tooling</p>
+      <p class="avail"><span class="dot"></span>Open to work</p>
     </div>
-    <div class="term-body">
-      <p class="line"><span class="prompt">$</span>whoami</p>
-      <p class="output name">allocsys</p>
-
-      <p class="line"><span class="prompt">$</span>cat role.txt</p>
-      <p class="output role">Backend Developer — APIs, infra & AI-agent tooling</p>
-
-      <p class="line"><span class="prompt">$</span>ls --contact</p>
-      <p class="flags">
-        <a class="flag" href="mailto:allocsys@gmail.com">--email</a>
-        <a class="flag" href="https://github.com/allocsys" target="_blank">--github</a>
-        <a class="flag" href="resume.pdf" target="_blank">--resume</a>
-      </p>
-
-      <p class="line"><span class="prompt">$</span><span class="cursor">▌</span></p>
-    </div>
-  </div>
-
-  <section>
-    <h2><span class="cmt">//</span> About</h2>
-    <div class="card">
-      <p>Backend-focused developer who builds the infrastructure layer AI agents actually run on — auth, rate limiting, multi-service integrations — rather than just wiring prompts together. Comfortable owning a project end-to-end: designing the API surface, hardening it (timing-safe auth, IP allowlisting, proxy-aware rate limiting), and documenting the reasoning so someone else can maintain it. Recent focus: Model Context Protocol (MCP) servers and agentic workflow automation (n8n + LangChain), plus root-causing bugs in real-world open-source infrastructure across JavaScript, Python, Go, and Rust codebases. Ships full-stack TypeScript apps on Cloudflare Workers.</p>
-    </div>
-  </section>
-
-  <section>
-    <h2><span class="cmt">//</span> Projects</h2>
-
-    <div class="card">
-      <div class="role-row">
-        <h3>madmcp</h3>
-        <span class="dates">2026</span>
-      </div>
-      <div class="company">MCP server — ~50 tools across 8 connectors: GitHub, Cloudflare, Notion, Mem0, Exa &amp; Gemini</div>
-      <ul>
-        <li>Built and deployed an MCP server exposing ~50 tools across 8 connectors (GitHub, Cloudflare D1/KV/R2/Workers, Notion, Mem0, generic fetch, Exa, Gemini) to any MCP-compatible AI client.</li>
-        <li>Designed a delegation-first architecture: one tool hands an open-ended, multi-step investigation to a second model that runs its own tool loop server-side, with Redis-backed checkpointing so a rate-limited run resumes from its last step instead of restarting.</li>
-        <li>Separated tools that touch untrusted external content (web research, fetch) from those that touch internal systems (GitHub, Cloudflare, Notion), so external data can’t reach credentials.</li>
-        <li>Designed the auth layer: timing-safe key comparison, IP allowlisting scoped to Claude’s connector range, and per-route rate limiting, ordered so a leaked key alone can’t get in. Handled proxy-hop IP trust, large-push body limits, and per-connector token failure; PR-based workflow with GitHub Actions CI, vitest and supertest.</li>
-      </ul>
-      <div class="tag-row">
-        <span class="tech-tag">Node.js</span>
-        <span class="tech-tag">Express</span>
-        <span class="tech-tag">MCP</span>
-        <span class="tech-tag">Redis</span>
-        <span class="tech-tag">Auth &amp; rate limiting</span>
-        <span class="tech-tag">CI / vitest</span>
-      </div>
-      <div class="tag-row" style="margin-top: 10px;">
-        <a href="https://github.com/allocsys/madmcp" target="_blank">View repo →</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="role-row">
-        <h3>proetsy</h3>
-        <span class="dates">2026</span>
-      </div>
-      <div class="company">Node.js · React · SQLite · Electron · Playwright</div>
-      <ul>
-        <li>Built a local-first pipeline that turns artwork into ready-to-paste Etsy listings and mockups: optional image analysis, listing generation, PSD-template mockups, and a human-in-the-loop review step (publishing stays manual by design).</li>
-        <li>Built an LLM provider layer with Gemini primary and Claude fallback, key store, queue and rate limits, plus an embedding-based taste filter in pure JS/WASM (runs on Termux).</li>
-        <li>Tested every module (unit, idempotency, route-level integration) and added Playwright E2E against a deterministic fixture LLM; shipped a CI-verified Electron Windows installer.</li>
-      </ul>
-      <div class="tag-row">
-        <span class="tech-tag">Node.js</span>
-        <span class="tech-tag">React</span>
-        <span class="tech-tag">SQLite</span>
-        <span class="tech-tag">Electron</span>
-        <span class="tech-tag">Playwright</span>
-      </div>
-      <div class="tag-row" style="margin-top: 10px;">
-        <a href="https://github.com/allocsys/proetsy" target="_blank">View repo →</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="role-row">
-        <h3>news-market-ai</h3>
-        <span class="dates">2026</span>
-      </div>
-      <div class="company">Cloudflare Workers · D1 · KV · Gemini · Next.js</div>
-      <ul>
-        <li>Built a news-to-trade-signal pipeline: ingestion from free sources and custom scrapers, multi-agent LLM analysis, and signal generation, designed around free-tier Worker limits.</li>
-        <li>Wrote a point-in-time backtester and documented rollout gates (backtest → paper → micro-live); live trading is deliberately off.</li>
-        <li>Built a multi-key Gemini model-cascade client with KV cooldown state, and a mobile-friendly Next.js 16 ops dashboard served as a Worker with login and a session-gated API.</li>
-      </ul>
-      <div class="tag-row">
-        <span class="tech-tag">Cloudflare Workers</span>
-        <span class="tech-tag">D1 / KV</span>
-        <span class="tech-tag">Gemini</span>
-        <span class="tech-tag">Next.js</span>
-        <span class="tech-tag">Backtesting</span>
-      </div>
-      <div class="tag-row" style="margin-top: 10px;">
-        <a href="https://github.com/allocsys/news-market-ai" target="_blank">View repo →</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="role-row">
-        <h3>ai-campaign-builder</h3>
-        <span class="dates">2026</span>
-      </div>
-      <div class="company">TypeScript · React · Cloudflare Workers · D1</div>
-      <ul>
-        <li>Built a monorepo where a business owner states a goal and an AI agent generates a loyalty or gamification campaign. Apps: owner dashboard, customer app, staff POS, review console, public microsites, and a backend API.</li>
-        <li>Shared api-client, UI-kit and campaign-editor packages; JWT auth, D1 migrations, Vitest tests, and CI deploys that provision D1 and KV automatically.</li>
-      </ul>
-      <div class="tag-row">
-        <span class="tech-tag">TypeScript</span>
-        <span class="tech-tag">React</span>
-        <span class="tech-tag">Cloudflare Workers</span>
-        <span class="tech-tag">D1</span>
-        <span class="tech-tag">JWT</span>
-        <span class="tech-tag">Vitest</span>
-      </div>
-      <div class="tag-row" style="margin-top: 10px;">
-        <a href="https://github.com/allocsys/ai-campaign-builder" target="_blank">View repo →</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="role-row">
-        <h3>peakplast</h3>
-        <span class="dates">2026</span>
-      </div>
-      <div class="company">Cloudflare Workers · Telegram · Gemini · Zarinpal</div>
-      <ul>
-        <li>Built and run a production Telegram ordering bot: Gemini voice-order extraction with multi-key fallback, Zarinpal payment links and verification, an admin panel, and a REST API.</li>
-        <li>Handled concurrency and abuse (per-chat locking, voice flood limits, address de-duplication). Planning and executing a safe split of the ~7,000-line single-file Worker into ES modules, one verified, deployable step at a time.</li>
-      </ul>
-      <div class="tag-row">
-        <span class="tech-tag">Cloudflare Workers</span>
-        <span class="tech-tag">Telegram Bot API</span>
-        <span class="tech-tag">Gemini</span>
-        <span class="tech-tag">Payments</span>
-      </div>
-      <div class="tag-row" style="margin-top: 10px;">
-        <a href="https://github.com/allocsys/peakplast" target="_blank">View repo →</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="role-row">
-        <h3>clothes-shop</h3>
-        <span class="dates">2026</span>
-      </div>
-      <div class="company">Next.js · TypeScript · Tailwind CSS · RTL</div>
-      <ul>
-        <li>Built the front-end of a Persian (right-to-left) online clothing shop: home, shop, product, cart, account and content pages, with a mobile tab bar and configurable site, theme and product data. Backend, checkout and payments are planned next.</li>
-      </ul>
-      <div class="tag-row">
-        <span class="tech-tag">Next.js</span>
-        <span class="tech-tag">TypeScript</span>
-        <span class="tech-tag">Tailwind CSS</span>
-        <span class="tech-tag">RTL</span>
-      </div>
-      <div class="tag-row" style="margin-top: 10px;">
-        <a href="https://github.com/allocsys/clothes-shop" target="_blank">View repo →</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="role-row">
-        <h3>Agentic Email Triage &amp; Ops Automation</h3>
-        <span class="dates">2026</span>
-      </div>
-      <div class="company">n8n workflow — LLM agent with RAG and CRM/Sheets/LINE routing</div>
-      <ul>
-        <li>Designed an n8n workflow where an AI agent classifies inbound email across Gmail, Telegram and WhatsApp, answers from a RAG knowledge base, and drafts replies only for non-urgent cases.</li>
-        <li>Put the safety boundary in the system prompt: escalation-worthy emails are flagged for a human and never auto-replied to. Used an OpenAI → Gemini → Claude fallback chain and forced JSON output so Sheets, CRM and LINE nodes route deterministically; tested on 6 scenarios.</li>
-      </ul>
-      <div class="tag-row">
-        <span class="tech-tag">n8n</span>
-        <span class="tech-tag">LangChain</span>
-        <span class="tech-tag">RAG / Qdrant</span>
-        <span class="tech-tag">Prompt design</span>
-      </div>
-      <div class="tag-row" style="margin-top: 10px;">
-        <a href="https://github.com/allocsys/n8n-agentic-ops" target="_blank">View repo →</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="role-row">
-        <h3>Developer tools (Termux / Android)</h3>
-        <span class="dates">2026</span>
-      </div>
-      <div class="company">Bash · Node.js · Playwright · Android</div>
-      <ul>
-        <li><a href="https://github.com/allocsys/cfmanager" target="_blank">cf-manager</a>: menu-driven Cloudflare admin panel in one bash script: Workers deploy/rollback, KV/D1/R2/Hyperdrive, OAuth2 + PKCE with multi-account switching, GitHub sync.</li>
-        <li><a href="https://github.com/allocsys/logger" target="_blank">logger</a> (DOM mapper): maps a live DOM, network traffic and replayable actions via remote Browserless.io, working around Playwright’s lack of Android support.</li>
-        <li><a href="https://github.com/allocsys/ezgit" target="_blank">ezgit</a> (Git helper that redacts secrets before diffs reach an LLM) and <a href="https://github.com/allocsys/openhands-android-client" target="_blank">openhands-android-client</a> (native client for OpenHands coding agents).</li>
-      </ul>
-      <div class="tag-row">
-        <span class="tech-tag">Bash</span>
-        <span class="tech-tag">Cloudflare API v4</span>
-        <span class="tech-tag">OAuth2 + PKCE</span>
-        <span class="tech-tag">Playwright</span>
-        <span class="tech-tag">Termux</span>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <h2><span class="cmt">//</span> Open Source Contributions</h2>
-
-    <details class="card contrib" open>
-      <summary>
-        <div class="role-row">
-          <h3>grafana/alloy</h3>
-          <span class="dates">PR #6750 · merged<span class="chevron">▸</span></span>
-        </div>
-        <div class="company">Stop a legacy Promtail positions file read-error from silently re-ingesting an entire log stream</div>
-      </summary>
-      <div class="contrib-body">
-        <ul>
-          <li>Root-caused a silent-failure bug in <code>loki.source.file</code> / <code>loki.source.journal</code>: when a legacy Promtail positions file existed but couldn't be read (e.g. a permissions error), the reader returned <code>nil</code> — indistinguishable from "file doesn't exist" — so the component silently re-tailed and re-ingested every log from the beginning instead of failing loudly.</li>
-          <li>Changed the reader to return <code>(*LegacyFile, error)</code> so a genuine I/O error now propagates up as a loud failure at component construction, while still correctly treating a missing file as non-fatal and malformed YAML as non-fatal.</li>
-        </ul>
-        <div class="tag-row">
-          <span class="tech-tag">Go</span>
-          <span class="tech-tag">Observability pipelines</span>
-          <span class="tech-tag">Error handling</span>
-        </div>
-        <div class="tag-row" style="margin-top: 10px;">
-          <a href="https://github.com/grafana/alloy/pull/6750" target="_blank">View PR →</a>
-        </div>
-      </div>
-    </details>
-
-    <details class="card contrib">
-      <summary>
-        <div class="role-row">
-          <h3>cloudflare/workers-sdk</h3>
-          <span class="dates">2 PRs · 1 merged, 1 open<span class="chevron">▸</span></span>
-        </div>
-        <div class="company">Windows path-encoding crash and local Images binding parity</div>
-      </summary>
-      <div class="contrib-body">
-        <ul>
-          <li>Root-caused a Windows-only crash from non-ASCII paths (Latin-1 header violation) across 5 call sites, verified with a Windows CI run against a real <code>開発</code>-path repro. (<a href="https://github.com/cloudflare/workers-sdk/pull/14713" target="_blank">PR #14713</a> · merged)</li>
-          <li>Fixed local Images binding transform parity (<code>fit</code>/<code>gravity</code>/<code>background</code>) with production. Open and in review. (<a href="https://github.com/cloudflare/workers-sdk/pull/14810" target="_blank">PR #14810</a> · open)</li>
-        </ul>
-        <div class="tag-row">
-          <span class="tech-tag">TypeScript</span>
-          <span class="tech-tag">Cloudflare Workers</span>
-          <span class="tech-tag">Root-cause debugging</span>
-          <span class="tech-tag">Cross-platform CI</span>
-        </div>
-      </div>
-    </details>
-
-    <details class="card contrib">
-      <summary>
-        <div class="role-row">
-          <h3>transact-rs/sqlx</h3>
-          <span class="dates">PR #4351 · open<span class="chevron">▸</span></span>
-        </div>
-        <div class="company">Make the Any driver emit $N placeholders on Postgres (issue #3000)</div>
-      </summary>
-      <div class="contrib-body">
-        <ul>
-          <li>Fixed the Any driver emitting <code>?</code> placeholders on Postgres by adding a SQL-aware rewrite to <code>$N</code> that skips string literals, quoted identifiers, dollar-quoted strings, and comments, applied on the Postgres path only so MySQL and SQLite are unaffected. CI passes on the fork.</li>
-        </ul>
-        <div class="tag-row">
-          <span class="tech-tag">Rust</span>
-          <span class="tech-tag">SQL parsing</span>
-          <span class="tech-tag">Database drivers</span>
-        </div>
-        <div class="tag-row" style="margin-top: 10px;">
-          <a href="https://github.com/transact-rs/sqlx/pull/4351" target="_blank">View PR →</a>
-        </div>
-      </div>
-    </details>
-
-    <details class="card contrib">
-      <summary>
-        <div class="role-row">
-          <h3>release-plz/release-plz</h3>
-          <span class="dates">PR #2954 · open<span class="chevron">▸</span></span>
-        </div>
-        <div class="company">Skip a slower, occasionally-failing cargo metadata call when a faster path is already safe</div>
-      </summary>
-      <div class="contrib-body">
-        <ul>
-          <li>Found that the package-file comparison logic only took the fast, direct disk-listing path when two separate conditions both held, so registry-extracted packages unnecessarily fell back to a slower <code>cargo package --list</code> call.</li>
-          <li>Relaxed the condition to trigger the fast path whenever a <code>Cargo.toml.orig</code> / <code>.orig.orig</code> marker is present, while still correctly excluding <code>.git</code>, <code>.cargo-ok</code>, and <code>Cargo.lock</code> from the comparison.</li>
-        </ul>
-        <div class="tag-row">
-          <span class="tech-tag">Rust</span>
-          <span class="tech-tag">Cargo internals</span>
-          <span class="tech-tag">Release tooling</span>
-        </div>
-        <div class="tag-row" style="margin-top: 10px;">
-          <a href="https://github.com/release-plz/release-plz/pull/2954" target="_blank">View PR →</a>
-        </div>
-      </div>
-    </details>
-
-    <details class="card contrib">
-      <summary>
-        <div class="role-row">
-          <h3>anthropics/skills</h3>
-          <span class="dates">4 PRs · open<span class="chevron">▸</span></span>
-        </div>
-        <div class="company">Parser correctness, a safety-check gap, and dependency/compatibility fixes across the pdf, xlsx, docx &amp; skill-creator skills</div>
-      </summary>
-      <div class="contrib-body">
-        <ul>
-          <li>Fixed a PDF form-field parser that assumed every choice-field <code>/Opt</code> entry was an <code>[export_value, display_text]</code> pair per spec — a bare single-character string (e.g. <code>"Red"</code>) got silently split into <code>value="R", text="e"</code>, or crashed outright. (<a href="https://github.com/anthropics/skills/pull/1474" target="_blank">PR #1474</a>)</li>
-          <li>Fixed a case-sensitivity gap in the xlsx skill's external-link safety check: the regex meant to catch cached external links before recalculation missed case-mismatched formula references entirely, since it wasn't compiled with <code>IGNORECASE</code>. (<a href="https://github.com/anthropics/skills/pull/1471" target="_blank">PR #1471</a>)</li>
-          <li>Fixed a Python 3.9 import crash in the docx skill (an eager PEP 604 union annotation evaluated at import time) and documented the actual Python 3.10+ / <code>defusedxml</code> requirement instead of leaving it undeclared. (<a href="https://github.com/anthropics/skills/pull/1473" target="_blank">PR #1473</a>)</li>
-          <li>Declared a missing PyYAML dependency for the skill-creator validator script, which failed with <code>ModuleNotFoundError</code> on a clean environment. (<a href="https://github.com/anthropics/skills/pull/1472" target="_blank">PR #1472</a>)</li>
-        </ul>
-        <div class="tag-row">
-          <span class="tech-tag">Python</span>
-          <span class="tech-tag">Spec-compliant parsing</span>
-          <span class="tech-tag">Dependency management</span>
-          <span class="tech-tag">Regression tests</span>
-        </div>
-      </div>
-    </details>
-  </section>
-
-  <section>
-    <h2><span class="cmt">//</span> Skills</h2>
-    <div class="skill-group">
-      <h4>Languages</h4>
-      <div class="skills-grid">
-        <span class="skill-pill">JavaScript / TypeScript</span>
-        <span class="skill-pill">Node.js</span>
-        <span class="skill-pill">Python</span>
-        <span class="skill-pill">SQL</span>
-        <span class="skill-pill">Bash</span>
-        <span class="skill-pill">Go</span>
-        <span class="skill-pill">Rust</span>
-      </div>
-    </div>
-    <div class="skill-group">
-      <h4>Backend &amp; APIs</h4>
-      <div class="skills-grid">
-        <span class="skill-pill">Express</span>
-        <span class="skill-pill">REST API design</span>
-        <span class="skill-pill">OAuth2</span>
-        <span class="skill-pill">Rate limiting</span>
-        <span class="skill-pill">IP allowlisting</span>
-        <span class="skill-pill">JWT / PKCE</span>
-        <span class="skill-pill">Webhooks</span>
-        <span class="skill-pill">React / Next.js</span>
-        <span class="skill-pill">Tailwind</span>
-        <span class="skill-pill">Electron</span>
-      </div>
-    </div>
-    <div class="skill-group">
-      <h4>AI / Agent Tooling</h4>
-      <div class="skills-grid">
-        <span class="skill-pill">Model Context Protocol (MCP)</span>
-        <span class="skill-pill">LangChain</span>
-        <span class="skill-pill">RAG / Vector DBs (Qdrant)</span>
-        <span class="skill-pill">n8n</span>
-        <span class="skill-pill">Multi-provider LLM fallback</span>
-        <span class="skill-pill">Structured output</span>
-        <span class="skill-pill">Prompt design</span>
-      </div>
-    </div>
-    <div class="skill-group">
-      <h4>Infrastructure &amp; Tools</h4>
-      <div class="skills-grid">
-        <span class="skill-pill">Git</span>
-        <span class="skill-pill">Cloudflare (D1, KV, R2, Workers, Hyperdrive)</span>
-        <span class="skill-pill">Redis</span>
-        <span class="skill-pill">SQLite</span>
-        <span class="skill-pill">Render / Vercel</span>
-        <span class="skill-pill">CI (GitHub Actions)</span>
-        <span class="skill-pill">Vitest / Playwright</span>
-        <span class="skill-pill">Termux / Android</span>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <h2><span class="cmt">//</span> Overall Activity</h2>
-    <div class="card metrics-card">
+    <ul class="contact">
+      <li><a href="mailto:allocsys@gmail.com">allocsys@gmail.com</a></li>
+      <li><a href="https://github.com/allocsys" target="_blank" rel="noopener">github.com/allocsys</a></li>
+    </ul>
+    <a class="btn" href="resume.pdf" target="_blank" rel="noopener">Download resume (PDF)</a>
+    <nav aria-label="Sections">
+      <a href="#about">About</a><a href="#projects">Projects</a><a href="#open-source">Open source</a><a href="#skills">Skills</a><a href="#activity">Activity</a>
+    </nav>
+  </aside>
+  <main>
+    <section id="about"><h2>About</h2><p class="about">Backend-focused developer who builds the infrastructure layer AI agents actually run on — auth, rate limiting, multi-service integrations — rather than just wiring prompts together. Comfortable owning a project end-to-end: designing the API surface, hardening it (timing-safe auth, IP allowlisting, proxy-aware rate limiting), and documenting the reasoning so someone else can maintain it. Recent focus: Model Context Protocol (MCP) servers and agentic workflow automation (n8n + LangChain), plus root-causing bugs in real-world open-source infrastructure across JavaScript, Python, Go, and Rust codebases. Ships full-stack TypeScript apps on Cloudflare Workers.</p></section>
+    <section id="projects"><h2>Projects</h2><article class="entry"><h3>madmcp</h3><p class="stack">MCP server — ~50 tools across 8 connectors: GitHub, Cloudflare, Notion, Mem0, Exa &amp; Gemini</p><p class="lead">Built and deployed an MCP server exposing ~50 tools across 8 connectors (GitHub, Cloudflare D1/KV/R2/Workers, Notion, Mem0, generic fetch, Exa, Gemini) to any MCP-compatible AI client.</p><details><summary>More detail</summary><ul><li>Designed a delegation-first architecture: one tool hands an open-ended, multi-step investigation to a second model that runs its own tool loop server-side, with Redis-backed checkpointing so a rate-limited run resumes from its last step instead of restarting.</li><li>Separated tools that touch untrusted external content (web research, fetch) from those that touch internal systems (GitHub, Cloudflare, Notion), so external data can’t reach credentials.</li><li>Designed the auth layer: timing-safe key comparison, IP allowlisting scoped to Claude’s connector range, and per-route rate limiting, ordered so a leaked key alone can’t get in. Handled proxy-hop IP trust, large-push body limits, and per-connector token failure; PR-based workflow with GitHub Actions CI, vitest and supertest.</li></ul><p class="repo"><a href="https://github.com/allocsys/madmcp" target="_blank" rel="noopener">View repository</a></p></details></article><article class="entry"><h3>proetsy</h3><p class="stack">Node.js · React · SQLite · Electron · Playwright</p><p class="lead">Built a local-first pipeline that turns artwork into ready-to-paste Etsy listings and mockups: optional image analysis, listing generation, PSD-template mockups, and a human-in-the-loop review step (publishing stays manual by design).</p><details><summary>More detail</summary><ul><li>Built an LLM provider layer with Gemini primary and Claude fallback, key store, queue and rate limits, plus an embedding-based taste filter in pure JS/WASM (runs on Termux).</li><li>Tested every module (unit, idempotency, route-level integration) and added Playwright E2E against a deterministic fixture LLM; shipped a CI-verified Electron Windows installer.</li></ul><p class="repo"><a href="https://github.com/allocsys/proetsy" target="_blank" rel="noopener">View repository</a></p></details></article><article class="entry"><h3>news-market-ai</h3><p class="stack">Cloudflare Workers · D1 · KV · Gemini · Next.js</p><p class="lead">Built a news-to-trade-signal pipeline: ingestion from free sources and custom scrapers, multi-agent LLM analysis, and signal generation, designed around free-tier Worker limits.</p><details><summary>More detail</summary><ul><li>Wrote a point-in-time backtester and documented rollout gates (backtest → paper → micro-live); live trading is deliberately off.</li><li>Built a multi-key Gemini model-cascade client with KV cooldown state, and a mobile-friendly Next.js 16 ops dashboard served as a Worker with login and a session-gated API.</li></ul><p class="repo"><a href="https://github.com/allocsys/news-market-ai" target="_blank" rel="noopener">View repository</a></p></details></article><article class="entry"><h3>ai-campaign-builder</h3><p class="stack">TypeScript · React · Cloudflare Workers · D1</p><p class="lead">Built a monorepo where a business owner states a goal and an AI agent generates a loyalty or gamification campaign. Apps: owner dashboard, customer app, staff POS, review console, public microsites, and a backend API.</p><details><summary>More detail</summary><ul><li>Shared api-client, UI-kit and campaign-editor packages; JWT auth, D1 migrations, Vitest tests, and CI deploys that provision D1 and KV automatically.</li></ul><p class="repo"><a href="https://github.com/allocsys/ai-campaign-builder" target="_blank" rel="noopener">View repository</a></p></details></article><article class="entry"><h3>peakplast</h3><p class="stack">Cloudflare Workers · Telegram · Gemini · Zarinpal</p><p class="lead">Built and run a production Telegram ordering bot: Gemini voice-order extraction with multi-key fallback, Zarinpal payment links and verification, an admin panel, and a REST API.</p><details><summary>More detail</summary><ul><li>Handled concurrency and abuse (per-chat locking, voice flood limits, address de-duplication). Planning and executing a safe split of the ~7,000-line single-file Worker into ES modules, one verified, deployable step at a time.</li></ul><p class="repo"><a href="https://github.com/allocsys/peakplast" target="_blank" rel="noopener">View repository</a></p></details></article><article class="entry"><h3>clothes-shop</h3><p class="stack">Next.js · TypeScript · Tailwind CSS · RTL</p><p class="lead">Built the front-end of a Persian (right-to-left) online clothing shop: home, shop, product, cart, account and content pages, with a mobile tab bar and configurable site, theme and product data. Backend, checkout and payments are planned next.</p><details><summary>More detail</summary><ul></ul><p class="repo"><a href="https://github.com/allocsys/clothes-shop" target="_blank" rel="noopener">View repository</a></p></details></article><article class="entry"><h3>Agentic Email Triage &amp; Ops Automation</h3><p class="stack">n8n workflow — LLM agent with RAG and CRM/Sheets/LINE routing</p><p class="lead">Designed an n8n workflow where an AI agent classifies inbound email across Gmail, Telegram and WhatsApp, answers from a RAG knowledge base, and drafts replies only for non-urgent cases.</p><details><summary>More detail</summary><ul><li>Put the safety boundary in the system prompt: escalation-worthy emails are flagged for a human and never auto-replied to. Used an OpenAI → Gemini → Claude fallback chain and forced JSON output so Sheets, CRM and LINE nodes route deterministically; tested on 6 scenarios.</li></ul><p class="repo"><a href="https://github.com/allocsys/n8n-agentic-ops" target="_blank" rel="noopener">View repository</a></p></details></article><article class="entry"><h3>Developer tools (Termux / Android)</h3><p class="stack">Bash · Node.js · Playwright · Android</p><p class="lead"><a href="https://github.com/allocsys/cfmanager" target="_blank">cf-manager</a>: menu-driven Cloudflare admin panel in one bash script: Workers deploy/rollback, KV/D1/R2/Hyperdrive, OAuth2 + PKCE with multi-account switching, GitHub sync.</p><details><summary>More detail</summary><ul><li><a href="https://github.com/allocsys/logger" target="_blank">logger</a> (DOM mapper): maps a live DOM, network traffic and replayable actions via remote Browserless.io, working around Playwright’s lack of Android support.</li><li><a href="https://github.com/allocsys/ezgit" target="_blank">ezgit</a> (Git helper that redacts secrets before diffs reach an LLM) and <a href="https://github.com/allocsys/openhands-android-client" target="_blank">openhands-android-client</a> (native client for OpenHands coding agents).</li></ul></details></article></section>
+    <section id="open-source"><h2>Open source contributions</h2><p class="note">Fixes to widely used infrastructure projects. Select a row for details.</p><details class="oss"><summary><span class="oss-name">grafana/alloy</span><span class="oss-what">Stop a legacy Promtail positions file read-error from silently re-ingesting an entire log stream</span><span class="oss-status merged">PR #6750 · merged</span></summary><ul><li>Root-caused a silent-failure bug in <code>loki.source.file</code> / <code>loki.source.journal</code>: when a legacy Promtail positions file existed but couldn't be read (e.g. a permissions error), the reader returned <code>nil</code> — indistinguishable from "file doesn't exist" — so the component silently re-tailed and re-ingested every log from the beginning instead of failing loudly.</li><li>Changed the reader to return <code>(*LegacyFile, error)</code> so a genuine I/O error now propagates up as a loud failure at component construction, while still correctly treating a missing file as non-fatal and malformed YAML as non-fatal.</li></ul><p class="repo"><a href="https://github.com/grafana/alloy/pull/6750" target="_blank" rel="noopener">View pull request</a></p></details><details class="oss"><summary><span class="oss-name">cloudflare/workers-sdk</span><span class="oss-what">Windows path-encoding crash and local Images binding parity</span><span class="oss-status merged">2 PRs · 1 merged, 1 open</span></summary><ul><li>Root-caused a Windows-only crash from non-ASCII paths (Latin-1 header violation) across 5 call sites, verified with a Windows CI run against a real <code>開発</code>-path repro. (<a href="https://github.com/cloudflare/workers-sdk/pull/14713" target="_blank">PR #14713</a> · merged)</li><li>Fixed local Images binding transform parity (<code>fit</code>/<code>gravity</code>/<code>background</code>) with production. Open and in review. (<a href="https://github.com/cloudflare/workers-sdk/pull/14810" target="_blank">PR #14810</a> · open)</li></ul></details><details class="oss"><summary><span class="oss-name">transact-rs/sqlx</span><span class="oss-what">Make the Any driver emit $N placeholders on Postgres (issue #3000)</span><span class="oss-status open">PR #4351 · open</span></summary><ul><li>Fixed the Any driver emitting <code>?</code> placeholders on Postgres by adding a SQL-aware rewrite to <code>$N</code> that skips string literals, quoted identifiers, dollar-quoted strings, and comments, applied on the Postgres path only so MySQL and SQLite are unaffected. CI passes on the fork.</li></ul><p class="repo"><a href="https://github.com/transact-rs/sqlx/pull/4351" target="_blank" rel="noopener">View pull request</a></p></details><details class="oss"><summary><span class="oss-name">release-plz/release-plz</span><span class="oss-what">Skip a slower, occasionally-failing cargo metadata call when a faster path is already safe</span><span class="oss-status open">PR #2954 · open</span></summary><ul><li>Found that the package-file comparison logic only took the fast, direct disk-listing path when two separate conditions both held, so registry-extracted packages unnecessarily fell back to a slower <code>cargo package --list</code> call.</li><li>Relaxed the condition to trigger the fast path whenever a <code>Cargo.toml.orig</code> / <code>.orig.orig</code> marker is present, while still correctly excluding <code>.git</code>, <code>.cargo-ok</code>, and <code>Cargo.lock</code> from the comparison.</li></ul><p class="repo"><a href="https://github.com/release-plz/release-plz/pull/2954" target="_blank" rel="noopener">View pull request</a></p></details><details class="oss"><summary><span class="oss-name">anthropics/skills</span><span class="oss-what">Parser correctness, a safety-check gap, and dependency/compatibility fixes across the pdf, xlsx, docx &amp; skill-creator skills</span><span class="oss-status open">4 PRs · open</span></summary><ul><li>Fixed a PDF form-field parser that assumed every choice-field <code>/Opt</code> entry was an <code>[export_value, display_text]</code> pair per spec — a bare single-character string (e.g. <code>"Red"</code>) got silently split into <code>value="R", text="e"</code>, or crashed outright. (<a href="https://github.com/anthropics/skills/pull/1474" target="_blank">PR #1474</a>)</li><li>Fixed a case-sensitivity gap in the xlsx skill's external-link safety check: the regex meant to catch cached external links before recalculation missed case-mismatched formula references entirely, since it wasn't compiled with <code>IGNORECASE</code>. (<a href="https://github.com/anthropics/skills/pull/1471" target="_blank">PR #1471</a>)</li><li>Fixed a Python 3.9 import crash in the docx skill (an eager PEP 604 union annotation evaluated at import time) and documented the actual Python 3.10+ / <code>defusedxml</code> requirement instead of leaving it undeclared. (<a href="https://github.com/anthropics/skills/pull/1473" target="_blank">PR #1473</a>)</li><li>Declared a missing PyYAML dependency for the skill-creator validator script, which failed with <code>ModuleNotFoundError</code> on a clean environment. (<a href="https://github.com/anthropics/skills/pull/1472" target="_blank">PR #1472</a>)</li></ul></details></section>
+    <section id="skills"><h2>Skills</h2><dl class="skills"><div><dt>Languages</dt><dd>JavaScript / TypeScript, Node.js, Python, SQL, Bash, Go, Rust</dd></div><div><dt>Backend & APIs</dt><dd>Express, REST API design, OAuth2, Rate limiting, IP allowlisting, JWT / PKCE, Webhooks, React / Next.js, Tailwind, Electron</dd></div><div><dt>AI / Agent Tooling</dt><dd>Model Context Protocol (MCP), LangChain, RAG / Vector DBs (Qdrant), n8n, Multi-provider LLM fallback, Structured output, Prompt design</dd></div><div><dt>Infrastructure & Tools</dt><dd>Git, Cloudflare (D1, KV, R2, Workers, Hyperdrive), Redis, SQLite, Render / Vercel, CI (GitHub Actions), Vitest / Playwright, Termux / Android</dd></div></dl></section>
+    <section id="activity"><h2>Activity</h2>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/allocsys/allocsys/main/github-metrics-dark.svg"/>
-        <img src="https://raw.githubusercontent.com/allocsys/allocsys/main/github-metrics.svg" alt="GitHub activity metrics" style="width: 100%; border-radius: 6px;" />
+        <img class="metrics" src="https://raw.githubusercontent.com/allocsys/allocsys/main/github-metrics.svg" alt="GitHub activity metrics" />
       </picture>
-      <p style="color: var(--muted); font-size: 13px; margin-top: 10px;">Aggregate stats across public and private repositories.</p>
-    </div>
-  </section>
-
-  <footer>
-    <p><span class="prompt">$</span>echo "Built by allocsys" &amp;&amp; exit 0 &nbsp;·&nbsp; <a href="https://github.com/allocsys/allocsys">source</a> &nbsp;·&nbsp; last updated October 17, 2026</p>
-  </footer>
-
+      <p class="note">Aggregate stats across public and private repositories.</p>
+    </section>
+    <footer>Last updated October 17, 2026. <a href="https://github.com/allocsys/allocsys">Source on GitHub</a></footer>
+  </main>
 </div>
 </body>
 </html>
