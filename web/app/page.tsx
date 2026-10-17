@@ -135,8 +135,13 @@ export default function Page() {
             </div>
           </section>
 
+          <section id="skills">
+            <Head n="03" title="Skills" />
+            <PinnedSkills items={skills} />
+          </section>
+
           <section id="open-source">
-            <Head n="03" title="Open source" />
+            <Head n="04" title="Open source" />
             <p className="lede reveal">Fixes to widely used infrastructure projects. Select a row for details.</p>
             {contributions.map((c, i) => (
               <IndexRow key={c.name} index={num(i)} title={c.name} meta={c.what} tag={c.status} merged={c.merged}>
@@ -150,11 +155,6 @@ export default function Page() {
                 )}
               </IndexRow>
             ))}
-          </section>
-
-          <section id="skills">
-            <Head n="04" title="Skills" />
-            <PinnedSkills items={skills} />
           </section>
 
           <section id="activity">
