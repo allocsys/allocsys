@@ -27,7 +27,7 @@ jobs:
           # Contribution calendar that includes PRIVATE commits
           # (uses the token, so it's accurate unlike public-only widgets)
           plugin_isocalendar: yes
-          plugin_isocalendar_duration: full-year
+          plugin_isocalendar_duration: half-year
           config_timezone: "America/New_York"
           output_action: committer
           committer_message: "chore: update metrics"
@@ -49,7 +49,7 @@ jobs:
           plugin_languages_threshold: "0%"
           plugin_lines: yes
           plugin_isocalendar: yes
-          plugin_isocalendar_duration: full-year
+          plugin_isocalendar_duration: half-year
           config_timezone: "America/New_York"
           extras_css: |
             svg { background-color: #10151f; }
