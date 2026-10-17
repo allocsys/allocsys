@@ -290,7 +290,7 @@
       <p class="flags">
         <a class="flag" href="mailto:allocsys@gmail.com">--email</a>
         <a class="flag" href="https://github.com/allocsys" target="_blank">--github</a>
-        <a class="flag" href="/resume.pdf" target="_blank">--resume</a>
+        <a class="flag" href="resume.pdf" target="_blank">--resume</a>
       </p>
 
       <p class="line"><span class="prompt">$</span><span class="cursor">▌</span></p>
@@ -300,7 +300,7 @@
   <section>
     <h2><span class="cmt">//</span> About</h2>
     <div class="card">
-      <p>Backend-focused developer who builds the infrastructure layer AI agents actually run on — auth, rate limiting, multi-service integrations — rather than just wiring prompts together. Comfortable owning a project end-to-end: designing the API surface, hardening it (timing-safe auth, IP allowlisting, proxy-aware rate limiting), and documenting the reasoning so someone else can maintain it. Recent focus: Model Context Protocol (MCP) servers and agentic workflow automation (n8n + LangChain), plus root-causing bugs in real-world open-source infrastructure.</p>
+      <p>Backend-focused developer who builds the infrastructure layer AI agents actually run on — auth, rate limiting, multi-service integrations — rather than just wiring prompts together. Comfortable owning a project end-to-end: designing the API surface, hardening it (timing-safe auth, IP allowlisting, proxy-aware rate limiting), and documenting the reasoning so someone else can maintain it. Recent focus: Model Context Protocol (MCP) servers and agentic workflow automation (n8n + LangChain), plus root-causing bugs in real-world open-source infrastructure across JavaScript, Python, and Rust codebases. Ships full-stack TypeScript apps on Cloudflare Workers.</p>
     </div>
   </section>
 
@@ -312,24 +312,20 @@
         <h3>madmcp</h3>
         <span class="dates">2026</span>
       </div>
-      <div class="company">MCP server — GitHub, Cloudflare, Notion, Mem0, Exa &amp; Gemini-powered delegation for AI agents</div>
+      <div class="company">MCP server — ~50 tools across 8 connectors: GitHub, Cloudflare, Notion, Mem0, Exa &amp; Gemini</div>
       <ul>
-        <li>Built and deployed a single MCP server (Node/Express) exposing tools across 8 connectors — GitHub, Cloudflare (D1/KV/R2/Workers), Notion, Mem0, generic fetch, Exa research, and Gemini — to any MCP-compatible client.</li>
-        <li>Built a delegation-first architecture on top: a `delegate_gemini` tool hands an entire open-ended, multi-step investigation to a second model, which runs its own tool-use loop server-side across GitHub/Cloudflare/Notion and returns one synthesized answer — instead of the primary agent chaining every tool call itself.</li>
-        <li>Added Redis-backed checkpointing after every step of a delegated run, so a failed or rate-limited investigation resumes from its last completed step instead of restarting (and re-paying for) the whole task.</li>
-        <li>Isolated the delegation boundary by design: tools that touch live external content (web research, generic fetch) are kept separate from tools that touch internal systems (GitHub, Cloudflare, Notion), so untrusted external data can't reach internal credentials.</li>
-        <li>Reflexive by construction, not by accident: the GitHub connector's write/PR tools default to this project's own repo, so a connected agent can read its own source, diagnose a gap, and commit the fix — the same tools it'd use on any other repo, no special-cased admin path. This README and this portfolio page were both edited this way.</li>
-        <li>Designed the auth layer myself: timing-safe shared-key comparison, IP allowlisting scoped to Claude's published connector range, and per-route rate limiting — applied in the correct order so a leaked key alone can't reach the server from an untrusted network.</li>
-        <li>Handled real deployment-platform edge cases: correct `X-Forwarded-For` trust depth per reverse-proxy hop, request body limits raised for large file pushes, and graceful per-connector token failure (one missing credential doesn't take down the whole server).</li>
+        <li>Built and deployed an MCP server exposing ~50 tools across 8 connectors (GitHub, Cloudflare D1/KV/R2/Workers, Notion, Mem0, generic fetch, Exa, Gemini) to any MCP-compatible AI client.</li>
+        <li>Designed a delegation-first architecture: one tool hands an open-ended, multi-step investigation to a second model that runs its own tool loop server-side, with Redis-backed checkpointing so a rate-limited run resumes from its last step instead of restarting.</li>
+        <li>Separated tools that touch untrusted external content (web research, fetch) from those that touch internal systems (GitHub, Cloudflare, Notion), so external data can’t reach credentials.</li>
+        <li>Designed the auth layer: timing-safe key comparison, IP allowlisting scoped to Claude’s connector range, and per-route rate limiting, ordered so a leaked key alone can’t get in. Handled proxy-hop IP trust, large-push body limits, and per-connector token failure; PR-based workflow with GitHub Actions CI, vitest and supertest.</li>
       </ul>
       <div class="tag-row">
         <span class="tech-tag">Node.js</span>
         <span class="tech-tag">Express</span>
         <span class="tech-tag">MCP</span>
-        <span class="tech-tag">Gemini API</span>
-        <span class="tech-tag">Delegation / orchestration</span>
         <span class="tech-tag">Redis</span>
         <span class="tech-tag">Auth &amp; rate limiting</span>
+        <span class="tech-tag">CI / vitest</span>
       </div>
       <div class="tag-row" style="margin-top: 10px;">
         <a href="https://github.com/allocsys/madmcp" target="_blank">View repo →</a>
@@ -338,22 +334,129 @@
 
     <div class="card">
       <div class="role-row">
+        <h3>proetsy</h3>
+        <span class="dates">2026</span>
+      </div>
+      <div class="company">Node.js · React · SQLite · Electron · Playwright</div>
+      <ul>
+        <li>Built a local-first pipeline that turns artwork into ready-to-paste Etsy listings and mockups: optional image analysis, listing generation, PSD-template mockups, and a human-in-the-loop review step (publishing stays manual by design).</li>
+        <li>Built an LLM provider layer with Gemini primary and Claude fallback, key store, queue and rate limits, plus an embedding-based taste filter in pure JS/WASM (runs on Termux).</li>
+        <li>Tested every module (unit, idempotency, route-level integration) and added Playwright E2E against a deterministic fixture LLM; shipped a CI-verified Electron Windows installer.</li>
+      </ul>
+      <div class="tag-row">
+        <span class="tech-tag">Node.js</span>
+        <span class="tech-tag">React</span>
+        <span class="tech-tag">SQLite</span>
+        <span class="tech-tag">Electron</span>
+        <span class="tech-tag">Playwright</span>
+      </div>
+      <div class="tag-row" style="margin-top: 10px;">
+        <a href="https://github.com/allocsys/proetsy" target="_blank">View repo →</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="role-row">
+        <h3>news-market-ai</h3>
+        <span class="dates">2026</span>
+      </div>
+      <div class="company">Cloudflare Workers · D1 · KV · Gemini · Next.js</div>
+      <ul>
+        <li>Built a news-to-trade-signal pipeline: ingestion from free sources and custom scrapers, multi-agent LLM analysis, and signal generation, designed around free-tier Worker limits.</li>
+        <li>Wrote a point-in-time backtester and documented rollout gates (backtest → paper → micro-live); live trading is deliberately off.</li>
+        <li>Built a multi-key Gemini model-cascade client with KV cooldown state, and a mobile-friendly Next.js 16 ops dashboard served as a Worker with login and a session-gated API.</li>
+      </ul>
+      <div class="tag-row">
+        <span class="tech-tag">Cloudflare Workers</span>
+        <span class="tech-tag">D1 / KV</span>
+        <span class="tech-tag">Gemini</span>
+        <span class="tech-tag">Next.js</span>
+        <span class="tech-tag">Backtesting</span>
+      </div>
+      <div class="tag-row" style="margin-top: 10px;">
+        <a href="https://github.com/allocsys/news-market-ai" target="_blank">View repo →</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="role-row">
+        <h3>ai-campaign-builder</h3>
+        <span class="dates">2026</span>
+      </div>
+      <div class="company">TypeScript · React · Cloudflare Workers · D1</div>
+      <ul>
+        <li>Built a monorepo where a business owner states a goal and an AI agent generates a loyalty or gamification campaign. Apps: owner dashboard, customer app, staff POS, review console, public microsites, and a backend API.</li>
+        <li>Shared api-client, UI-kit and campaign-editor packages; JWT auth, D1 migrations, Vitest tests, and CI deploys that provision D1 and KV automatically.</li>
+      </ul>
+      <div class="tag-row">
+        <span class="tech-tag">TypeScript</span>
+        <span class="tech-tag">React</span>
+        <span class="tech-tag">Cloudflare Workers</span>
+        <span class="tech-tag">D1</span>
+        <span class="tech-tag">JWT</span>
+        <span class="tech-tag">Vitest</span>
+      </div>
+      <div class="tag-row" style="margin-top: 10px;">
+        <a href="https://github.com/allocsys/ai-campaign-builder" target="_blank">View repo →</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="role-row">
+        <h3>peakplast</h3>
+        <span class="dates">2026</span>
+      </div>
+      <div class="company">Cloudflare Workers · Telegram · Gemini · Zarinpal</div>
+      <ul>
+        <li>Built and run a production Telegram ordering bot: Gemini voice-order extraction with multi-key fallback, Zarinpal payment links and verification, an admin panel, and a REST API.</li>
+        <li>Handled concurrency and abuse (per-chat locking, voice flood limits, address de-duplication). Planning and executing a safe split of the ~7,000-line single-file Worker into ES modules, one verified, deployable step at a time.</li>
+      </ul>
+      <div class="tag-row">
+        <span class="tech-tag">Cloudflare Workers</span>
+        <span class="tech-tag">Telegram Bot API</span>
+        <span class="tech-tag">Gemini</span>
+        <span class="tech-tag">Payments</span>
+      </div>
+      <div class="tag-row" style="margin-top: 10px;">
+        <a href="https://github.com/allocsys/peakplast" target="_blank">View repo →</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="role-row">
+        <h3>clothes-shop</h3>
+        <span class="dates">2026</span>
+      </div>
+      <div class="company">Next.js · TypeScript · Tailwind CSS · RTL</div>
+      <ul>
+        <li>Built the front-end of a Persian (right-to-left) online clothing shop: home, shop, product, cart, account and content pages, with a mobile tab bar and configurable site, theme and product data. Backend, checkout and payments are planned next.</li>
+      </ul>
+      <div class="tag-row">
+        <span class="tech-tag">Next.js</span>
+        <span class="tech-tag">TypeScript</span>
+        <span class="tech-tag">Tailwind CSS</span>
+        <span class="tech-tag">RTL</span>
+      </div>
+      <div class="tag-row" style="margin-top: 10px;">
+        <a href="https://github.com/allocsys/clothes-shop" target="_blank">View repo →</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="role-row">
         <h3>Agentic Email Triage &amp; Ops Automation</h3>
         <span class="dates">2026</span>
       </div>
-      <div class="company">n8n workflow — LLM agent with per-sender memory, RAG, and CRM/Sheets/LINE routing</div>
+      <div class="company">n8n workflow — LLM agent with RAG and CRM/Sheets/LINE routing</div>
       <ul>
-        <li>Designed an n8n workflow where an AI agent classifies inbound support email (category + priority), grounds factual answers in a RAG-searched knowledge base, and drafts replies only for non-urgent cases.</li>
-        <li>Built a deliberate safety boundary directly into the system prompt: escalation-worthy emails (angry customers, payment failures, security reports) are flagged for a human and never get an auto-generated reply — the boundary lives before generation, not as a filter after.</li>
-        <li>Forced structured JSON output from the agent so downstream nodes (Sheets logging, CRM ticket creation, LINE alerts) route deterministically instead of parsing free text.</li>
-        <li>Documented and tested against 6 representative scenarios, weighting test coverage toward the costliest failure mode (an urgent email misclassified as routine).</li>
+        <li>Designed an n8n workflow where an AI agent classifies inbound email across Gmail, Telegram and WhatsApp, answers from a RAG knowledge base, and drafts replies only for non-urgent cases.</li>
+        <li>Put the safety boundary in the system prompt: escalation-worthy emails are flagged for a human and never auto-replied to. Used an OpenAI → Gemini → Claude fallback chain and forced JSON output so Sheets, CRM and LINE nodes route deterministically; tested on 6 scenarios.</li>
       </ul>
       <div class="tag-row">
         <span class="tech-tag">n8n</span>
         <span class="tech-tag">LangChain</span>
         <span class="tech-tag">RAG / Qdrant</span>
         <span class="tech-tag">Prompt design</span>
-        <span class="tech-tag">Workflow automation</span>
       </div>
       <div class="tag-row" style="margin-top: 10px;">
         <a href="https://github.com/allocsys/n8n-agentic-ops" target="_blank">View repo →</a>
@@ -362,48 +465,21 @@
 
     <div class="card">
       <div class="role-row">
-        <h3>cf-manager</h3>
+        <h3>Developer tools (Termux / Android)</h3>
         <span class="dates">2026</span>
       </div>
-      <div class="company">Bash + Cloudflare API v4 — mobile-first admin panel for Workers, KV, D1, R2 &amp; Hyperdrive, entirely inside Termux</div>
+      <div class="company">Bash · Node.js · Playwright · Android</div>
       <ul>
-        <li>Built a single self-contained bash script that gives Cloudflare a full menu-driven admin panel — Workers deploy/rollback, KV/D1/R2/Hyperdrive management — usable entirely from a phone terminal, no dashboard tab or laptop required.</li>
-        <li>Implemented OAuth2 + PKCE login (the same flow <code>wrangler login</code> uses) with multi-account storage and switching, so no API tokens need to be manually pasted or rotated by hand.</li>
-        <li>Added one-tap rollback by backing up every deploy locally before it goes out, plus a GitHub sync step that pushes a worker's source straight to a linked repo branch on deploy — deploy and version control in one action.</li>
-        <li>Worked around <code>workerd</code> having no native Android build by driving <code>wrangler tail</code> inside an auto-installed proot-distro Ubuntu container, so real-time log tailing still works from Termux.</li>
+        <li><a href="https://github.com/allocsys/cfmanager" target="_blank">cf-manager</a>: menu-driven Cloudflare admin panel in one bash script: Workers deploy/rollback, KV/D1/R2/Hyperdrive, OAuth2 + PKCE with multi-account switching, GitHub sync.</li>
+        <li><a href="https://github.com/allocsys/logger" target="_blank">logger</a> (DOM mapper): maps a live DOM, network traffic and replayable actions via remote Browserless.io, working around Playwright’s lack of Android support.</li>
+        <li><a href="https://github.com/allocsys/ezgit" target="_blank">ezgit</a> (Git helper that redacts secrets before diffs reach an LLM) and <a href="https://github.com/allocsys/openhands-android-client" target="_blank">openhands-android-client</a> (native client for OpenHands coding agents).</li>
       </ul>
       <div class="tag-row">
         <span class="tech-tag">Bash</span>
         <span class="tech-tag">Cloudflare API v4</span>
         <span class="tech-tag">OAuth2 + PKCE</span>
-        <span class="tech-tag">Termux</span>
-        <span class="tech-tag">CLI / TUI design</span>
-      </div>
-      <div class="tag-row" style="margin-top: 10px;">
-        <a href="https://github.com/allocsys/cfmanager" target="_blank">View repo →</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="role-row">
-        <h3>domap</h3>
-        <span class="dates">2026</span>
-      </div>
-      <div class="company">Node.js + Playwright — headless-Chromium DOM mapper and action-replay tool for Termux</div>
-      <ul>
-        <li>Built a tool that walks a live page's DOM after JS execution into a structured tree (bounding boxes, ARIA roles, stable-ish CSS selectors) and flags interactive elements for later reuse.</li>
-        <li>Captured full network traffic (requests, responses, failures, timing) alongside each DOM snapshot and rendered everything into a single tabbed HTML report (tree / interactive elements / network / actions).</li>
-        <li>Solved a real platform blocker: <code>playwright-core</code> refuses to load at all on Android by checking <code>process.platform</code> — added a narrowly-scoped platform spoof around just the <code>require()</code> call, safe because the tool never launches Android-specific binaries and instead always attaches to a remote Browserless.io session.</li>
-        <li>Supports replaying recorded actions (clicks, uploads, text input) against a page in a fresh session, including correct file-chooser interception for upload buttons that only open a native OS dialog on click.</li>
-      </ul>
-      <div class="tag-row">
-        <span class="tech-tag">Node.js</span>
         <span class="tech-tag">Playwright</span>
-        <span class="tech-tag">Browserless.io</span>
-        <span class="tech-tag">DOM analysis</span>
-      </div>
-      <div class="tag-row" style="margin-top: 10px;">
-        <a href="https://github.com/allocsys/logger" target="_blank">View repo →</a>
+        <span class="tech-tag">Termux</span>
       </div>
     </div>
   </section>
@@ -415,14 +491,15 @@
       <summary>
         <div class="role-row">
           <h3>cloudflare/workers-sdk</h3>
-          <span class="dates">3 PRs · 2 merged, 1 closed<span class="chevron">▸</span></span>
+          <span class="dates">4 PRs · 1 merged, 2 closed, 1 open<span class="chevron">▸</span></span>
         </div>
-        <div class="company">Windows path-encoding crash, deploy-time validation bug, and local Images binding parity</div>
+        <div class="company">Windows path-encoding crash, false redirect-loop deploy warning, and local Images binding parity</div>
       </summary>
       <div class="contrib-body">
         <ul>
-          <li>Root-caused a Windows-only startup crash on non-ASCII workspace paths to an HTTP header encoding violation (headers are Latin-1-only), then fixed 5 coordinated call sites across module-fallback and worker-socket handling. Verified with a Windows CI run against a real <code>開発</code>-path repro. (<a href="https://github.com/cloudflare/workers-sdk/pull/14713" target="_blank">PR #14713</a> · merged)</li>
-          <li>Fixed the local Miniflare Images binding to respect <code>fit</code>/<code>gravity</code>/<code>background</code> transform options, matching production behavior. Original PR closed after an accidental fork deletion mid-review; restored and merged as <a href="https://github.com/cloudflare/workers-sdk/pull/14810" target="_blank">PR #14810</a>. (<a href="https://github.com/cloudflare/workers-sdk/pull/14714" target="_blank">PR #14714</a> · closed)</li>
+          <li>Root-caused a Windows-only crash from non-ASCII paths (Latin-1 header violation) across 5 call sites, verified with a Windows CI run against a real <code>開発</code>-path repro. (<a href="https://github.com/cloudflare/workers-sdk/pull/14713" target="_blank">PR #14713</a> · merged)</li>
+          <li>Fixed a false infinite-redirect-loop deploy warning. (closed, not merged)</li>
+          <li>Fixed local Images binding transform parity (<code>fit</code>/<code>gravity</code>/<code>background</code>) with production. Original PR closed after an accidental fork deletion mid-review; restored and continued in a follow-up, currently open and in review. (<a href="https://github.com/cloudflare/workers-sdk/pull/14714" target="_blank">PR #14714</a> · closed · <a href="https://github.com/cloudflare/workers-sdk/pull/14810" target="_blank">PR #14810</a> · open)</li>
         </ul>
         <div class="tag-row">
           <span class="tech-tag">TypeScript</span>
@@ -505,7 +582,52 @@
       </div>
     </details>
 
-    
+
+    <details class="card contrib">
+      <summary>
+        <div class="role-row">
+          <h3>transact-rs/sqlx</h3>
+          <span class="dates">PR #4351 · open<span class="chevron">▸</span></span>
+        </div>
+        <div class="company">Make the Any driver emit $N placeholders on Postgres (issue #3000)</div>
+      </summary>
+      <div class="contrib-body">
+        <ul>
+          <li>Fixed the Any driver emitting <code>?</code> placeholders on Postgres by adding a SQL-aware rewrite to <code>$N</code> that skips string literals, quoted identifiers, dollar-quoted strings, and comments, applied on the Postgres path only so MySQL and SQLite are unaffected. CI passes on the fork.</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tech-tag">Rust</span>
+          <span class="tech-tag">SQL parsing</span>
+          <span class="tech-tag">Database drivers</span>
+        </div>
+        <div class="tag-row" style="margin-top: 10px;">
+          <a href="https://github.com/transact-rs/sqlx/pull/4351" target="_blank">View PR →</a>
+        </div>
+      </div>
+    </details>
+
+    <details class="card contrib">
+      <summary>
+        <div class="role-row">
+          <h3>urllib3/urllib3</h3>
+          <span class="dates">PR #5121 · closed (superseded)<span class="chevron">▸</span></span>
+        </div>
+        <div class="company">Replace a deprecated pyOpenSSL X.509 API call</div>
+      </summary>
+      <div class="contrib-body">
+        <ul>
+          <li>Replaced a deprecated pyOpenSSL X.509 API call with the <code>cryptography</code> library equivalent, with new tests for both a present and missing <code>commonName</code>.</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">cryptography</span>
+          <span class="tech-tag">Testing</span>
+        </div>
+        <div class="tag-row" style="margin-top: 10px;">
+          <a href="https://github.com/urllib3/urllib3/pull/5121" target="_blank">View PR →</a>
+        </div>
+      </div>
+    </details>
   </section>
 
   <section>
@@ -517,6 +639,8 @@
         <span class="skill-pill">Node.js</span>
         <span class="skill-pill">Python</span>
         <span class="skill-pill">SQL</span>
+        <span class="skill-pill">Bash</span>
+        <span class="skill-pill">Rust (open-source contributions)</span>
       </div>
     </div>
     <div class="skill-group">
@@ -527,7 +651,11 @@
         <span class="skill-pill">OAuth2</span>
         <span class="skill-pill">Rate limiting</span>
         <span class="skill-pill">IP allowlisting</span>
+        <span class="skill-pill">JWT / PKCE</span>
         <span class="skill-pill">Webhooks</span>
+        <span class="skill-pill">React / Next.js</span>
+        <span class="skill-pill">Tailwind</span>
+        <span class="skill-pill">Electron</span>
       </div>
     </div>
     <div class="skill-group">
@@ -537,6 +665,8 @@
         <span class="skill-pill">LangChain</span>
         <span class="skill-pill">RAG / Vector DBs (Qdrant)</span>
         <span class="skill-pill">n8n</span>
+        <span class="skill-pill">Multi-provider LLM fallback</span>
+        <span class="skill-pill">Structured output</span>
         <span class="skill-pill">Prompt design</span>
       </div>
     </div>
@@ -544,9 +674,13 @@
       <h4>Infrastructure &amp; Tools</h4>
       <div class="skills-grid">
         <span class="skill-pill">Git</span>
-        <span class="skill-pill">Cloudflare (D1, KV, R2, Workers)</span>
+        <span class="skill-pill">Cloudflare (D1, KV, R2, Workers, Hyperdrive)</span>
+        <span class="skill-pill">Redis</span>
+        <span class="skill-pill">SQLite</span>
         <span class="skill-pill">Render / Vercel</span>
         <span class="skill-pill">CI (GitHub Actions)</span>
+        <span class="skill-pill">Vitest / Playwright</span>
+        <span class="skill-pill">Termux / Android</span>
       </div>
     </div>
   </section>
@@ -563,7 +697,7 @@
   </section>
 
   <footer>
-    <p><span class="prompt">$</span>echo "Built by allocsys" &amp;&amp; exit 0 &nbsp;·&nbsp; <a href="https://github.com/allocsys/allocsys">source</a> &nbsp;·&nbsp; last updated July 30, 2026</p>
+    <p><span class="prompt">$</span>echo "Built by allocsys" &amp;&amp; exit 0 &nbsp;·&nbsp; <a href="https://github.com/allocsys/allocsys">source</a> &nbsp;·&nbsp; last updated October 17, 2026</p>
   </footer>
 
 </div>

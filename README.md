@@ -37,7 +37,8 @@ end-to-end, from API design to hardening to documentation.
 $ cat role.txt
 Backend Developer · APIs, Infra & AI-Agent Tooling
 Recent focus: Model Context Protocol (MCP) servers and agentic
-workflow automation (n8n + LangChain).
+workflow automation (n8n + LangChain), plus full-stack TypeScript
+on Cloudflare Workers.
 ```
 
 <br/>
@@ -65,11 +66,19 @@ workflow automation (n8n + LangChain).
 
 <div align="left">
 
-**[n8n-agentic-ops](https://github.com/allocsys/n8n-agentic-ops)** — Agentic multi-channel triage (Gmail, Telegram, WhatsApp) with a multi-provider LLM fallback chain (OpenAI → Gemini → Claude), per-sender memory, RAG-backed knowledge base search, and CRM/Sheets/LINE routing driven by structured JSON output instead of free-text parsing.
+**[madmcp](https://github.com/allocsys/madmcp)** — MCP server exposing ~50 tools across 8 connectors (GitHub, Cloudflare, Notion, Mem0, Exa, Gemini) with delegated multi-step investigations, Redis checkpointing, timing-safe auth, IP allowlisting, and per-route rate limiting.
 
-**[madmcp](https://github.com/allocsys/madmcp)** — MCP server exposing ~50 tools across GitHub, Cloudflare (D1/KV/R2/Workers), Notion, Mem0, and web-fetch to any MCP-compatible client, with timing-safe auth, IP allowlisting, and per-route rate limiting.
+**[proetsy](https://github.com/allocsys/proetsy)** — Local-first pipeline turning artwork into Etsy listings and mockups, with a Gemini/Claude provider layer and a human review step.
 
-**[cfmanager](https://github.com/allocsys/cfmanager)** — Mobile-first Cloudflare admin panel (Workers, KV, D1, R2, Hyperdrive) built as a self-contained bash script, running entirely inside Termux.
+**[news-market-ai](https://github.com/allocsys/news-market-ai)** — News-to-trade-signal pipeline on Cloudflare Workers with multi-agent LLM analysis and a point-in-time backtester.
+
+**[ai-campaign-builder](https://github.com/allocsys/ai-campaign-builder)** — Monorepo where an AI agent turns a business goal into a loyalty or gamification campaign.
+
+**[peakplast](https://github.com/allocsys/peakplast)** — Production Telegram ordering bot with Gemini voice-order extraction and Zarinpal payments.
+
+**[n8n-agentic-ops](https://github.com/allocsys/n8n-agentic-ops)** — Agentic multi-channel triage (Gmail, Telegram, WhatsApp) with an OpenAI → Gemini → Claude fallback chain, RAG, and structured-output routing.
+
+**[cfmanager](https://github.com/allocsys/cfmanager)** — Mobile-first Cloudflare admin panel built as a self-contained bash script, running entirely inside Termux.
 
 See the full write-ups on the [portfolio site →](https://allocsys.github.io/allocsys/)
 
