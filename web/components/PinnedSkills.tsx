@@ -34,8 +34,10 @@ export default function PinnedSkills({ items }: { items: [string, string][] }) {
           <li key={k} className="step" data-i={i} data-on={i === active} ref={(el) => { refs.current[i] = el; }}>
             <h3 className="mono step-k">{k}</h3>
             <ul className="chips">
-              {v.split(', ').map((s) => (
-                <li key={s}>{s}</li>
+              {v.split(', ').map((s, c) => (
+                <li key={s} style={{ ['--c' as string]: c }}>
+                  {s}
+                </li>
               ))}
             </ul>
           </li>
