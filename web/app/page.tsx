@@ -2,7 +2,9 @@ import { about, contributions, languages, projects, skills, updated } from '@/da
 import Activity from '@/components/Activity';
 import Header from '@/components/Header';
 import IndexRow from '@/components/IndexRow';
-import { CountUp, ScrubText, Spinner } from '@/components/Motion';
+import { CountUp, Drift, ScrollWords, ScrubText, Spinner } from '@/components/Motion';
+import PinnedSkills from '@/components/PinnedSkills';
+import StackCard from '@/components/StackCard';
 import RichText from '@/components/RichText';
 
 const RESUME = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/resume.pdf`;
@@ -89,29 +91,48 @@ export default function Page() {
                 [projects.length, 'Projects shipped'],
                 [contributions.length, 'Open-source repos'],
                 [languages.length, 'Languages'],
-              ].map(([v, l]) => (
-                <div key={l} className="reveal">
+              ].map(([v, l], i) => (
+                <Drift key={l} from={10 + i * 30} to={-10 - i * 30}>
                   <dt className="stat-n"><CountUp to={v as number} /></dt>
                   <dd className="mono">{l}</dd>
-                </div>
+                </Drift>
               ))}
             </dl>
           </section>
+        </div>
 
+        <ScrollWords top="MCP servers · AI agents · automation" bottom="Open source · TypeScript · Go · Rust" />
+
+        <div className="wrap">
           <section id="projects">
             <Head n="02" title="Work" />
-            {projects.map((p, i) => (
-              <IndexRow key={p.name} index={num(i)} title={p.name} meta={p.stack} defaultOpen={p.expanded}>
-                <ul>
-                  {p.bullets.map((b) => (
-                    <li key={b}><RichText text={b} /></li>
-                  ))}
-                </ul>
-                {p.repo && (
-                  <p className="more"><a href={p.repo} target="_blank" rel="noopener noreferrer">View repository ↗</a></p>
-                )}
-              </IndexRow>
-            ))}
+            <div className="stack">
+              {projects.map((p, i) => (
+                <StackCard
+                  key={p.name}
+                  slot={i}
+                  index={num(i)}
+                  title={p.name}
+                  meta={p.stack}
+                  defaultOpen={p.expanded}
+                  lead={<RichText text={p.bullets[0]} />}
+                  more={
+                    p.bullets.length > 1 ? (
+                      <ul>
+                        {p.bullets.slice(1).map((b) => (
+                          <li key={b}><RichText text={b} /></li>
+                        ))}
+                      </ul>
+                    ) : undefined
+                  }
+                  link={
+                    p.repo ? (
+                      <p className="more"><a href={p.repo} target="_blank" rel="noopener noreferrer">View repository ↗</a></p>
+                    ) : undefined
+                  }
+                />
+              ))}
+            </div>
           </section>
 
           <section id="open-source">
@@ -133,20 +154,7 @@ export default function Page() {
 
           <section id="skills">
             <Head n="04" title="Skills" />
-            <dl className="skills">
-              {skills.map(([k, v]) => (
-                <div key={k} className="reveal">
-                  <dt className="mono">{k}</dt>
-                  <dd>
-                    <ul>
-                      {v.split(', ').map((s) => (
-                        <li key={s}>{s}</li>
-                      ))}
-                    </ul>
-                  </dd>
-                </div>
-              ))}
-            </dl>
+            <PinnedSkills items={skills} />
           </section>
 
           <section id="activity">
