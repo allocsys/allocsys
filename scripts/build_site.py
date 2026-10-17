@@ -52,22 +52,35 @@ skills = "".join(f"<div><dt>{k}</dt><dd>{v}</dd></div>" for k, v in D["skills"])
 
 page = HEAD + f'''<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 {CSS}</style>
 </head>
 <body>
+<header class="hero">
+  <div class="terminal">
+    <div class="term-bar">
+      <span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span>
+      <span class="term-title">allocsys@allocsys: ~</span>
+    </div>
+    <div class="term-body">
+      <p class="line l1"><span class="prompt">$</span>whoami</p>
+      <h1 class="out name l1">allocsys</h1>
+      <p class="line l2"><span class="prompt">$</span>cat role.txt</p>
+      <p class="out role l2">Backend Developer — APIs, infra &amp; AI-agent tooling</p>
+      <p class="line l3"><span class="prompt">$</span>ls --contact</p>
+      <p class="out flags l3">
+        <a href="mailto:allocsys@gmail.com">--email</a>
+        <a href="https://github.com/allocsys" target="_blank" rel="noopener">--github</a>
+        <a href="resume.pdf" target="_blank" rel="noopener">--resume</a>
+        <span class="avail"><span class="dot"></span>open to work</span>
+      </p>
+      <p class="line l4"><span class="prompt">$</span><span class="cursor">▌</span></p>
+    </div>
+  </div>
+</header>
 <div class="layout">
   <aside class="side">
-    <div class="id">
-      <h1>allocsys</h1>
-      <p class="role">Backend developer: APIs, infrastructure and AI-agent tooling</p>
-      <p class="avail"><span class="dot"></span>Open to work</p>
-    </div>
-    <ul class="contact">
-      <li><a href="mailto:allocsys@gmail.com">allocsys@gmail.com</a></li>
-      <li><a href="https://github.com/allocsys" target="_blank" rel="noopener">github.com/allocsys</a></li>
-    </ul>
     <a class="btn" href="resume.pdf" target="_blank" rel="noopener">Download resume (PDF)</a>
     <nav aria-label="Sections">
       <a href="#about">About</a><a href="#projects">Projects</a><a href="#open-source">Open source</a><a href="#skills">Skills</a><a href="#activity">Activity</a>
