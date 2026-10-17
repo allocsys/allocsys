@@ -1,10 +1,10 @@
 import { about, contributions, languages, projects, skills, updated } from '@/data/site';
+import Activity from '@/components/Activity';
 import Header from '@/components/Header';
 import IndexRow from '@/components/IndexRow';
 import { CountUp, ScrubText, Spinner } from '@/components/Motion';
 import RichText from '@/components/RichText';
 
-const METRICS = 'https://raw.githubusercontent.com/allocsys/allocsys/main/github-metrics';
 const RESUME = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/resume.pdf`;
 const EMAIL = 'allocsys@gmail.com';
 const TICKER = ['MCP servers', 'TypeScript', 'Cloudflare Workers', 'Python', 'Go', 'Rust', 'n8n', 'LangChain', 'SQL', 'Bash'];
@@ -151,13 +151,7 @@ export default function Page() {
 
           <section id="activity">
             <Head n="05" title="Activity" />
-            <div className="metrics reveal">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img className="only-light" src={`${METRICS}.svg`} alt="GitHub activity metrics" loading="lazy" />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img className="only-dark" src={`${METRICS}-dark.svg`} alt="" aria-hidden="true" loading="lazy" />
-            </div>
-            <p className="lede">Aggregate stats across public and private repositories.</p>
+            <Activity />
           </section>
 
           <section id="contact">
