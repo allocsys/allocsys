@@ -1,69 +1,184 @@
-import { about, contributions, projects, skills, updated } from '@/data/site';
-import OssRow from '@/components/OssRow';
-import ProjectEntry from '@/components/ProjectEntry';
-import PromptHeading from '@/components/PromptHeading';
-import SideNav from '@/components/SideNav';
-import TerminalHero from '@/components/TerminalHero';
+import { about, contributions, languages, projects, skills, updated } from '@/data/site';
+import Header from '@/components/Header';
+import IndexRow from '@/components/IndexRow';
+import { CountUp, ScrubText, Spinner } from '@/components/Motion';
+import RichText from '@/components/RichText';
 
 const METRICS = 'https://raw.githubusercontent.com/allocsys/allocsys/main/github-metrics';
+const RESUME = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/resume.pdf`;
+const EMAIL = 'allocsys@gmail.com';
+const TICKER = ['MCP servers', 'TypeScript', 'Cloudflare Workers', 'Python', 'Go', 'Rust', 'n8n', 'LangChain', 'SQL', 'Bash'];
+const num = (i: number) => String(i + 1).padStart(2, '0');
+
+function Head({ n, title }: { n: string; title: string }) {
+  return (
+    <header className="sec-head reveal">
+      <span className="mono">{n}</span>
+      <h2>{title}</h2>
+    </header>
+  );
+}
+
+function Band({ reverse, outline }: { reverse?: boolean; outline?: boolean }) {
+  return (
+    <div className={`band-row${outline ? ' outline' : ''}`} aria-hidden="true">
+      <div className="track" style={reverse ? { animationDirection: 'reverse' } : undefined}>
+        {[0, 1].map((k) => (
+          <ul key={k}>
+            {TICKER.map((t) => (
+              <li key={t}>{t}</li>
+            ))}
+          </ul>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function Page() {
   return (
     <>
-      <TerminalHero />
-      <div className="layout">
-        <SideNav />
-        <main>
+      <Header />
+      <main id="top">
+        <section className="hero">
+          <div className="hero-top">
+            <div>
+              <p className="term mono">
+                <span>$ whoami</span>
+                <br />
+                <span className="typed" style={{ '--n': 28 } as React.CSSProperties}>
+                  allocsys · backend developer
+                </span>
+                <i className="caret" />
+              </p>
+              <p className="pill mono">
+                <i className="dot" /> Open to work
+              </p>
+            </div>
+            <Spinner />
+          </div>
+          <h1 className="display">
+            <span className="line"><span style={{ '--i': 0 } as React.CSSProperties}>I build the</span></span>
+            <span className="line"><span className="serif" style={{ '--i': 1 } as React.CSSProperties}>infrastructure</span></span>
+            <span className="line"><span style={{ '--i': 2 } as React.CSSProperties}>AI agents</span></span>
+            <span className="line"><span style={{ '--i': 3 } as React.CSSProperties}>run on.</span></span>
+          </h1>
+          <div className="hero-foot">
+            <p className="sub">
+              MCP servers, agentic automation and open-source fixes across JavaScript, Python, Go and Rust.
+            </p>
+            <div className="ctas">
+              <a className="btn solid" href={`mailto:${EMAIL}`}>Email ↗</a>
+              <a className="btn" href="https://github.com/allocsys" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+              <a className="btn" href={RESUME} target="_blank" rel="noopener noreferrer">Résumé ↓</a>
+            </div>
+          </div>
+        </section>
+
+        <div className="band">
+          <Band />
+          <Band reverse outline />
+        </div>
+
+        <div className="wrap">
           <section id="about">
-            <PromptHeading>cat about.txt</PromptHeading>
-            <p className="about">{about}</p>
+            <Head n="01" title="About" />
+            <ScrubText className="about" text={about} />
+            <dl className="stats">
+              {[
+                [projects.length, 'Projects shipped'],
+                [contributions.length, 'Open-source repos'],
+                [languages.length, 'Languages'],
+              ].map(([v, l]) => (
+                <div key={l} className="reveal">
+                  <dt className="stat-n"><CountUp to={v as number} /></dt>
+                  <dd className="mono">{l}</dd>
+                </div>
+              ))}
+            </dl>
           </section>
 
           <section id="projects">
-            <PromptHeading>ls projects/</PromptHeading>
-            {projects.map((p) => (
-              <ProjectEntry key={p.name} project={p} />
+            <Head n="02" title="Work" />
+            {projects.map((p, i) => (
+              <IndexRow key={p.name} index={num(i)} title={p.name} meta={p.stack} defaultOpen={p.expanded}>
+                <ul>
+                  {p.bullets.map((b) => (
+                    <li key={b}><RichText text={b} /></li>
+                  ))}
+                </ul>
+                {p.repo && (
+                  <p className="more"><a href={p.repo} target="_blank" rel="noopener noreferrer">View repository ↗</a></p>
+                )}
+              </IndexRow>
             ))}
           </section>
 
           <section id="open-source">
-            <PromptHeading>git log open-source/</PromptHeading>
-            <p className="note">Fixes to widely used infrastructure projects. Select a row for details.</p>
-            {contributions.map((c) => (
-              <OssRow key={c.name} item={c} />
+            <Head n="03" title="Open source" />
+            <p className="lede reveal">Fixes to widely used infrastructure projects. Select a row for details.</p>
+            {contributions.map((c, i) => (
+              <IndexRow key={c.name} index={num(i)} title={c.name} meta={c.what} tag={c.status} merged={c.merged}>
+                <ul>
+                  {c.bullets.map((b) => (
+                    <li key={b}><RichText text={b} /></li>
+                  ))}
+                </ul>
+                {c.pr && (
+                  <p className="more"><a href={c.pr} target="_blank" rel="noopener noreferrer">View pull request ↗</a></p>
+                )}
+              </IndexRow>
             ))}
           </section>
 
           <section id="skills">
-            <PromptHeading>cat skills.txt</PromptHeading>
+            <Head n="04" title="Skills" />
             <dl className="skills">
               {skills.map(([k, v]) => (
-                <div key={k}>
-                  <dt>{k}</dt>
-                  <dd>{v}</dd>
+                <div key={k} className="reveal">
+                  <dt className="mono">{k}</dt>
+                  <dd>
+                    <ul>
+                      {v.split(', ').map((s) => (
+                        <li key={s}>{s}</li>
+                      ))}
+                    </ul>
+                  </dd>
                 </div>
               ))}
             </dl>
           </section>
 
           <section id="activity">
-            <PromptHeading>stats --activity</PromptHeading>
-            <picture>
-              <source media="(prefers-color-scheme: dark)" srcSet={`${METRICS}-dark.svg`} />
+            <Head n="05" title="Activity" />
+            <div className="metrics reveal">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img className="metrics" src={`${METRICS}.svg`} alt="GitHub activity metrics" loading="lazy" />
-            </picture>
-            <p className="note">Aggregate stats across public and private repositories.</p>
+              <img className="only-light" src={`${METRICS}.svg`} alt="GitHub activity metrics" loading="lazy" />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img className="only-dark" src={`${METRICS}-dark.svg`} alt="" aria-hidden="true" loading="lazy" />
+            </div>
+            <p className="lede">Aggregate stats across public and private repositories.</p>
           </section>
 
-          <footer>
-            Last updated {updated}.{' '}
-            <a href="https://github.com/allocsys/allocsys" target="_blank" rel="noopener noreferrer">
-              Source on GitHub
-            </a>
-          </footer>
-        </main>
-      </div>
+          <section id="contact">
+            <Head n="06" title="Contact" />
+            <a className="mega reveal" href={`mailto:${EMAIL}`}>{EMAIL}</a>
+            <p className="ctas">
+              <a className="btn" href="https://github.com/allocsys" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+              <a className="btn" href={RESUME} target="_blank" rel="noopener noreferrer">Résumé ↓</a>
+            </p>
+          </section>
+        </div>
+      </main>
+      <footer className="foot">
+        <p className="mono">
+          <span>$</span> <i className="caret" />
+        </p>
+        <p>
+          Last updated {updated}.{' '}
+          <a href="https://github.com/allocsys/allocsys" target="_blank" rel="noopener noreferrer">Source on GitHub</a>
+        </p>
+      </footer>
     </>
   );
 }

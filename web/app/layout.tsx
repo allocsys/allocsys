@@ -3,6 +3,19 @@ import localFont from 'next/font/local';
 import Providers from '@/components/Providers';
 import './globals.css';
 
+const display = localFont({
+  src: '../node_modules/@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wdth-normal.woff2',
+  variable: '--font-display',
+  weight: '200 800',
+  display: 'swap',
+});
+const serif = localFont({
+  src: '../node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-italic.woff2',
+  variable: '--font-serif',
+  weight: '400',
+  style: 'italic',
+  display: 'swap',
+});
 const mono = localFont({
   src: '../node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2',
   variable: '--font-mono',
@@ -21,34 +34,27 @@ export const metadata: Metadata = {
   title: TITLE,
   description: DESC,
   alternates: { canonical: SITE },
-  openGraph: {
-    type: 'profile',
-    title: TITLE,
-    description: DESC,
-    url: SITE,
-    siteName: 'allocsys',
-    images: [OG_IMAGE],
-  },
+  openGraph: { type: 'profile', title: TITLE, description: DESC, url: SITE, siteName: 'allocsys', images: [OG_IMAGE] },
   twitter: { card: 'summary_large_image', title: TITLE, description: DESC, images: [OG_IMAGE] },
 };
 
 export const viewport: Viewport = {
   colorScheme: 'dark light',
   themeColor: [
-    { media: '(prefers-color-scheme: dark)', color: '#0a0e14' },
-    { media: '(prefers-color-scheme: light)', color: '#f7f9fb' },
+    { media: '(prefers-color-scheme: dark)', color: '#0e0e0d' },
+    { media: '(prefers-color-scheme: light)', color: '#f3f0e8' },
   ],
 };
 
-// Runs before first paint: lets CSS hide the hero lines only when the typing animation will play.
-const animFlag =
-  "document.documentElement.dataset.anim=matchMedia('(prefers-reduced-motion: reduce)').matches?'off':'on'";
+// Runs before first paint: resolves the theme (saved choice, else system) and the motion flag.
+const boot =
+  "try{var d=document.documentElement,t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';d.dataset.theme=t}catch(e){}";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={mono.variable} suppressHydrationWarning>
+    <html lang="en" className={`${display.variable} ${serif.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: animFlag }} />
+        <script dangerouslySetInnerHTML={{ __html: boot }} />
       </head>
       <body>
         <Providers>{children}</Providers>
