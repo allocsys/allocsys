@@ -48,6 +48,7 @@ def contribution(c):
             f'<ul>{items}</ul>{link}</details>')
 
 
+langs = "".join(f'<span>{x}</span>' for x in D["languages"])
 skills = "".join(f"<div><dt>{k}</dt><dd>{v}</dd></div>" for k, v in D["skills"])
 
 page = HEAD + f'''<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -68,14 +69,16 @@ page = HEAD + f'''<link rel="preconnect" href="https://fonts.googleapis.com">
       <h1 class="out name l1">allocsys</h1>
       <p class="line l2"><span class="prompt">$</span>cat role.txt</p>
       <p class="out role l2">Backend Developer — APIs, infra &amp; AI-agent tooling</p>
-      <p class="line l3"><span class="prompt">$</span>ls --contact</p>
-      <p class="out flags l3">
+      <p class="line l3"><span class="prompt">$</span>cat languages.txt</p>
+      <p class="out langs l3">{langs}</p>
+      <p class="line l4"><span class="prompt">$</span>ls --contact</p>
+      <p class="out flags l4">
         <a href="mailto:allocsys@gmail.com">--email</a>
         <a href="https://github.com/allocsys" target="_blank" rel="noopener">--github</a>
         <a href="resume.pdf" target="_blank" rel="noopener">--resume</a>
         <span class="avail"><span class="dot"></span>open to work</span>
       </p>
-      <p class="line l4"><span class="prompt">$</span><span class="cursor">▌</span></p>
+      <p class="line l5"><span class="prompt">$</span><span class="cursor">▌</span></p>
     </div>
   </div>
 </header>

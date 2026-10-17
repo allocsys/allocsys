@@ -155,5 +155,14 @@
    "Git, Cloudflare (D1, KV, R2, Workers, Hyperdrive), Redis, SQLite, Render / Vercel, CI (GitHub Actions), Vitest / Playwright, Termux / Android"
   ]
  ],
- "updated": "October 17, 2026"
+ "updated": "October 17, 2026",
+ "languages": [
+  "JavaScript",
+  "TypeScript",
+  "Python",
+  "Go",
+  "Rust",
+  "SQL",
+  "Bash"
+ ]
 }
