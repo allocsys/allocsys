@@ -167,9 +167,18 @@ h2 { font-size: clamp(2.6rem, 9vw, 8rem); line-height: 0.95; font-weight: 700; l
 .pin-dots { display: flex; gap: 0.4rem; margin-left: auto; }
 .pin-dots i { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--soft); transition: background 0.3s, transform 0.3s; }
 .pin-dots i[data-on='true'] { background: var(--accent); transform: scale(1.4); }
-.step { min-height: 26svh; display: flex; flex-direction: column; justify-content: center; gap: 1.2rem; padding: 1.5rem 0; opacity: 0.3; transition: opacity 0.4s; }
-.step[data-on='true'] { opacity: 1; }
-.step-k { color: var(--muted); }
+.step { min-height: 26svh; display: flex; flex-direction: column; justify-content: center; gap: 1.2rem; padding: 1.5rem 0; }
+.step-k { color: var(--muted); transition: color 0.4s; }
+.step[data-on='true'] .step-k { color: var(--accent); }
+.step .chips li {
+  opacity: 0.12; transform: translateY(1.4rem) scale(0.7) rotate(-4deg);
+  transition: opacity 0.25s, transform 0.25s, background 0.2s, color 0.2s, border-color 0.2s;
+}
+.step[data-on='true'] .chips li {
+  opacity: 1; transform: none;
+  transition: opacity 0.4s calc(var(--c) * 70ms), transform 0.7s cubic-bezier(0.34, 1.7, 0.5, 1) calc(var(--c) * 70ms), background 0.2s, color 0.2s, border-color 0.2s;
+}
+.step[data-on='true'] .chips li:hover { transform: translateY(-3px); transition-delay: 0s; }
 @media (min-width: 900px) {
   .pin { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: calc(var(--gap) * 2); }
   .pin-side { top: calc(var(--hdr) + 2rem); align-self: start; flex-direction: column; align-items: flex-start; gap: 1.2rem; padding: 0; background: none; border: 0; }
