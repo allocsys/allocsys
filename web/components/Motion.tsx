@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type ReactNode } from 'react';
 import { motion, useScroll, useTransform, type MotionValue } from 'motion/react';
 
 // Burst shape, rounded so server and client markup match exactly.
@@ -13,8 +13,9 @@ const STAR = Array.from({ length: 24 }, (_, i) => {
 export function Spinner() {
   const { scrollY } = useScroll();
   const rotate = useTransform(scrollY, [0, 2400], [0, 540]);
+  const y = useTransform(scrollY, [0, 900], [0, 220]);
   return (
-    <motion.svg className="spinner" viewBox="0 0 100 100" aria-hidden="true" style={{ rotate }}>
+    <motion.svg className="spinner" viewBox="0 0 100 100" aria-hidden="true" style={{ rotate, y }}>
       <polygon points={STAR} fill="currentColor" />
     </motion.svg>
   );
@@ -67,4 +68,31 @@ export function CountUp({ to }: { to: number }) {
     };
   }, [to]);
   return <span ref={ref}>{to}</span>;
+}
+
+/** Parallax: drifts vertically at its own pace while its box crosses the screen. */
+export function Drift({ children, from = 40, to = -40, className }: { children: ReactNode; from?: number; to?: number; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  const y = useTransform(scrollYProgress, [0, 1], [from, to]);
+  return (
+    <motion.div ref={ref} className={className} style={{ y }}>
+      {children}
+    </motion.div>
+  );
+}
+
+/** Giant words that slide sideways, in opposite directions, as the page scrolls past. */
+export function ScrollWords({ top, bottom }: { top: string; bottom: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  const a = useTransform(scrollYProgress, [0, 1], ['0%', '-45%']);
+  const b = useTransform(scrollYProgress, [0, 1], ['-45%', '0%']);
+  const rep = (t: string) => `${t} ✺ `.repeat(3);
+  return (
+    <div ref={ref} className="words" aria-hidden="true">
+      <motion.div className="words-row" style={{ x: a }}>{rep(top)}</motion.div>
+      <motion.div className="words-row alt" style={{ x: b }}>{rep(bottom)}</motion.div>
+    </div>
+  );
 }
