@@ -82,13 +82,12 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .band { overflow: clip; padding: 1.5rem 0; }
 .band-row { overflow: hidden; background: var(--accent); color: var(--on-accent); transform: rotate(-1.6deg); margin: 0 -2vw; padding: 0.35em 0; }
 .band-row + .band-row { background: var(--fg); color: var(--bg); transform: rotate(1.2deg); margin-top: -0.4rem; }
-.band-row.outline { background: transparent; color: transparent; -webkit-text-stroke: 1.5px var(--fg); border-block: 1.5px solid var(--fg); }
 .track { display: flex; width: max-content; animation: marquee 38s linear infinite; }
 .band-row:hover .track { animation-play-state: paused; }
 .track ul { display: flex; flex: none; }
 .track li { font-size: clamp(1.8rem, 5.5vw, 4.5rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.03em; text-transform: uppercase; font-variation-settings: 'wdth' 75; padding-right: 0.6em; white-space: nowrap; }
 .track li::after { content: '✺'; margin-left: 0.6em; }
-.band-row.outline .track li::after { -webkit-text-stroke: 0; color: var(--accent); }
+.band-row.outline .track li::after { color: var(--accent); }
 
 /* sections */
 section { padding: clamp(3rem, 7vw, 6rem) 0 0; }
