@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useRef } from 'react';
-import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from 'motion/react';
+import { motion, useScroll, useTransform, type MotionValue } from 'motion/react';
 
 // Burst shape, rounded so server and client markup match exactly.
 const STAR = Array.from({ length: 24 }, (_, i) => {
@@ -11,11 +11,10 @@ const STAR = Array.from({ length: 24 }, (_, i) => {
 
 /** Accent burst that turns as the page scrolls. */
 export function Spinner() {
-  const reduce = useReducedMotion();
   const { scrollY } = useScroll();
   const rotate = useTransform(scrollY, [0, 2400], [0, 540]);
   return (
-    <motion.svg className="spinner" viewBox="0 0 100 100" aria-hidden="true" style={reduce ? undefined : { rotate }}>
+    <motion.svg className="spinner" viewBox="0 0 100 100" aria-hidden="true" style={{ rotate }}>
       <polygon points={STAR} fill="currentColor" />
     </motion.svg>
   );
@@ -33,12 +32,11 @@ function Word({ w, i, n, p }: { w: string; i: number; n: number; p: MotionValue<
 /** Paragraph whose words light up one by one while scrolling. */
 export function ScrubText({ text, className }: { text: string; className?: string }) {
   const ref = useRef<HTMLParagraphElement>(null);
-  const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start 0.85', 'end 0.55'] });
   const words = text.split(' ');
   return (
     <p ref={ref} className={className}>
-      {reduce ? text : words.map((w, i) => <Word key={i} w={w} i={i} n={words.length} p={scrollYProgress} />)}
+      {words.map((w, i) => <Word key={i} w={w} i={i} n={words.length} p={scrollYProgress} />)}
     </p>
   );
 }
@@ -48,7 +46,7 @@ export function CountUp({ to }: { to: number }) {
   const ref = useRef<HTMLSpanElement>(null);
   useEffect(() => {
     const el = ref.current;
-    if (!el || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!el) return;
     let raf = 0;
     const io = new IntersectionObserver(([e]) => {
       if (!e.isIntersecting) return;
