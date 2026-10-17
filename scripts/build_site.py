@@ -51,9 +51,10 @@ def contribution(c):
 langs = "".join(f'<span>{x}</span>' for x in D["languages"])
 skills = "".join(f"<div><dt>{k}</dt><dd>{v}</dd></div>" for k, v in D["skills"])
 
-page = HEAD + f'''<link rel="preconnect" href="https://fonts.googleapis.com">
+page = HEAD + f'''<meta name="color-scheme" content="dark light">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 {CSS}</style>
 </head>
@@ -90,11 +91,11 @@ page = HEAD + f'''<link rel="preconnect" href="https://fonts.googleapis.com">
     </nav>
   </aside>
   <main>
-    <section id="about"><h2>About</h2><p class="about">{D["about"]}</p></section>
-    <section id="projects"><h2>Projects</h2>{"".join(project(p) for p in D["projects"])}</section>
-    <section id="open-source"><h2>Open source contributions</h2><p class="note">Fixes to widely used infrastructure projects. Select a row for details.</p>{"".join(contribution(c) for c in D["contributions"])}</section>
-    <section id="skills"><h2>Skills</h2><dl class="skills">{skills}</dl></section>
-    <section id="activity"><h2>Activity</h2>
+    <section id="about"><h2><span class="prompt">$</span>cat about.txt</h2><p class="about">{D["about"]}</p></section>
+    <section id="projects"><h2><span class="prompt">$</span>ls projects/</h2>{"".join(project(p) for p in D["projects"])}</section>
+    <section id="open-source"><h2><span class="prompt">$</span>git log open-source/</h2><p class="note">Fixes to widely used infrastructure projects. Select a row for details.</p>{"".join(contribution(c) for c in D["contributions"])}</section>
+    <section id="skills"><h2><span class="prompt">$</span>cat skills.txt</h2><dl class="skills">{skills}</dl></section>
+    <section id="activity"><h2><span class="prompt">$</span>stats --activity</h2>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/allocsys/allocsys/main/github-metrics-dark.svg"/>
         <img class="metrics" src="https://raw.githubusercontent.com/allocsys/allocsys/main/github-metrics.svg" alt="GitHub activity metrics" />
