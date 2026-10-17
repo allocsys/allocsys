@@ -99,11 +99,7 @@ See the full write-ups on the [portfolio site →](https://allocsys.github.io/al
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/allocsys/allocsys/main/github-metrics-dark.svg"/>
-  <img src="https://raw.githubusercontent.com/allocsys/allocsys/main/github-metrics.svg" width="90%"/>
+  <img src="https://raw.githubusercontent.com/allocsys/allocsys/main/github-metrics.svg" width="100%"/>
 </picture>
 
 </div>
-
-<br/>
-
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:10151f,100:0a0e14&height=100&section=footer" width="100%"/>
