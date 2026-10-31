@@ -13,8 +13,8 @@ export default function Activity() {
   };
   const cards: [number, string, string][] = [
     [stats.commits, 'Commits', 'کامیت‌ها'],
-    [stats.pullRequests, 'Pull requests opened', 'درخواست‌های ادغام بازشده'],
-    [stats.repos, 'Repos contributed to', 'مخازن مشارکت‌شده'],
+    [stats.pullRequests, 'Pull requests opened', 'درخواست‌های ادغام ثبت‌شده'],
+    [stats.repos, 'Repos contributed to', 'مخازن مشارکتی'],
     [stats.streak, 'Day streak', 'روزهای پیاپی'],
   ];
   return (
