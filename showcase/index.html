@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap">
+<title>allocsys — Dev Showcase</title>
+<style>
+:root{--bg:#0b0f14;--fg:#e8eef5;--mut:#8b98a8;--ac:#4ade80;--ac2:#38bdf8;--card:#141b24;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f6f8fa;--fg:#0f1720;--mut:#5b6877;--ac:#15803d;--ac2:#0369a1;--card:#fff;color-scheme:light}}
+:root[data-theme="dark"]{--bg:#0b0f14;--fg:#e8eef5;--mut:#8b98a8;--ac:#4ade80;--ac2:#38bdf8;--card:#141b24}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--fg);font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+#bar{display:flex;gap:4px;padding:12px 14px 0}
+#bar i{flex:1;height:3px;border-radius:2px;background:var(--card);overflow:hidden}
+#bar i b{display:block;height:100%;width:0;background:var(--ac)}
+#bar i.done b{width:100%}
+#bar i.on b{animation:fill var(--d) linear forwards}
+.paused #bar i.on b{animation-play-state:paused}
+@keyframes fill{to{width:100%}}
+#stage{height:calc(100% - 40px);display:flex;flex-direction:column;justify-content:center;padding:20px 22px;max-width:640px;margin:0 auto;box-sizing:border-box;cursor:pointer}
+.tag{color:var(--ac);font:600 13px ui-monospace,Menlo,monospace;letter-spacing:.08em;text-transform:uppercase}
+h1{font-size:clamp(34px,10vw,56px);line-height:1.05;margin:10px 0}
+h2{font-size:clamp(26px,7vw,38px);line-height:1.1;margin:8px 0 14px}
+p{color:var(--mut);font-size:17px;line-height:1.5;margin:0 0 10px}
+.big{font-size:clamp(54px,18vw,96px);font-weight:800;color:var(--ac);line-height:1}
+.r{opacity:0;transform:translateY(14px);animation:in .5s ease forwards;animation-delay:calc(var(--i,0)*.25s + .1s)}
+@keyframes in{to{opacity:1;transform:none}}
+.card{background:var(--card);border-radius:12px;padding:12px 14px;margin:8px 0;display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:15px}
+.card span{color:var(--mut);font-size:13px;text-align:right}
+.ok{color:var(--ac);font-weight:700}.op{color:var(--ac2);font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:var(--card);border-radius:20px;padding:7px 13px;font-size:14px}
+.flow{display:flex;flex-direction:column;gap:6px}
+.step{background:var(--card);border-left:3px solid var(--ac2);border-radius:8px;padding:10px 14px;font-size:15px}
+.hint{position:fixed;bottom:calc(10px + env(safe-area-inset-bottom,0px));left:0;right:0;text-align:center;color:var(--mut);font-size:12px}
+button{background:var(--ac);color:#04130a;border:0;border-radius:10px;padding:12px 22px;font-size:16px;font-weight:700;margin-top:14px}
+.lang{position:fixed;top:calc(26px + env(safe-area-inset-top,0px));inset-inline-end:14px;z-index:5;margin:0;padding:6px 12px;font-size:13px;background:var(--card);color:var(--fg)}
+[dir=rtl] body,[dir=rtl] #stage{font-family:Vazirmatn,Tahoma,"Segoe UI",system-ui,sans-serif}
+[dir=rtl] .tag{letter-spacing:0}
+.card span{text-align:end}
+</style>
+</head>
+<body>
+<button class="lang" id="lang">فارسی</button>
+<div id="bar"></div>
+<div id="stage"></div>
+<div class="hint" id="hint">Tap to pause · tap again to resume</div>
+<script>
+var S=[
+{d:4,h:'<div class="tag r">Developer showcase</div><h1 class="r" style="--i:1">allocsys</h1><p class="r" style="--i:2">Backend Developer — APIs, Infra &amp; AI-Agent Tooling</p><p class="r" style="--i:3">I build the layer AI agents actually run on.</p>'},
+{d:6,h:'<div class="tag r">Flagship · madmcp</div><div class="big r" style="--i:1">~50</div><h2 class="r" style="--i:2">tools across 8 connectors</h2><p class="r" style="--i:3">GitHub, Cloudflare D1/KV/R2/Workers, Notion, Mem0, Exa, Gemini and more — served over MCP to any compatible AI client.</p>'},
+{d:7,h:'<div class="tag r">Architecture</div><h2 class="r" style="--i:1">Delegation-first, security-first</h2><div class="flow"><div class="step r" style="--i:2">One tool hands a task to a second model</div><div class="step r" style="--i:3">It runs its own tool loop server-side</div><div class="step r" style="--i:4">Redis checkpoints → rate-limited runs resume</div><div class="step r" style="--i:5">Untrusted content kept apart from credentials</div></div>'},
+{d:6,h:'<div class="tag r">Hardened auth</div><h2 class="r" style="--i:1">A leaked key alone can\u2019t get in</h2><div class="card r" style="--i:2">Timing-safe key comparison<b class="ok">✓</b></div><div class="card r" style="--i:3">IP allowlisting<b class="ok">✓</b></div><div class="card r" style="--i:4">Per-route rate limiting<b class="ok">✓</b></div><div class="card r" style="--i:5">Proxy-aware IP trust<b class="ok">✓</b></div>'},
+{d:7,h:'<div class="tag r">Shipped products</div><h2 class="r" style="--i:1">Full-stack, end to end</h2><div class="card r" style="--i:2">peakplast<span>Telegram bot · Gemini voice orders · Zarinpal</span></div><div class="card r" style="--i:3">news-market-ai<span>Workers · D1 · multi-agent signals</span></div><div class="card r" style="--i:4">ai-campaign-builder<span>TS monorepo · JWT · D1</span></div><div class="card r" style="--i:5">proetsy<span>Electron · Playwright E2E</span></div>'},
+{d:7,h:'<div class="tag r">Open source</div><h2 class="r" style="--i:1">Root-causing real infrastructure bugs</h2><div class="card r" style="--i:2">grafana/alloy · Go<span class="ok">merged</span></div><div class="card r" style="--i:3">cloudflare/workers-sdk · TS<span><b class="ok">1 merged</b> · <b class="op">1 open</b></span></div><div class="card r" style="--i:4">sqlx · Rust<span class="op">open</span></div><div class="card r" style="--i:5">release-plz · Rust<span class="op">open</span></div><div class="card r" style="--i:6">anthropics/skills · Python<span class="op">4 open</span></div>'},
+{d:5,h:'<div class="tag r">Stack</div><h2 class="r" style="--i:1">Across the whole stack</h2><div class="chips r" style="--i:2"><span class="chip">TypeScript</span><span class="chip">Node.js</span><span class="chip">Python</span><span class="chip">Go</span><span class="chip">Rust</span><span class="chip">Cloudflare</span><span class="chip">Redis</span><span class="chip">MCP</span><span class="chip">n8n · LangChain</span><span class="chip">Playwright</span><span class="chip">GitHub Actions</span><span class="chip">Next.js</span></div>'},
+{d:0,h:'<div class="tag r">Let\u2019s build</div><h1 class="r" style="--i:1">allocsys</h1><p class="r" style="--i:2">github.com/allocsys<br>allocsys@gmail.com</p><button class="r" style="--i:3" onclick="event.stopPropagation();go(0)">Replay ↺</button>'}
+];
+var FA=["<div class=\"tag r\">معرفی توانایی‌های توسعه</div><h1 class=\"r\" style=\"--i:1\">allocsys</h1><p class=\"r\" style=\"--i:2\">توسعه‌دهندهٔ بک‌اند — API، زیرساخت و ابزارهای عامل‌های هوش مصنوعی</p><p class=\"r\" style=\"--i:3\">لایه‌ای را می‌سازم که عامل‌های هوش مصنوعی واقعاً روی آن اجرا می‌شوند.</p>", "<div class=\"tag r\">پروژهٔ شاخص · madmcp</div><div class=\"big r\" style=\"--i:1\">۵۰~</div><h2 class=\"r\" style=\"--i:2\">ابزار در ۸ کانکتور</h2><p class=\"r\" style=\"--i:3\">GitHub، Cloudflare‏ (D1/KV/R2/Workers)، Notion، Mem0، Exa، Gemini و بیشتر — از طریق MCP برای هر کلاینت هوش مصنوعی سازگار.</p>", "<div class=\"tag r\">معماری</div><h2 class=\"r\" style=\"--i:1\">اول واگذاری، اول امنیت</h2><div class=\"flow\"><div class=\"step r\" style=\"--i:2\">یک ابزار کار را به مدل دوم می‌سپارد</div><div class=\"step r\" style=\"--i:3\">مدل دوم حلقهٔ ابزار خودش را سمت سرور اجرا می‌کند</div><div class=\"step r\" style=\"--i:4\">چک‌پوینت Redis ← اجرای محدودشده از همان‌جا ادامه می‌یابد</div><div class=\"step r\" style=\"--i:5\">محتوای نامطمئن جدا از اعتبارنامه‌ها نگه داشته می‌شود</div></div>", "<div class=\"tag r\">احراز هویت مستحکم</div><h2 class=\"r\" style=\"--i:1\">نشت یک کلید به‌تنهایی کافی نیست</h2><div class=\"card r\" style=\"--i:2\">مقایسهٔ کلید ایمن در برابر حملهٔ زمانی<b class=\"ok\">✓</b></div><div class=\"card r\" style=\"--i:3\">فهرست مجاز IP<b class=\"ok\">✓</b></div><div class=\"card r\" style=\"--i:4\">محدودیت نرخ برای هر مسیر<b class=\"ok\">✓</b></div><div class=\"card r\" style=\"--i:5\">اعتماد به IP با درنظرگرفتن پروکسی<b class=\"ok\">✓</b></div>", "<div class=\"tag r\">محصولات عرضه‌شده</div><h2 class=\"r\" style=\"--i:1\">فول‌استک، از ابتدا تا انتها</h2><div class=\"card r\" style=\"--i:2\">peakplast<span>ربات سفارش تلگرام · سفارش صوتی Gemini · زرین‌پال</span></div><div class=\"card r\" style=\"--i:3\">news-market-ai<span>Workers · D1 · سیگنال چندعاملی</span></div><div class=\"card r\" style=\"--i:4\">ai-campaign-builder<span>مونوریپوی TS · JWT · D1</span></div><div class=\"card r\" style=\"--i:5\">proetsy<span>Electron · تست E2E با Playwright</span></div>", "<div class=\"tag r\">متن‌باز</div><h2 class=\"r\" style=\"--i:1\">ریشه‌یابی باگ‌های واقعی زیرساخت</h2><div class=\"card r\" style=\"--i:2\">grafana/alloy · Go<span class=\"ok\">ادغام‌شده</span></div><div class=\"card r\" style=\"--i:3\">cloudflare/workers-sdk · TS<span><b class=\"ok\">۱ ادغام‌شده</b> · <b class=\"op\">۱ باز</b></span></div><div class=\"card r\" style=\"--i:4\">sqlx · Rust<span class=\"op\">باز</span></div><div class=\"card r\" style=\"--i:5\">release-plz · Rust<span class=\"op\">باز</span></div><div class=\"card r\" style=\"--i:6\">anthropics/skills · Python<span class=\"op\">۴ باز</span></div>", "<div class=\"tag r\">تکنولوژی‌ها</div><h2 class=\"r\" style=\"--i:1\">در سراسر استک</h2><div class=\"chips r\" style=\"--i:2\"><span class=\"chip\">TypeScript</span><span class=\"chip\">Node.js</span><span class=\"chip\">Python</span><span class=\"chip\">Go</span><span class=\"chip\">Rust</span><span class=\"chip\">Cloudflare</span><span class=\"chip\">Redis</span><span class=\"chip\">MCP</span><span class=\"chip\">n8n · LangChain</span><span class=\"chip\">Playwright</span><span class=\"chip\">GitHub Actions</span><span class=\"chip\">Next.js</span></div>", "<div class=\"tag r\">بیایید بسازیم</div><h1 class=\"r\" style=\"--i:1\">allocsys</h1><p class=\"r\" style=\"--i:2\">github.com/allocsys<br>allocsys@gmail.com</p><button class=\"r\" style=\"--i:3\" onclick=\"event.stopPropagation();go(0)\">پخش مجدد ↺</button>"],L="en";
+var bar=document.getElementById('bar'),st=document.getElementById('stage'),cur=0,t=null,left=0,t0=0,paused=false;
+S.forEach(function(){bar.appendChild(document.createElement('i')).appendChild(document.createElement('b'))});
+function go(n){
+  cur=n;paused=false;document.body.classList.remove('paused');
+  st.innerHTML=L=='fa'?FA[n]:S[n].h;
+  var ix=bar.children;
+  for(var k=0;k<ix.length;k++){ix[k].className=k<n?'done':'';ix[k].firstChild.style.animation='none'}
+  void bar.offsetWidth;
+  ix[n].className='on';ix[n].style.setProperty('--d',S[n].d+'s');ix[n].firstChild.style.animation='';
+  clearTimeout(t);
+  if(S[n].d){left=S[n].d*1000;t0=Date.now();t=setTimeout(function(){go(n+1)},left)}
+}
+st.onclick=function(){
+  if(!S[cur].d)return;
+  if(!paused){paused=true;left-=Date.now()-t0;clearTimeout(t);document.body.classList.add('paused')}
+  else{paused=false;document.body.classList.remove('paused');t0=Date.now();t=setTimeout(function(){go(cur+1)},left)}
+};
+document.getElementById('lang').onclick=function(){
+  L=L=='en'?'fa':'en';
+  var d=document.documentElement;d.lang=L;d.dir=L=='fa'?'rtl':'ltr';
+  this.textContent=L=='fa'?'English':'فارسی';
+  document.getElementById('hint').textContent=L=='fa'?'برای توقف یا ادامه ضربه بزنید':'Tap to pause · tap again to resume';
+  go(cur);
+};
+go(0);
+</script>
+</body>
+</html>
