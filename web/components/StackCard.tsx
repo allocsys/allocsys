@@ -1,6 +1,7 @@
 'use client';
 import { useId, useState, type CSSProperties, type ReactNode } from 'react';
 import Collapse from './Collapse';
+import L from './L';
 
 /** Project card that sticks near the top and gets covered by the next one as you scroll. */
 export default function StackCard({
@@ -16,7 +17,7 @@ export default function StackCard({
   index: string;
   slot: number;
   title: string;
-  meta: string;
+  meta: ReactNode;
   lead: ReactNode;
   more?: ReactNode;
   link?: ReactNode;
@@ -36,7 +37,7 @@ export default function StackCard({
             <div className="card-more">{more}</div>
           </Collapse>
           <button type="button" className="card-toggle mono" aria-expanded={open} aria-controls={id} onClick={() => setOpen((v) => !v)}>
-            {open ? 'Less −' : 'Details +'}
+            <L en={open ? 'Less −' : 'Details +'} fa={open ? 'کمتر −' : 'جزئیات +'} />
           </button>
         </>
       )}
