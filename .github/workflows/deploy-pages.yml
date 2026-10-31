@@ -3,9 +3,9 @@ name: Deploy site
 on:
   push:
     branches: [main]
-    paths: ['web/**', 'resume.pdf', '.github/workflows/deploy-pages.yml']
+    paths: ['web/**', 'resume.pdf', 'resume-fa.pdf', '.github/workflows/deploy-pages.yml']
   pull_request:
-    paths: ['web/**', 'resume.pdf', '.github/workflows/deploy-pages.yml']
+    paths: ['web/**', 'resume.pdf', 'resume-fa.pdf', '.github/workflows/deploy-pages.yml']
   schedule:
     - cron: '30 0 * * *' # after the 23:45 UTC metrics run
   workflow_dispatch:
