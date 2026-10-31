@@ -1,5 +1,6 @@
 import activity from '@/data/activity.json';
 import { CountUp } from './Motion';
+import L from './L';
 
 const fmt = (n: number) => n.toLocaleString('en-US');
 
@@ -10,19 +11,19 @@ export default function Activity() {
     total?: number;
     updated?: string;
   };
-  const cards: [number, string][] = [
-    [stats.commits, 'Commits'],
-    [stats.pullRequests, 'Pull requests opened'],
-    [stats.repos, 'Repos contributed to'],
-    [stats.streak, 'Day streak'],
+  const cards: [number, string, string][] = [
+    [stats.commits, 'Commits', 'کامیت‌ها'],
+    [stats.pullRequests, 'Pull requests opened', 'درخواست‌های ادغام بازشده'],
+    [stats.repos, 'Repos contributed to', 'مخازن مشارکت‌شده'],
+    [stats.streak, 'Day streak', 'روزهای پیاپی'],
   ];
   return (
     <>
       <dl className="act-stats">
-        {cards.map(([v, l]) => (
+        {cards.map(([v, l, f]) => (
           <div key={l} className="reveal">
             <dt className="stat-n"><CountUp to={v} /></dt>
-            <dd className="mono">{l}</dd>
+            <dd className="mono"><L en={l} fa={f} /></dd>
           </div>
         ))}
       </dl>
@@ -33,12 +34,15 @@ export default function Activity() {
           ))}
         </div>
         <figcaption className="mono">
-          <span>{fmt(total ?? 0)} contributions in the last year</span>
-          <span>Best day {stats.bestDay} · avg ~{Math.round(stats.perDay)}/day</span>
+          <span><L en={`${fmt(total ?? 0)} contributions in the last year`} fa={`${fmt(total ?? 0)} مشارکت در یک سال گذشته`} /></span>
+          <span><L en={`Best day ${stats.bestDay} · avg ~${Math.round(stats.perDay)}/day`} fa={`بهترین روز ${stats.bestDay} · میانگین ~${Math.round(stats.perDay)} در روز`} /></span>
         </figcaption>
       </figure>
       <p className="lede">
-        Aggregate stats across public and private repositories{updated ? `. Updated ${updated}.` : '.'}
+        <L
+          en={`Aggregate stats across public and private repositories${updated ? `. Updated ${updated}.` : '.'}`}
+          fa={`آمار تجمیعی مخازن عمومی و خصوصی${updated ? `. به‌روزرسانی: ${updated}.` : '.'}`}
+        />
       </p>
     </>
   );

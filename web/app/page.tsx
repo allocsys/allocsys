@@ -6,6 +6,8 @@ import { CountUp, Drift, ScrollWords, ScrubText, Spinner } from '@/components/Mo
 import PinnedSkills from '@/components/PinnedSkills';
 import StackCard from '@/components/StackCard';
 import RichText from '@/components/RichText';
+import L from '@/components/L';
+import { aboutFa } from '@/data/site.fa';
 
 const RESUME = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/resume.pdf`;
 const VISUAL = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/showcase/`;
@@ -13,7 +15,7 @@ const EMAIL = 'allocsys@gmail.com';
 const TICKER = ['MCP servers', 'TypeScript', 'Cloudflare Workers', 'Python', 'Go', 'Rust', 'n8n', 'LangChain', 'SQL', 'Bash'];
 const num = (i: number) => String(i + 1).padStart(2, '0');
 
-function Head({ n, title }: { n: string; title: string }) {
+function Head({ n, title }: { n: string; title: React.ReactNode }) {
   return (
     <header className="sec-head reveal">
       <span className="mono">{n}</span>
@@ -55,26 +57,35 @@ export default function Page() {
                 <i className="caret" />
               </p>
               <p className="pill mono">
-                <i className="dot" /> Open to work
+                <i className="dot" /> <L en="Open to work" fa="آماده همکاری" />
               </p>
             </div>
             <Spinner />
           </div>
-          <h1 className="display">
+          <h1 className="display l-en">
             <span className="line"><span style={{ '--i': 0 } as React.CSSProperties}>I build the</span></span>
             <span className="line"><span className="serif" style={{ '--i': 1 } as React.CSSProperties}>infrastructure</span></span>
             <span className="line"><span style={{ '--i': 2 } as React.CSSProperties}>AI agents</span></span>
             <span className="line"><span style={{ '--i': 3 } as React.CSSProperties}>run on.</span></span>
           </h1>
+          <h1 className="display l-fa" lang="fa" dir="rtl">
+            <span className="line"><span style={{ '--i': 0 } as React.CSSProperties}>من زیرساخت</span></span>
+            <span className="line"><span style={{ '--i': 1 } as React.CSSProperties}>عامل‌های هوش</span></span>
+            <span className="line"><span style={{ '--i': 2 } as React.CSSProperties}>مصنوعی را</span></span>
+            <span className="line"><span style={{ '--i': 3 } as React.CSSProperties}>می‌سازم.</span></span>
+          </h1>
           <div className="hero-foot">
             <p className="sub">
-              MCP servers, agentic automation and open-source fixes across JavaScript, Python, Go and Rust.
+              <L
+                en="MCP servers, agentic automation and open-source fixes across JavaScript, Python, Go and Rust."
+                fa="سرورهای MCP، اتوماسیون عاملی و رفع باگ‌های متن‌باز در JavaScript، Python، Go و Rust."
+              />
             </p>
             <div className="ctas">
-              <a className="btn solid" href={`mailto:${EMAIL}`}>Email ↗</a>
+              <a className="btn solid" href={`mailto:${EMAIL}`}><L en="Email ↗" fa="ایمیل ↗" /></a>
               <a className="btn" href="https://github.com/allocsys" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-              <a className="btn" href={RESUME} target="_blank" rel="noopener noreferrer">Résumé ↓</a>
-              <a className="btn" href={VISUAL} target="_blank" rel="noopener noreferrer">Visual Résumé ↗</a>
+              <a className="btn" href={RESUME} target="_blank" rel="noopener noreferrer"><L en="Résumé ↓" fa="رزومه ↓" /></a>
+              <a className="btn" href={VISUAL} target="_blank" rel="noopener noreferrer"><L en="Visual Résumé ↗" fa="رزومه تصویری ↗" /></a>
             </div>
           </div>
         </section>
@@ -86,17 +97,18 @@ export default function Page() {
 
         <div className="wrap">
           <section id="about">
-            <Head n="01" title="About" />
-            <ScrubText className="about" text={about} />
+            <Head n="01" title={<L en="About" fa="درباره من" />} />
+            <ScrubText className="about l-en" text={about} />
+            <ScrubText className="about l-fa" text={aboutFa} />
             <dl className="stats">
               {[
-                [projects.length, 'Projects shipped'],
-                [contributions.length, 'Open-source repos'],
-                [languages.length, 'Languages'],
-              ].map(([v, l], i) => (
+                [projects.length, 'Projects shipped', 'پروژه عرضه‌شده'],
+                [contributions.length, 'Open-source repos', 'مخزن متن‌باز'],
+                [languages.length, 'Languages', 'زبان برنامه‌نویسی'],
+              ].map(([v, l, f], i) => (
                 <Drift key={l} from={10 + i * 30} to={-10 - i * 30}>
                   <dt className="stat-n"><CountUp to={v as number} /></dt>
-                  <dd className="mono">{l}</dd>
+                  <dd className="mono"><L en={l} fa={f} /></dd>
                 </Drift>
               ))}
             </dl>
@@ -107,7 +119,7 @@ export default function Page() {
 
         <div className="wrap">
           <section id="projects">
-            <Head n="02" title="Work" />
+            <Head n="02" title={<L en="Work" fa="پروژه‌ها" />} />
             <div className="stack">
               {projects.map((p, i) => (
                 <StackCard
@@ -129,7 +141,7 @@ export default function Page() {
                   }
                   link={
                     p.repo ? (
-                      <p className="more"><a href={p.repo} target="_blank" rel="noopener noreferrer">View repository ↗</a></p>
+                      <p className="more"><a href={p.repo} target="_blank" rel="noopener noreferrer"><L en="View repository ↗" fa="مشاهده مخزن ↗" /></a></p>
                     ) : undefined
                   }
                 />
@@ -138,13 +150,13 @@ export default function Page() {
           </section>
 
           <section id="skills">
-            <Head n="03" title="Skills" />
+            <Head n="03" title={<L en="Skills" fa="مهارت‌ها" />} />
             <PinnedSkills items={skills} />
           </section>
 
           <section id="open-source">
-            <Head n="04" title="Open source" />
-            <p className="lede reveal">Fixes to widely used infrastructure projects. Select a row for details.</p>
+            <Head n="04" title={<L en="Open source" fa="متن‌باز" />} />
+            <p className="lede reveal"><L en="Fixes to widely used infrastructure projects. Select a row for details." fa="رفع باگ در پروژه‌های زیرساختی پرکاربرد. برای دیدن جزئیات، یک ردیف را انتخاب کنید." /></p>
             {contributions.map((c, i) => (
               <IndexRow key={c.name} index={num(i)} title={c.name} meta={c.what} tag={c.status} merged={c.merged}>
                 <ul>
@@ -153,24 +165,24 @@ export default function Page() {
                   ))}
                 </ul>
                 {c.pr && (
-                  <p className="more"><a href={c.pr} target="_blank" rel="noopener noreferrer">View pull request ↗</a></p>
+                  <p className="more"><a href={c.pr} target="_blank" rel="noopener noreferrer"><L en="View pull request ↗" fa="مشاهده درخواست ادغام ↗" /></a></p>
                 )}
               </IndexRow>
             ))}
           </section>
 
           <section id="activity">
-            <Head n="05" title="Activity" />
+            <Head n="05" title={<L en="Activity" fa="فعالیت" />} />
             <Activity />
           </section>
 
           <section id="contact">
-            <Head n="06" title="Contact" />
+            <Head n="06" title={<L en="Contact" fa="تماس" />} />
             <a className="mega reveal" href={`mailto:${EMAIL}`}>{EMAIL}</a>
             <p className="ctas">
               <a className="btn" href="https://github.com/allocsys" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-              <a className="btn" href={RESUME} target="_blank" rel="noopener noreferrer">Résumé ↓</a>
-              <a className="btn" href={VISUAL} target="_blank" rel="noopener noreferrer">Visual Résumé ↗</a>
+              <a className="btn" href={RESUME} target="_blank" rel="noopener noreferrer"><L en="Résumé ↓" fa="رزومه ↓" /></a>
+              <a className="btn" href={VISUAL} target="_blank" rel="noopener noreferrer"><L en="Visual Résumé ↗" fa="رزومه تصویری ↗" /></a>
             </p>
           </section>
         </div>
@@ -180,8 +192,8 @@ export default function Page() {
           <span>$</span> <i className="caret" />
         </p>
         <p>
-          Last updated {updated}.{' '}
-          <a href="https://github.com/allocsys/allocsys" target="_blank" rel="noopener noreferrer">Source on GitHub</a>
+          <L en={`Last updated ${updated}.`} fa={`آخرین به‌روزرسانی: ${updated}.`} />{' '}
+          <a href="https://github.com/allocsys/allocsys" target="_blank" rel="noopener noreferrer"><L en="Source on GitHub" fa="کد منبع در GitHub" /></a>
         </p>
       </footer>
     </>

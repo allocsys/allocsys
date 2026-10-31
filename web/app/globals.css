@@ -218,3 +218,14 @@ h2 { font-size: clamp(2.6rem, 9vw, 8rem); line-height: 0.95; font-weight: 700; l
 @supports (animation-timeline: view()) {
   .reveal { animation: reveal linear both; animation-timeline: view(); animation-range: entry 0% entry 55%; }
 }
+
+/* ---- Language switch (EN / FA). Layout stays LTR; Persian text blocks are RTL. ---- */
+html:not([lang='fa']) .l-fa { display: none !important; }
+html[lang='fa'] .l-en { display: none !important; }
+html .l-fa { direction: rtl; unicode-bidi: isolate; font-family: Vazirmatn, Tahoma, system-ui, sans-serif; letter-spacing: 0; text-transform: none; font-variation-settings: normal; }
+html .display.l-fa { font-size: clamp(2.6rem, min(9vw, 11svh), 11rem); line-height: 1.15; }
+html .l-fa.display .line { padding: 0.1em 0; }
+html .l-fa.display .line > span { white-space: normal; }
+html .about.l-fa { line-height: 1.6; }
+.lang-btn { font: 600 0.85rem/1 var(--font-mono), monospace; }
+@media (max-width: 719px) { html .display.l-fa { font-size: 12vw; } }

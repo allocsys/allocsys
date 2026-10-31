@@ -1,13 +1,14 @@
 'use client';
 import { useEffect, useState } from 'react';
+import L from './L';
 
 const LINKS = [
-  ['about', 'About'],
-  ['projects', 'Work'],
-  ['skills', 'Skills'],
-  ['open-source', 'Open source'],
-  ['activity', 'Activity'],
-  ['contact', 'Contact'],
+  ['about', 'About', 'درباره من'],
+  ['projects', 'Work', 'پروژه‌ها'],
+  ['skills', 'Skills', 'مهارت‌ها'],
+  ['open-source', 'Open source', 'متن‌باز'],
+  ['activity', 'Activity', 'فعالیت'],
+  ['contact', 'Contact', 'تماس'],
 ] as const;
 
 export default function Header() {
@@ -42,6 +43,16 @@ export default function Header() {
     } catch {}
   };
 
+  const toggleLang = () => {
+    const d = document.documentElement;
+    const next = d.lang === 'fa' ? 'en' : 'fa';
+    d.lang = next;
+    try {
+      localStorage.setItem('lang', next);
+    } catch {}
+    window.dispatchEvent(new Event('resize')); // let scroll-driven text re-measure
+  };
+
   return (
     <>
       <header className="hdr">
@@ -49,13 +60,17 @@ export default function Header() {
           allocsys<i />
         </a>
         <nav className="nav" aria-label="Sections">
-          {LINKS.map(([id, label]) => (
+          {LINKS.map(([id, label, fa]) => (
             <a key={id} href={`#${id}`} aria-current={active === id}>
-              {label}
+              <L en={label} fa={fa} />
             </a>
           ))}
         </nav>
         <div className="hdr-actions">
+          <button type="button" className="icon-btn lang-btn" onClick={toggleLang} aria-label="Language: English / فارسی">
+            <span className="l-en">فا</span>
+            <span className="l-fa">EN</span>
+          </button>
           <button type="button" className="icon-btn" onClick={toggleTheme} aria-label="Toggle color theme">
             <svg className="i-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
               <circle cx="12" cy="12" r="4" />
@@ -74,10 +89,10 @@ export default function Header() {
       </header>
       {menu && (
         <nav id="menu" className="menu" aria-label="Menu">
-          {LINKS.map(([id, label], i) => (
+          {LINKS.map(([id, label, fa], i) => (
             <a key={id} href={`#${id}`} onClick={() => setMenu(false)}>
               <span className="mono">0{i + 1}</span>
-              {label}
+              <L en={label} fa={fa} />
             </a>
           ))}
         </nav>
