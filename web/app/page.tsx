@@ -8,6 +8,7 @@ import StackCard from '@/components/StackCard';
 import RichText from '@/components/RichText';
 
 const RESUME = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/resume.pdf`;
+const VISUAL = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/showcase/`;
 const EMAIL = 'allocsys@gmail.com';
 const TICKER = ['MCP servers', 'TypeScript', 'Cloudflare Workers', 'Python', 'Go', 'Rust', 'n8n', 'LangChain', 'SQL', 'Bash'];
 const num = (i: number) => String(i + 1).padStart(2, '0');
@@ -73,6 +74,7 @@ export default function Page() {
               <a className="btn solid" href={`mailto:${EMAIL}`}>Email ↗</a>
               <a className="btn" href="https://github.com/allocsys" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
               <a className="btn" href={RESUME} target="_blank" rel="noopener noreferrer">Résumé ↓</a>
+              <a className="btn" href={VISUAL} target="_blank" rel="noopener noreferrer">Visual Résumé ↗</a>
             </div>
           </div>
         </section>
@@ -168,6 +170,7 @@ export default function Page() {
             <p className="ctas">
               <a className="btn" href="https://github.com/allocsys" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
               <a className="btn" href={RESUME} target="_blank" rel="noopener noreferrer">Résumé ↓</a>
+              <a className="btn" href={VISUAL} target="_blank" rel="noopener noreferrer">Visual Résumé ↗</a>
             </p>
           </section>
         </div>
