@@ -1,8 +1,9 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import L from './L';
 
 /** Left side stays pinned and swaps its title while the skill groups scroll past. */
-export default function PinnedSkills({ items }: { items: [string, string][] }) {
+export default function PinnedSkills({ items, titlesFa }: { items: [string, string][]; titlesFa?: string[] }) {
   const [active, setActive] = useState(0);
   const refs = useRef<(HTMLLIElement | null)[]>([]);
   useEffect(() => {
@@ -22,7 +23,7 @@ export default function PinnedSkills({ items }: { items: [string, string][] }) {
         <span className="pin-count mono">
           {two(active + 1)} / {two(items.length)}
         </span>
-        <span key={active} className="pin-title">{items[active][0]}</span>
+        <span key={active} className="pin-title"><L en={items[active][0]} fa={titlesFa?.[active] ?? items[active][0]} /></span>
         <span className="pin-dots">
           {items.map(([k], i) => (
             <i key={k} data-on={i === active} />
@@ -32,7 +33,7 @@ export default function PinnedSkills({ items }: { items: [string, string][] }) {
       <ol className="pin-steps">
         {items.map(([k, v], i) => (
           <li key={k} className="step" data-i={i} data-on={i === active} ref={(el) => { refs.current[i] = el; }}>
-            <h3 className="mono step-k">{k}</h3>
+            <h3 className="mono step-k"><L en={k} fa={titlesFa?.[i] ?? k} /></h3>
             <ul className="chips">
               {v.split(', ').map((s, c) => (
                 <li key={s} style={{ ['--c' as string]: c }}>
