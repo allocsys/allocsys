@@ -223,10 +223,11 @@ h2 { font-size: clamp(2.6rem, 9vw, 8rem); line-height: 0.95; font-weight: 700; l
 html:not([lang='fa']) .l-fa { display: none !important; }
 html[lang='fa'] .l-en { display: none !important; }
 html .l-fa { direction: rtl; unicode-bidi: isolate; font-family: Vazirmatn, Tahoma, system-ui, sans-serif; letter-spacing: 0; text-transform: none; font-variation-settings: normal; }
-html .display.l-fa { font-size: clamp(2.6rem, min(9vw, 11svh), 11rem); line-height: 1.15; }
+html .display.l-fa { font-size: clamp(2.4rem, min(8vw, 10svh), 10rem); line-height: 1.2; font-weight: 600; }
 html .l-fa.display .line { padding: 0.1em 0; }
 html .l-fa.display .line > span { white-space: normal; }
-html .about.l-fa { line-height: 1.6; }
-html .pin-title .l-fa { display: inline-block; font-size: 0.68em; line-height: 1.3; }
+html .about.l-fa { line-height: 1.7; font-weight: 400; }
+html .pin-title .l-fa { display: inline-block; font-size: 0.68em; line-height: 1.3; font-weight: 600; }
+html .card-title .l-fa, html .sec-head h2 .l-fa { font-weight: 600; }
 .lang-btn { font: 600 0.85rem/1 var(--font-mono), monospace; }
-@media (max-width: 719px) { html .display.l-fa { font-size: 12vw; } }
+@media (max-width: 719px) { html .display.l-fa { font-size: 10.5vw; } }
