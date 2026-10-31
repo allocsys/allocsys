@@ -1,21 +1,22 @@
 name: Generate PDFs
 
-# Manual trigger for generating resume.pdf (and optionally application.pdf)
-# via the WeasyPrint-based scripts in scripts/. Runs on GitHub's runner so
-# there's no need to install WeasyPrint's system deps (Cairo, Pango, etc.)
-# locally -- notoriously painful on Termux/Android.
+# Manual trigger for generating resume.pdf and resume-fa.pdf (and optionally
+# application.pdf) via the WeasyPrint-based scripts in scripts/. Runs on
+# GitHub's runner so there's no need to install WeasyPrint's system deps
+# (Cairo, Pango, etc.) locally -- notoriously painful on Termux/Android.
 #
-# resume.pdf is regenerated from scripts/data/resume_data.py and committed
-# straight back to the repo. application.pdf is per-application (the
-# CONFIG block in generate_application_pdf.py starts blank) so it's never
-# auto-committed -- it's attached to the run as a downloadable artifact
-# instead, based on whatever CONFIG values are in the repo when you run this.
+# resume.pdf and resume-fa.pdf are regenerated from scripts/data/resume_data.py
+# and scripts/data/resume_data_fa.py and committed straight back to the repo.
+# application.pdf is per-application (the CONFIG block in
+# generate_application_pdf.py starts blank) so it's never auto-committed --
+# it's attached to the run as a downloadable artifact instead, based on
+# whatever CONFIG values are in the repo when you run this.
 
 on:
   workflow_dispatch:
     inputs:
       commit_resume:
-        description: "Commit the regenerated resume.pdf back to the repo"
+        description: "Commit the regenerated resume PDFs back to the repo"
         type: boolean
         default: true
       generate_cover_letter:
@@ -45,10 +46,14 @@ jobs:
             libpango-1.0-0 libpangocairo-1.0-0 libpangoft2-1.0-0 \
             libcairo2 libgdk-pixbuf2.0-0 libffi-dev shared-mime-info
 
+      # Persian font for resume-fa.pdf; the CSS falls back to other fonts if absent.
+      - name: Install Persian fonts
+        run: sudo apt-get install -y fonts-vazirmatn fonts-noto-core || echo "Persian fonts unavailable, using fallback"
+
       - name: Install Python dependencies
         run: pip install -r scripts/requirements.txt
 
-      - name: Generate resume.pdf
+      - name: Generate resume.pdf and resume-fa.pdf
         run: python3 generate_resume.py
         working-directory: scripts
 
@@ -63,19 +68,20 @@ jobs:
           name: generated-pdfs
           path: |
             resume.pdf
+            resume-fa.pdf
             scripts/application.pdf
           if-no-files-found: ignore
           retention-days: 14
 
-      - name: Commit resume.pdf
+      - name: Commit resume PDFs
         if: ${{ inputs.commit_resume }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add resume.pdf
+          git add resume.pdf resume-fa.pdf
           if git diff --cached --quiet; then
-            echo "No changes to resume.pdf"
+            echo "No changes to the résumé PDFs"
           else
-            git commit -m "chore: regenerate resume.pdf"
+            git commit -m "chore: regenerate resume PDFs"
             git push
           fi

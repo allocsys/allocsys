@@ -1,0 +1,49 @@
+/* Overrides for the Persian (RTL) résumé; loaded after style.css. */
+
+@page {
+    @bottom-center {
+        content: "allocsys · رزومه · صفحهٔ " counter(page);
+        font-family: Vazirmatn, "Noto Naskh Arabic", "Noto Sans Arabic", "DejaVu Sans", sans-serif;
+        font-size: 8.5pt;
+        color: #8a8a8a;
+        direction: rtl;
+    }
+}
+
+html { direction: rtl; }
+
+body {
+    font-family: Vazirmatn, "Noto Naskh Arabic", "Noto Sans Arabic", "DejaVu Sans", sans-serif;
+    direction: rtl;
+    text-align: right;
+    line-height: 1.7;
+}
+
+/* Arabic-script letters join, so spacing and casing tweaks must be off. */
+header.letterhead .name,
+header.letterhead .role,
+h2.section {
+    letter-spacing: 0;
+    text-transform: none;
+}
+header.letterhead .name { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+h2.section { font-size: 11pt; }
+
+.entry-meta { font-style: normal; }
+.entry-title { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+p.summary { text-align: justify; }
+
+ul.bullets {
+    padding-left: 0;
+    padding-right: 15px;
+}
+
+table.skills td.skill-cat {
+    padding-right: 0;
+    padding-left: 10px;
+}
+table.skills td.skill-list {
+    text-align: left;
+    line-height: 1.4;
+}
