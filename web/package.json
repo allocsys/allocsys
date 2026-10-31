@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "mkdir -p public && cp ../resume.pdf public/resume.pdf && node scripts/activity.mjs",
+    "prebuild": "mkdir -p public && cp ../resume.pdf public/resume.pdf && cp ../resume-fa.pdf public/resume-fa.pdf && node scripts/activity.mjs",
     "build": "next build",
     "start": "npx serve out"
   },
