@@ -59,7 +59,7 @@ export default function Page() {
                 <i className="caret" />
               </p>
               <p className="pill mono">
-                <i className="dot" /> <L en="Open to work" fa="آماده همکاری" />
+                <i className="dot" /> <L en="Open to work" fa="آمادهٔ همکاری" />
               </p>
             </div>
             <Spinner />
@@ -87,7 +87,7 @@ export default function Page() {
               <a className="btn solid" href={`mailto:${EMAIL}`}><L en="Email ↗" fa="ایمیل ↗" /></a>
               <a className="btn" href="https://github.com/allocsys" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
               <L en={<a className="btn" href={RESUME} target="_blank" rel="noopener noreferrer">Résumé ↓</a>} fa={<a className="btn" href={RESUME_FA} target="_blank" rel="noopener noreferrer">رزومه ↓</a>} />
-              <a className="btn" href={VISUAL} target="_blank" rel="noopener noreferrer"><L en="Visual Résumé ↗" fa="رزومه تصویری ↗" /></a>
+              <a className="btn" href={VISUAL} target="_blank" rel="noopener noreferrer"><L en="Visual Résumé ↗" fa="رزومهٔ تصویری ↗" /></a>
             </div>
           </div>
         </section>
@@ -196,7 +196,7 @@ export default function Page() {
             <p className="ctas">
               <a className="btn" href="https://github.com/allocsys" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
               <L en={<a className="btn" href={RESUME} target="_blank" rel="noopener noreferrer">Résumé ↓</a>} fa={<a className="btn" href={RESUME_FA} target="_blank" rel="noopener noreferrer">رزومه ↓</a>} />
-              <a className="btn" href={VISUAL} target="_blank" rel="noopener noreferrer"><L en="Visual Résumé ↗" fa="رزومه تصویری ↗" /></a>
+              <a className="btn" href={VISUAL} target="_blank" rel="noopener noreferrer"><L en="Visual Résumé ↗" fa="رزومهٔ تصویری ↗" /></a>
             </p>
           </section>
         </div>
@@ -207,7 +207,7 @@ export default function Page() {
         </p>
         <p>
           <L en={`Last updated ${updated}.`} fa={`آخرین به‌روزرسانی: ${updated}.`} />{' '}
-          <a href="https://github.com/allocsys/allocsys" target="_blank" rel="noopener noreferrer"><L en="Source on GitHub" fa="کد منبع در GitHub" /></a>
+          <a href="https://github.com/allocsys/allocsys" target="_blank" rel="noopener noreferrer"><L en="Source on GitHub" fa="سورس‌کد در GitHub" /></a>
         </p>
       </footer>
     </>
