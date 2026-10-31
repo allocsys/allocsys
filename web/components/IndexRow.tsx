@@ -13,8 +13,8 @@ export default function IndexRow({
 }: {
   index: string;
   title: string;
-  meta: string;
-  tag?: string;
+  meta: React.ReactNode;
+  tag?: React.ReactNode;
   merged?: boolean;
   defaultOpen?: boolean;
   children: React.ReactNode;
