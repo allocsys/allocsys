@@ -227,5 +227,6 @@ html .display.l-fa { font-size: clamp(2.6rem, min(9vw, 11svh), 11rem); line-heig
 html .l-fa.display .line { padding: 0.1em 0; }
 html .l-fa.display .line > span { white-space: normal; }
 html .about.l-fa { line-height: 1.6; }
+html .pin-title .l-fa { display: inline-block; font-size: 0.68em; line-height: 1.3; }
 .lang-btn { font: 600 0.85rem/1 var(--font-mono), monospace; }
 @media (max-width: 719px) { html .display.l-fa { font-size: 12vw; } }
