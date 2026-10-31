@@ -11,6 +11,7 @@ import { aboutFa } from '@/data/site.fa';
 import { contributionsFa, projectsFa, skillsFa } from '@/data/content.fa';
 
 const RESUME = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/resume.pdf`;
+const RESUME_FA = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/resume-fa.pdf`;
 const VISUAL = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/showcase/`;
 const EMAIL = 'allocsys@gmail.com';
 const TICKER = ['MCP servers', 'TypeScript', 'Cloudflare Workers', 'Python', 'Go', 'Rust', 'n8n', 'LangChain', 'SQL', 'Bash'];
@@ -85,7 +86,7 @@ export default function Page() {
             <div className="ctas">
               <a className="btn solid" href={`mailto:${EMAIL}`}><L en="Email ↗" fa="ایمیل ↗" /></a>
               <a className="btn" href="https://github.com/allocsys" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-              <a className="btn" href={RESUME} target="_blank" rel="noopener noreferrer"><L en="Résumé ↓" fa="رزومه ↓" /></a>
+              <L en={<a className="btn" href={RESUME} target="_blank" rel="noopener noreferrer">Résumé ↓</a>} fa={<a className="btn" href={RESUME_FA} target="_blank" rel="noopener noreferrer">رزومه ↓</a>} />
               <a className="btn" href={VISUAL} target="_blank" rel="noopener noreferrer"><L en="Visual Résumé ↗" fa="رزومه تصویری ↗" /></a>
             </div>
           </div>
@@ -194,7 +195,7 @@ export default function Page() {
             <a className="mega reveal" href={`mailto:${EMAIL}`}>{EMAIL}</a>
             <p className="ctas">
               <a className="btn" href="https://github.com/allocsys" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-              <a className="btn" href={RESUME} target="_blank" rel="noopener noreferrer"><L en="Résumé ↓" fa="رزومه ↓" /></a>
+              <L en={<a className="btn" href={RESUME} target="_blank" rel="noopener noreferrer">Résumé ↓</a>} fa={<a className="btn" href={RESUME_FA} target="_blank" rel="noopener noreferrer">رزومه ↓</a>} />
               <a className="btn" href={VISUAL} target="_blank" rel="noopener noreferrer"><L en="Visual Résumé ↗" fa="رزومه تصویری ↗" /></a>
             </p>
           </section>
