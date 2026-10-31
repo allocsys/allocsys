@@ -8,6 +8,7 @@ import StackCard from '@/components/StackCard';
 import RichText from '@/components/RichText';
 import L from '@/components/L';
 import { aboutFa } from '@/data/site.fa';
+import { contributionsFa, projectsFa, skillsFa } from '@/data/content.fa';
 
 const RESUME = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/resume.pdf`;
 const VISUAL = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/showcase/`;
@@ -127,16 +128,23 @@ export default function Page() {
                   slot={i}
                   index={num(i)}
                   title={p.name}
-                  meta={p.stack}
+                  meta={<L en={p.stack} fa={projectsFa[p.name]?.stack ?? p.stack} />}
                   defaultOpen={p.expanded}
-                  lead={<RichText text={p.bullets[0]} />}
+                  lead={<L en={<RichText text={p.bullets[0]} />} fa={<RichText text={projectsFa[p.name]?.bullets[0] ?? p.bullets[0]} />} />}
                   more={
                     p.bullets.length > 1 ? (
-                      <ul>
-                        {p.bullets.slice(1).map((b) => (
-                          <li key={b}><RichText text={b} /></li>
-                        ))}
-                      </ul>
+                      <>
+                        <ul className="l-en">
+                          {p.bullets.slice(1).map((b) => (
+                            <li key={b}><RichText text={b} /></li>
+                          ))}
+                        </ul>
+                        <ul className="l-fa" lang="fa" dir="rtl">
+                          {p.bullets.slice(1).map((b, k) => (
+                            <li key={b}><RichText text={projectsFa[p.name]?.bullets[k + 1] ?? b} /></li>
+                          ))}
+                        </ul>
+                      </>
                     ) : undefined
                   }
                   link={
@@ -151,17 +159,22 @@ export default function Page() {
 
           <section id="skills">
             <Head n="03" title={<L en="Skills" fa="مهارت‌ها" />} />
-            <PinnedSkills items={skills} />
+            <PinnedSkills items={skills} titlesFa={skillsFa} />
           </section>
 
           <section id="open-source">
             <Head n="04" title={<L en="Open source" fa="متن‌باز" />} />
             <p className="lede reveal"><L en="Fixes to widely used infrastructure projects. Select a row for details." fa="رفع باگ در پروژه‌های زیرساختی پرکاربرد. برای دیدن جزئیات، یک ردیف را انتخاب کنید." /></p>
             {contributions.map((c, i) => (
-              <IndexRow key={c.name} index={num(i)} title={c.name} meta={c.what} tag={c.status} merged={c.merged}>
-                <ul>
+              <IndexRow key={c.name} index={num(i)} title={c.name} meta={<L en={c.what} fa={contributionsFa[c.name]?.what ?? c.what} />} tag={<L en={c.status} fa={contributionsFa[c.name]?.status ?? c.status} />} merged={c.merged}>
+                <ul className="l-en">
                   {c.bullets.map((b) => (
                     <li key={b}><RichText text={b} /></li>
+                  ))}
+                </ul>
+                <ul className="l-fa" lang="fa" dir="rtl">
+                  {c.bullets.map((b, k) => (
+                    <li key={b}><RichText text={contributionsFa[c.name]?.bullets[k] ?? b} /></li>
                   ))}
                 </ul>
                 {c.pr && (
